@@ -167,44 +167,64 @@
             </div>
         </main>
 
-        <!-- Footer (Visible only when Landing is visible) -->
-        <footer id="app-footer">
-            <p>&copy; 2024 Resume Builder. Crafted with speed and simplicity.</p>
-        </footer>
 
         <!-- Authentication Section (Modal) -->
         <div id="auth-section" class="hidden">
             <div id="register-form" class="auth-form">
                 <button class="close-modal" aria-label="Close modal">&times;</button>
-                <h2>Register</h2>
+                <h2>Create Account</h2>
+                <p class="auth-subtext">Join thousands of job seekers today.</p>
                 <form id="register">
-                    <label for="reg-fullname">Full Name</label>
-                    <input type="text" id="reg-fullname" required>
+                    <div class="input-group">
+                        <span class="input-icon user-icon"></span>
+                        <input type="text" id="reg-fullname" placeholder="Full Name" required>
+                    </div>
                     
-                    <label for="reg-email">Email</label>
-                    <input type="email" id="reg-email" required>
+                    <div class="input-group">
+                        <span class="input-icon email-icon"></span>
+                        <input type="email" id="reg-email" placeholder="Email Address" required>
+                    </div>
                     
-                    <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" required>
+                    <div class="input-group">
+                        <span class="input-icon lock-icon"></span>
+                        <input type="password" id="reg-password" placeholder="Password" required>
+                    </div>
                     
-                    <button type="submit">Create Account</button>
+                    <button type="submit" class="btn-primary-gradient">Sign Up</button>
+                    
+                    <div class="auth-divider"><span>or continue with</span></div>
+                    <div class="social-login">
+                        <button type="button" class="btn-social google">Google</button>
+                        <button type="button" class="btn-social github">GitHub</button>
+                    </div>
                 </form>
-                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+                <p class="auth-switch">Already have an account? <a href="#" id="show-login">Log In</a></p>
             </div>
             
             <div id="login-form" class="auth-form hidden">
                 <button class="close-modal" aria-label="Close modal">&times;</button>
                 <h2>Welcome Back</h2>
+                <p class="auth-subtext">Enter your credentials to access your account.</p>
                 <form id="login">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" required>
+                    <div class="input-group">
+                        <span class="input-icon email-icon"></span>
+                        <input type="email" id="login-email" placeholder="Email Address" required>
+                    </div>
                     
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
+                    <div class="input-group">
+                        <span class="input-icon lock-icon"></span>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
                     
-                    <button type="submit">Login</button>
+                    <button type="submit" class="btn-primary-gradient">Log In</button>
+                    
+                    <div class="auth-divider"><span>or continue with</span></div>
+                    <div class="social-login">
+                        <button type="button" class="btn-social google">Google</button>
+                        <button type="button" class="btn-social github">GitHub</button>
+                    </div>
                 </form>
-                <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+                <p class="auth-switch">Don't have an account? <a href="#" id="show-register">Sign Up</a></p>
             </div>
         </div>
     </div>
