@@ -274,30 +274,38 @@ body {
         inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
-/* Auth Form Premium Overrides */
+/* Auth Form Hyper-Premium Overrides */
 .auth-form {
     position: relative;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    padding: var(--space-7); /* Increased padding for breathing room */
-    border-radius: var(--radius-lg);
+        0 40px 60px -15px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    padding: var(--space-8);
+    border-radius: 24px;
+    animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modal-pop {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .auth-form h2 {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 800;
     margin-bottom: var(--space-2);
     color: var(--text-primary);
+    letter-spacing: -0.02em;
 }
 
 .auth-subtext {
     text-align: center;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    font-size: 0.95rem;
     margin-bottom: var(--space-6);
 }
 
@@ -309,112 +317,144 @@ body {
 
 .input-icon {
     position: absolute;
-    left: 14px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.5;
-    transition: opacity 0.2s;
+    opacity: 0.4;
+    transition: all 0.2s ease;
     pointer-events: none;
+    z-index: 10;
 }
 
-/* SVG Icons encoded for CSS (User, Email, Lock) */
-.user-icon {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
-}
-.email-icon {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
-}
-.lock-icon {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E");
-}
+/* SVG Icons */
+.user-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"); }
+.email-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E"); }
+.lock-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E"); }
 
 [data-theme="dark"] .input-icon { filter: invert(1); }
 
 .input-group input {
     width: 100%;
-    padding: 12px 12px 12px 42px; /* Left padding for icon */
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg-surface);
+    padding: 14px 14px 14px 48px;
+    border: 2px solid transparent;
+    background: var(--bg-app);
+    border-radius: var(--radius-lg);
     color: var(--text-primary);
-    font-size: 0.95rem;
-    transition: all 0.2s;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .input-group input:focus {
     outline: none;
+    background: var(--bg-surface);
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
 }
 
-.input-group input:focus + .input-icon { opacity: 1; } /* Not working with current structure but good to have if we reorder */
+/* Highlight icon on focus */
+.input-group input:focus ~ .input-icon, /* This selector won't work because icon is before input in HTML */
+.input-group:focus-within .input-icon {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    filter: drop-shadow(0 2px 4px rgba(37,99,235,0.3));
+}
+[data-theme="dark"] .input-group:focus-within .input-icon { filter: invert(1) drop-shadow(0 2px 4px rgba(255,255,255,0.3)); }
+
 
 /* Gradient Button */
 .btn-primary-gradient {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
     color: white;
     border: none;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+    border-radius: var(--radius-lg);
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+    transition: all 0.3s;
+    box-shadow: 
+        0 4px 6px -1px rgba(37, 99, 235, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    letter-spacing: 0.02em;
 }
 
 .btn-primary-gradient:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 8px -1px rgba(37, 99, 235, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 10px 15px -3px rgba(37, 99, 235, 0.4),
+        inset 0 1px 0 rgba(255,255,255,0.3);
 }
+
+.btn-primary-gradient:active { transform: translateY(0); }
 
 /* Divider */
 .auth-divider {
     display: flex;
     align-items: center;
-    margin: var(--space-4) 0;
+    margin: var(--space-6) 0;
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
 }
 .auth-divider::before, .auth-divider::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--border);
+    background: var(--divider);
 }
-.auth-divider span { margin: 0 var(--space-2); }
+.auth-divider span { margin: 0 var(--space-3); }
 
 /* Social Login */
 .social-login {
     display: flex;
     gap: var(--space-3);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
 }
 
 .btn-social {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     color: var(--text-primary);
-    font-weight: 500;
-    font-size: 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-social:hover {
-    background: var(--bg-app);
+/* Brand Colors on Hover */
+.btn-social.google:hover {
+    background: #fff;
+    border-color: #DB4437;
+    color: #DB4437;
+    box-shadow: 0 4px 12px rgba(219, 68, 55, 0.2);
+}
+.btn-social.github:hover {
+    background: #181717;
+    border-color: #181717;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(24, 23, 23, 0.3);
+}
+[data-theme="dark"] .btn-social.github:hover {
+    background: #fff;
+    color: #000;
 }
 
 .auth-switch {
