@@ -28,29 +28,128 @@
             </div>
         </header>
         
-        <section id="landing-section">
-            <div class="landing-wrap">
-                <div class="landing-content">
-                    <h1 class="landing-title">Resume Builder</h1>
-                    <p class="landing-desc">
-                        Create professional, ATS-friendly resumes in minutes.<br>
-                        Simple. Fast. Local-first.
-                    </p>
-                    <div class="landing-features">
-                        <span class="feature-chip">Live preview</span>
-                        <span class="feature-chip">One-click download</span>
-                        <span class="feature-chip">No backend required</span>
+        <main>
+            <section id="landing-section">
+                <div class="landing-wrap">
+                    <div class="landing-content">
+                        <h1 class="landing-title animate-fade-in-up">Resume Builder</h1>
+                        <p class="landing-desc animate-fade-in-up delay-100">
+                            Create professional, ATS-friendly resumes in minutes.<br>
+                            Simple. Fast. Local-first.
+                        </p>
+                        <div class="landing-features animate-fade-in-up delay-200">
+                            <span class="feature-chip">Live preview</span>
+                            <span class="feature-chip">One-click download</span>
+                            <span class="feature-chip">No backend required</span>
+                        </div>
+                        <button id="cta-create" class="cta-plus animate-scale-in delay-300" aria-label="Create Resume" title="Create Resume">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        </button>
                     </div>
-                    <button id="cta-create" class="cta-plus" aria-label="Create Resume" title="Create Resume">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                    </button>
+                </div>
+            </section>
+            
+            <!-- Resume Builder Section -->
+            <div id="resume-section" class="hidden">
+                <div class="container">
+                    <div class="form-section animate-fade-in-up">
+                        <form id="resume-form">
+                            <h2>Personal Information</h2>
+                            <label for="name">Name</label>
+                            <input type="text" id="name">
+                            
+                            <label for="email">Email</label>
+                            <input type="email" id="email">
+                            
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone">
+                            
+                            <label for="location">Location</label>
+                            <input type="text" id="location">
+                            
+                            <label for="linkedin">LinkedIn / Portfolio URL</label>
+                            <input type="url" id="linkedin">
+                            
+                            <h2>Professional Summary</h2>
+                            <textarea id="summary" rows="4"></textarea>
+                            
+                            <h2>Education</h2>
+                            <label for="degree">Degree</label>
+                            <input type="text" id="degree">
+                            
+                            <label for="institution">Institution</label>
+                            <input type="text" id="institution">
+                            
+                            <label for="year">Year</label>
+                            <input type="number" id="year">
+                            
+                            <label for="cgpa">CGPA</label>
+                            <input type="text" id="cgpa">
+                            
+                            <h2>Skills</h2>
+                            <div id="skills-container">
+                                <input type="text" id="skill-input" placeholder="Add a skill">
+                                <button type="button" id="add-skill">Add</button>
+                                <div id="skills-list"></div>
+                            </div>
+                            
+                            <h2>Experience / Projects</h2>
+                            <label for="exp-title">Title</label>
+                            <input type="text" id="exp-title">
+                            
+                            <label for="exp-org">Organization</label>
+                            <input type="text" id="exp-org">
+                            
+                            <label for="exp-duration">Duration</label>
+                            <input type="text" id="exp-duration">
+                            
+                            <label for="exp-desc">Description</label>
+                            <textarea id="exp-desc" rows="4"></textarea>
+                            
+                            <h2>Achievements / Certifications (Optional)</h2>
+                            <textarea id="achievements" rows="4"></textarea>
+                        </form>
+                    </div>
+                    
+                    <div class="preview-section animate-fade-in-up delay-100">
+                        <div id="resume-preview">
+                            <div class="preview-header">
+                                <h1 id="preview-name"></h1>
+                                <div class="preview-contact">
+                                    <span id="preview-email"></span> | <span id="preview-phone"></span> | <span id="preview-location"></span>
+                                    <br><span id="preview-linkedin"></span>
+                                </div>
+                            </div>
+                            <div class="preview-summary">
+                                <h2>Professional Summary</h2>
+                                <p id="preview-summary"></p>
+                            </div>
+                            <div class="preview-education">
+                                <h2>Education</h2>
+                                <p id="preview-education"></p>
+                            </div>
+                            <div class="preview-skills">
+                                <h2>Skills</h2>
+                                <div id="preview-skills"></div>
+                            </div>
+                            <div class="preview-experience">
+                                <h2>Experience / Projects</h2>
+                                <div id="preview-experience"></div>
+                            </div>
+                            <div class="preview-achievements">
+                                <h2>Achievements / Certifications</h2>
+                                <p id="preview-achievements"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-        <!-- Authentication Section -->
+        </main>
+
+        <!-- Authentication Section (Modal) -->
         <div id="auth-section" class="hidden">
             <div id="register-form" class="auth-form">
                 <h2>Register</h2>
@@ -64,13 +163,13 @@
                     <label for="reg-password">Password</label>
                     <input type="password" id="reg-password" required>
                     
-                    <button type="submit">Register</button>
+                    <button type="submit">Create Account</button>
                 </form>
                 <p>Already have an account? <a href="#" id="show-login">Login</a></p>
             </div>
             
             <div id="login-form" class="auth-form hidden">
-                <h2>Login</h2>
+                <h2>Welcome Back</h2>
                 <form id="login">
                     <label for="login-email">Email</label>
                     <input type="email" id="login-email" required>
@@ -81,102 +180,6 @@
                     <button type="submit">Login</button>
                 </form>
                 <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
-            </div>
-        </div>
-        
-        <!-- Resume Builder Section -->
-        <div id="resume-section" class="hidden">
-            <div class="container">
-                <div class="form-section">
-                    <form id="resume-form">
-                        <h2>Personal Information</h2>
-                        <label for="name">Name</label>
-                        <input type="text" id="name">
-                        
-                        <label for="email">Email</label>
-                        <input type="email" id="email">
-                        
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone">
-                        
-                        <label for="location">Location</label>
-                        <input type="text" id="location">
-                        
-                        <label for="linkedin">LinkedIn / Portfolio URL</label>
-                        <input type="url" id="linkedin">
-                        
-                        <h2>Professional Summary</h2>
-                        <textarea id="summary" rows="4"></textarea>
-                        
-                        <h2>Education</h2>
-                        <label for="degree">Degree</label>
-                        <input type="text" id="degree">
-                        
-                        <label for="institution">Institution</label>
-                        <input type="text" id="institution">
-                        
-                        <label for="year">Year</label>
-                        <input type="number" id="year">
-                        
-                        <label for="cgpa">CGPA</label>
-                        <input type="text" id="cgpa">
-                        
-                        <h2>Skills</h2>
-                        <div id="skills-container">
-                            <input type="text" id="skill-input" placeholder="Add a skill">
-                            <button type="button" id="add-skill">Add</button>
-                            <div id="skills-list"></div>
-                        </div>
-                        
-                        <h2>Experience / Projects</h2>
-                        <label for="exp-title">Title</label>
-                        <input type="text" id="exp-title">
-                        
-                        <label for="exp-org">Organization</label>
-                        <input type="text" id="exp-org">
-                        
-                        <label for="exp-duration">Duration</label>
-                        <input type="text" id="exp-duration">
-                        
-                        <label for="exp-desc">Description</label>
-                        <textarea id="exp-desc" rows="4"></textarea>
-                        
-                        <h2>Achievements / Certifications (Optional)</h2>
-                        <textarea id="achievements" rows="4"></textarea>
-                    </form>
-                </div>
-                
-                <div class="preview-section">
-                    <div id="resume-preview">
-                        <div class="preview-header">
-                            <h1 id="preview-name"></h1>
-                            <div class="preview-contact">
-                                <span id="preview-email"></span> | <span id="preview-phone"></span> | <span id="preview-location"></span>
-                                <br><span id="preview-linkedin"></span>
-                            </div>
-                        </div>
-                        <div class="preview-summary">
-                            <h2>Professional Summary</h2>
-                            <p id="preview-summary"></p>
-                        </div>
-                        <div class="preview-education">
-                            <h2>Education</h2>
-                            <p id="preview-education"></p>
-                        </div>
-                        <div class="preview-skills">
-                            <h2>Skills</h2>
-                            <div id="preview-skills"></div>
-                        </div>
-                        <div class="preview-experience">
-                            <h2>Experience / Projects</h2>
-                            <div id="preview-experience"></div>
-                        </div>
-                        <div class="preview-achievements">
-                            <h2>Achievements / Certifications</h2>
-                            <p id="preview-achievements"></p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

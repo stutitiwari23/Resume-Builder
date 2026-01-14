@@ -58,12 +58,41 @@
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
 }
 
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
 /* Global Styles */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body { 
     height: 100%; 
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -74,6 +103,14 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    position: relative;
+    width: 100%;
 }
 
 .hidden {
@@ -141,23 +178,56 @@ label {
     font-weight: 500;
 }
 
-/* Authentication Styles */
+/* Auth Modal Overlay */
+#auth-section {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    padding: var(--space-4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#auth-section:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+    display: grid; /* override default hidden behavior */
+}
+
+/* Glassmorphism Auth Form */
 .auth-form {
-    max-width: 400px;
-    margin: 4rem auto;
+    width: 100%;
+    max-width: 420px;
+    margin: 0;
     padding: var(--space-8);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--bg-surface);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    
+    /* Light mode glass */
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    
+    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .auth-form {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 .auth-form h2 {
     margin-bottom: var(--space-6);
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.75rem;
+    font-weight: 800;
     color: var(--text-primary);
+    letter-spacing: -0.02em;
 }
 
 .auth-form p {
