@@ -85,6 +85,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Password Visibility Toggle
+    document.querySelectorAll('.password-toggle').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const input = this.previousElementSibling;
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            
+            // Toggle icons
+            const eyeOpen = this.querySelector('.eye-open');
+            const eyeClosed = this.querySelector('.eye-closed');
+            if (type === 'text') {
+                eyeOpen.classList.add('hidden');
+                eyeClosed.classList.remove('hidden');
+            } else {
+                eyeOpen.classList.remove('hidden');
+                eyeClosed.classList.add('hidden');
+            }
+        });
+    });
+
     // Register user
     registerForm.addEventListener('submit', function(e) {
         e.preventDefault();
