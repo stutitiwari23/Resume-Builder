@@ -54,13 +54,14 @@ body {
 }
  
 button {
+    font-size: 1.5rem;
     background-color: var(--accent);
     color: white;
     border: none;
-    padding: 10px 16px;
+    padding: 20px 25px;
     cursor: pointer;
     border-radius: 8px;
-    font-weight: 600;
+    font-weight: 800;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
  
@@ -146,9 +147,10 @@ header {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     padding: 0;
+    margin: 10px;
     border-radius: 999px;
 }
 #theme-toggle .icon-sun, #theme-toggle .icon-moon {
@@ -247,7 +249,7 @@ header {
 .landing-desc {
     font-size: 1.05rem;
     color: var(--text-muted);
-    line-height: 1.8;
+    line-height: 1.2;
 }
 .landing-features {
     display: flex;
@@ -387,4 +389,29 @@ header {
 }
 #auth-section.hidden {
     display: none;
+}
+
+h1{
+    font-size: 3rem;
+}
+
+.landing-title{
+    font-size: 6rem;
+}
+.landing-desc{
+    color: #2563eb;
+    font-size: 3rem;
+}
+
+.feature-chip {
+    font-size: 2rem;
+}
+.cta-plus {
+    width: 140px;
+    height: 140px;
+    font-size: 72px;
+}
+
+.header-controls{
+    size: 10rem;
 }
