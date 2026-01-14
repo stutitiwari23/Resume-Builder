@@ -339,7 +339,7 @@ body {
 
 .input-group input {
     width: 100%;
-    padding: 14px 14px 14px 48px;
+    padding: 14px 40px 14px 48px; /* Extra right padding for eye icon */
     border: 2px solid transparent;
     background: var(--bg-app);
     border-radius: var(--radius-lg);
@@ -495,6 +495,9 @@ body {
 .password-toggle .hidden { display: none; }
 
 
+/* Global Utility */
+.hidden { display: none !important; }
+
 /* Responsive Header Adjustments */
 @media (max-width: 640px) {
     header {
@@ -526,12 +529,27 @@ body {
         font-size: 0.85rem;
     }
 }
+
+/* Close Button (Restored) */
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    color: var(--text-tertiary);
+    font-size: 1.5rem;
+    padding: 0.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none; /* Reset border */
     border-radius: 50%;
     box-shadow: none;
     transition: all 0.2s;
+    cursor: pointer;
+    z-index: 20;
 }
 .close-modal:hover {
     background: rgba(0,0,0,0.05);
