@@ -62,6 +62,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Close Modal Logic
+    function closeModal() {
+        if (authSection) {
+            authSection.classList.add('hidden');
+            // Wait for transition before hiding display logic if needed (handled by CSS opacity)
+        }
+    }
+
+    // Close on click outside (backdrop)
+    window.addEventListener('click', function(e) {
+        if (e.target === authSection) {
+            closeModal();
+        }
+    });
+
+    // Close on button click (new functionality)
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal();
+        });
+    });
+
     // Register user
     registerForm.addEventListener('submit', function(e) {
         e.preventDefault();
