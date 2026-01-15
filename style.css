@@ -753,6 +753,7 @@ header.scrolled h1 {
     margin: 0 auto;
 }
 
+
 /* Landing page */
 #landing-section {
     min-height: calc(100vh - 72px);
@@ -1647,3 +1648,25 @@ button:disabled:hover {
     transform: translateX(-50%);
   }
 }
+
+/* Drag & Drop Resume Sections */
+.preview-section-block {
+  cursor: grab;
+}
+
+.preview-section-block:active {
+  cursor: grabbing;
+}
+
+.drag-handle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  cursor: grab;
+  user-select: none;
+}
+
+.preview-section-block.dragging {
+  opacity: 0.5;
+}
+

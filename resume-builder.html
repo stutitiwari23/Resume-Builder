@@ -184,23 +184,29 @@
                                         <br><span id="preview-linkedin"></span>
                                     </div>
                                 </div>
-                                <div class="preview-summary">
-                                    <h2>Professional Summary</h2>
-                                    <p id="preview-summary"></p>
-                                </div>
-                                <div class="preview-education">
+                                <div class="preview-section-block" data-section="summary" draggable="true">
+    <div class="drag-handle">☰ Drag</div>
+    <h2>Professional Summary</h2>
+    <p id="preview-summary"></p>
+</div>
+
+                                <div class="preview-section-block" data-section="education" draggable="true">
+                                    <div class="drag-handle">☰ Drag</div>
                                     <h2>Education</h2>
                                     <p id="preview-education"></p>
                                 </div>
-                                <div class="preview-skills">
+                                <div class="preview-section-block" data-section="skills" draggable="true">
+                                    <div class="drag-handle">☰ Drag</div>
                                     <h2>Skills</h2>
                                     <div id="preview-skills"></div>
                                 </div>
-                                <div class="preview-experience">
+                                <div class="preview-section-block" data-section="experience" draggable="true">
+                                    <div class="drag-handle">☰ Drag</div>
                                     <h2>Experience / Projects</h2>
                                     <div id="preview-experience"></div>
                                 </div>
-                                <div class="preview-achievements">
+                                <div class="preview-section-block" data-section="achievements" draggable="true">
+                                    <div class="drag-handle">☰ Drag</div>
                                     <h2>Achievements / Certifications</h2>
                                     <p id="preview-achievements"></p>
                                 </div>
@@ -217,7 +223,8 @@
     <script src="theme.js"></script>
     <script>
         // resume-builder.js - Dedicated resume builder page functionality
-        document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
+    console.log(" resume-builder.js is running");
             const form = document.getElementById('resume-form');
             const skillsList = document.getElementById('skills-list');
             const addSkillBtn = document.getElementById('add-skill');
@@ -529,6 +536,99 @@
                 updatePreview();
                 updateAuthUI(); // Update UI after loading user data
             }
+
+            /* ===== Resume Section Reordering (Drag & Drop) ===== */
+
+const previewContainer = document.getElementById("resume-preview");
+let draggedSection = null;
+
+function initSectionDragAndDrop() {
+    const sections = previewContainer.querySelectorAll(".preview-section-block");
+
+    sections.forEach(section => {
+
+        section.addEventListener("dragstart", () => {
+            draggedSection = section;
+            section.classList.add("dragging");
+        });
+
+        section.addEventListener("dragend", () => {
+            section.classList.remove("dragging");
+            draggedSection = null;
+            saveSectionOrder();
+        });
+
+
+
+        previewContainer.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(previewContainer, e.clientY);
+    if (!draggedSection) return;
+
+    if (afterElement == null) {
+        previewContainer.appendChild(draggedSection);
+    } else {
+        previewContainer.insertBefore(draggedSection, afterElement);
+    }
+});
+
+        section.addEventListener("dragleave", () => {
+            section.classList.remove("drag-over");
+        });
+
+        section.addEventListener("drop", () => {
+            section.classList.remove("drag-over");
+        });
+    });
+    
+}
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [
+        ...container.querySelectorAll(".preview-section-block:not(.dragging)")
+    ];
+
+    return draggableElements.reduce(
+        (closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        },
+        { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+}
+
+
+/* Save order */
+function saveSectionOrder() {
+    const order = [];
+    previewContainer.querySelectorAll(".preview-section-block").forEach(section => {
+        order.push(section.dataset.section);
+    });
+    localStorage.setItem("resumeSectionOrder", JSON.stringify(order));
+}
+
+/* Load order */
+function loadSectionOrder() {
+    const savedOrder = JSON.parse(localStorage.getItem("resumeSectionOrder"));
+    if (!savedOrder) return;
+
+    savedOrder.forEach(key => {
+        const section = previewContainer.querySelector(
+            `.preview-section-block[data-section="${key}"]`
+        );
+        if (section) previewContainer.appendChild(section);
+    });
+}
+
+/* Initialize */
+loadSectionOrder();
+initSectionDragAndDrop();
+
         });
     </script>
 </body>
