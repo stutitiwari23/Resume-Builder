@@ -127,7 +127,17 @@
                     <input type="email" id="reg-email" required>
 
                     <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" required>
+                    <div class="password-field">
+                        <input type="password" id="reg-password" required aria-required="true">
+                        <button type="button"
+                            class="password-toggle-btn"
+                            data-target="reg-password"
+                            aria-label="Show password"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-eye password-toggle-icon" aria-hidden="true"></i>
+                            <span class="visually-hidden">Show password</span>
+                        </button>
+                    </div>
 
                     <button type="submit">Register</button>
                 </form>
@@ -142,7 +152,17 @@
                     <input type="email" id="login-email" required>
 
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
+                    <div class="password-field">
+                        <input type="password" id="login-password" required aria-required="true">
+                        <button type="button"
+                            class="password-toggle-btn"
+                            data-target="login-password"
+                            aria-label="Show password"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-eye password-toggle-icon" aria-hidden="true"></i>
+                            <span class="visually-hidden">Show password</span>
+                        </button>
+                    </div>
 
                     <button type="submit">Login</button>
                 </form>

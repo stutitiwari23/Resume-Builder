@@ -117,8 +117,12 @@ const ValidationUI = {
         errorDiv.textContent = message;
         errorDiv.setAttribute('role', 'alert');
 
-        // Insert after the input
-        input.parentNode.insertBefore(errorDiv, input.nextSibling);
+        // Insert after the input (or wrapper, for password fields)
+        const parent = input.parentNode;
+        const isPasswordWrapper = parent.classList && parent.classList.contains('password-field');
+        const container = isPasswordWrapper ? parent.parentNode : parent;
+        const referenceNode = isPasswordWrapper ? parent.nextSibling : input.nextSibling;
+        container.insertBefore(errorDiv, referenceNode);
     },
 
     /**
@@ -184,8 +188,12 @@ const ValidationUI = {
         strengthDiv.appendChild(strengthBar);
         strengthDiv.appendChild(strengthText);
 
-        // Insert after the input
-        input.parentNode.insertBefore(strengthDiv, input.nextSibling);
+        // Insert after the input (or wrapper, for password fields)
+        const parent = input.parentNode;
+        const isPasswordWrapper = parent.classList && parent.classList.contains('password-field');
+        const container = isPasswordWrapper ? parent.parentNode : parent;
+        const referenceNode = isPasswordWrapper ? parent.nextSibling : input.nextSibling;
+        container.insertBefore(strengthDiv, referenceNode);
     },
 
     /**

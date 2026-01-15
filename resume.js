@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const addSkillBtn = document.getElementById('add-skill');
     const skillInput = document.getElementById('skill-input');
     let skills = [];
-    const downloadBtn = document.getElementById('download-resume');
+    const downloadBtn = document.getElementById('download-pdf'); // Fixed: was 'download-resume'
     const ctaCreateBtn = document.getElementById('cta-create');
     const ctaDemoBtn = document.getElementById('cta-demo');
 
@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Conditionally show download button based on login status
     function updateDownloadButtonVisibility() {
+        if (!downloadBtn) return; // Guard against null
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             downloadBtn.classList.remove('hidden');
@@ -124,17 +125,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (currentUser) {
             // User is logged in
-            authControls.classList.add('hidden');
-            profileDropdown.classList.remove('hidden');
+            if (authControls) authControls.classList.add('hidden');
+            if (profileDropdown) profileDropdown.classList.remove('hidden');
 
             // Set user name in dropdown
-            const userData = getUserData(currentUser);
-            const displayName = userData?.profile?.fullname || userData?.profile?.email || currentUser;
-            dropdownUserName.textContent = displayName;
+            if (dropdownUserName) {
+                const userData = getUserData(currentUser);
+                const displayName = userData?.profile?.fullname || userData?.profile?.email || currentUser;
+                dropdownUserName.textContent = displayName;
+            }
         } else {
             // User is not logged in
-            authControls.classList.remove('hidden');
-            profileDropdown.classList.add('hidden');
+            if (authControls) authControls.classList.remove('hidden');
+            if (profileDropdown) profileDropdown.classList.add('hidden');
         }
 
         updateDownloadButtonVisibility();
@@ -323,17 +326,19 @@ document.addEventListener('DOMContentLoaded', function () {
 // Scroll To Top Button
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-        scrollToTopBtn.classList.add("show");
-    } else {
-        scrollToTopBtn.classList.remove("show");
-    }
-});
-
-scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth",
+if (scrollToTopBtn) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            scrollToTopBtn.classList.add("show");
+        } else {
+            scrollToTopBtn.classList.remove("show");
+        }
     });
-});
+
+    scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    });
+}

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const nameErrorsms = document.getElementById('name-error-message');
     const emailErrorSms = document.getElementById('email-error-message');
     const passwordErrorSms = document.getElementById('password-error-message');
-    const downloadResumeBtn = document.getElementById('download-resume');
+    const downloadResumeBtn = document.getElementById('download-pdf'); // Fixed: was 'download-resume'
     const nameRegex = /^[a-zA-Z\s]{2,}$/;
     const emailRegx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
@@ -26,28 +26,92 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check for existing session on load
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
-        downloadResumeBtn.classList.add('hidden');
-    
+        if (downloadResumeBtn) downloadResumeBtn.classList.add('hidden');
     }
     if (currentUser && getUserData(currentUser).session) {
-        downloadResumeBtn.classList.remove('hidden');
+        if (downloadResumeBtn) downloadResumeBtn.classList.remove('hidden');
         showResumeSection();
     } else {
         showLanding();
     }
 
-    // Toggle between register and login forms
-    showLogin.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('register-form').classList.add('hidden');
-        document.getElementById('login-form').classList.remove('hidden');
-    });
+    // Password show/hide toggles
+    function setupPasswordToggle(btn) {
+        // Use event delegation or direct handler
+        btn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const targetId = this.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            if (!input) return;
 
-    showRegister.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('login-form').classList.add('hidden');
-        document.getElementById('register-form').classList.remove('hidden');
-    });
+            const isCurrentlyHidden = input.type === 'password';
+            input.type = isCurrentlyHidden ? 'text' : 'password';
+
+            // Update ARIA state
+            this.setAttribute('aria-pressed', isCurrentlyHidden ? 'true' : 'false');
+            this.setAttribute('aria-label', isCurrentlyHidden ? 'Hide password' : 'Show password');
+
+            // Update icon - remove both classes first, then add the correct one
+            const icon = this.querySelector('.password-toggle-icon');
+            if (icon) {
+                icon.classList.remove('fa-eye', 'fa-eye-slash');
+                if (isCurrentlyHidden) {
+                    icon.classList.add('fa-eye');
+                } else {
+                    icon.classList.add('fa-eye-slash');
+                }
+            }
+
+            // Update visually hidden text for screen readers
+            const srText = this.querySelector('.visually-hidden');
+            if (srText) {
+                srText.textContent = isCurrentlyHidden ? 'Hide password' : 'Show password';
+            }
+        };
+    }
+    
+    // Initialize password toggles
+    function initializePasswordToggles() {
+        const passwordToggleButtons = document.querySelectorAll('.password-toggle-btn');
+        passwordToggleButtons.forEach((btn) => {
+            setupPasswordToggle(btn);
+        });
+    }
+    
+    // Initialize on page load
+    initializePasswordToggles();
+    
+    // Re-initialize when forms are toggled (forms might be hidden initially)
+    if (showLogin) {
+        showLogin.addEventListener('click', function() {
+            setTimeout(initializePasswordToggles, 50);
+        });
+    }
+    
+    if (showRegister) {
+        showRegister.addEventListener('click', function() {
+            setTimeout(initializePasswordToggles, 50);
+        });
+    }
+
+    // Toggle between register and login forms
+    if (showLogin) {
+        showLogin.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+        });
+    }
+
+    if (showRegister) {
+        showRegister.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+        });
+    }
 
     if (topLoginBtn) {
         topLoginBtn.addEventListener('click', function (e) {
@@ -78,7 +142,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Register user with validation
-    registerForm.addEventListener('submit', function (e) {
+    if (registerForm) {
+        registerForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
         // Clear previous errors
@@ -92,41 +157,41 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("password", password);
 
         if (!fullName.trim()) {
-            nameErrorsms.textContent = "Name fields are required.";
+            if (nameErrorsms) nameErrorsms.textContent = "Name fields are required.";
             return;
         }
         else if (fullName.length < 2) {
-            nameErrorsms.textContent = "Name must be at least 2 characters Long."
+            if (nameErrorsms) nameErrorsms.textContent = "Name must be at least 2 characters Long."
         }
         if (!nameRegex.test(fullName)) {
-            nameErrorsms.textContent = "Please enter a valid name..";
+            if (nameErrorsms) nameErrorsms.textContent = "Please enter a valid name..";
             return;
         }
         else {
-            nameErrorsms.textContent = "";
+            if (nameErrorsms) nameErrorsms.textContent = "";
 
         }
         if (!email.trim()) {
-            emailErrorSms.textContent = "Email is required";
+            if (emailErrorSms) emailErrorSms.textContent = "Email is required";
             return
         }
         else if (!emailRegx.test(email)) {
-            emailErrorSms.textContent = "Please enter a valid email";
+            if (emailErrorSms) emailErrorSms.textContent = "Please enter a valid email";
             return
         }
         else {
-            emailErrorSms.textContent = "";
+            if (emailErrorSms) emailErrorSms.textContent = "";
         }
 
         if (!password.trim()) {
-            passwordErrorSms.textContent = "Password is required";
+            if (passwordErrorSms) passwordErrorSms.textContent = "Password is required";
             return
         }
         else if (!passwordRegex.test(password)) {
-            passwordErrorSms.textContent = "Please enter minimu 6 characters, at least one letter and one number.";
+            if (passwordErrorSms) passwordErrorSms.textContent = "Please enter minimu 6 characters, at least one letter and one number.";
             return
         }
-        passwordErrorSms.textContent = "";
+        if (passwordErrorSms) passwordErrorSms.textContent = "";
 
         let isValid = true;
 
@@ -178,16 +243,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Clear form and switch to login
         registerForm.reset();
-        setTimeout(() => showLogin.click(), 1500);
+        setTimeout(() => {
+            if (showLogin) showLogin.click();
+        }, 1500);
     });
-    regcloseauthBtn.addEventListener("click", function () {
-        authSection.classList.add("hidden");
-        registerForm.reset();
-    })
-    logincloseauthBtn.addEventListener("click", function () {
-        authSection.classList.add("hidden");
-        loginForm.reset();
-    })
+    }
+    if (regcloseauthBtn) {
+        regcloseauthBtn.addEventListener("click", function () {
+            if (authSection) authSection.classList.add("hidden");
+            if (registerForm) registerForm.reset();
+        });
+    }
+    if (logincloseauthBtn) {
+        logincloseauthBtn.addEventListener("click", function () {
+            if (authSection) authSection.classList.add("hidden");
+            if (loginForm) loginForm.reset();
+        });
+    }
 
     // Real-time validation for registration form
     const regEmailInput = document.getElementById('reg-email');
@@ -234,7 +306,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Login user with validation
-    loginForm.addEventListener('submit', function (e) {
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
         // Clear previous errors
@@ -277,6 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ValidationUI.showToast('Invalid credentials. Please try again.', 'error');
         }
     });
+    }
 
     // Real-time validation for login form
     const loginEmailInput = document.getElementById('login-email');
@@ -311,8 +385,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showLanding() {
         if (landingSection) landingSection.classList.remove('hidden');
-        authSection.classList.add('hidden');
-        resumeSection.classList.add('hidden');
+        if (authSection) authSection.classList.add('hidden');
+        if (resumeSection) resumeSection.classList.add('hidden');
         if (logoutBtn) logoutBtn.classList.add('hidden');
         if (topLoginBtn) topLoginBtn.classList.remove('hidden');
         if (topRegisterBtn) topRegisterBtn.classList.remove('hidden');
@@ -321,8 +395,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showAuthSection() {
         if (landingSection) landingSection.classList.remove('hidden');
-        authSection.classList.remove('hidden');
-        resumeSection.classList.add('hidden');
+        if (authSection) authSection.classList.remove('hidden');
+        if (resumeSection) resumeSection.classList.add('hidden');
         if (logoutBtn) logoutBtn.classList.add('hidden');
         if (topLoginBtn) topLoginBtn.classList.remove('hidden');
         if (topRegisterBtn) topRegisterBtn.classList.remove('hidden');
@@ -330,8 +404,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showResumeSection() {
         if (landingSection) landingSection.classList.add('hidden');
-        authSection.classList.add('hidden');
-        resumeSection.classList.remove('hidden');
+        if (authSection) authSection.classList.add('hidden');
+        if (resumeSection) resumeSection.classList.remove('hidden');
         if (logoutBtn) logoutBtn.classList.remove('hidden');
         if (topLoginBtn) topLoginBtn.classList.add('hidden');
         if (topRegisterBtn) topRegisterBtn.classList.add('hidden');

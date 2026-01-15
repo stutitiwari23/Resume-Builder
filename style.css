@@ -1344,6 +1344,64 @@ header.scrolled h1 {
     color: #10b981;
 }
 
+/* Password field with show/hide toggle */
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    padding-right: 44px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: auto;
+    width: 32px;
+    height: 32px;
+}
+
+.password-toggle-btn:hover {
+    color: var(--accent);
+    background: none;
+    box-shadow: none;
+}
+
+.password-toggle-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.password-toggle-btn[aria-pressed="true"] {
+    color: var(--accent);
+}
+
+/* Visually hidden text for accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* Toast notification */
 .toast-notification {
     position: fixed;
