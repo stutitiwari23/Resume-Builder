@@ -1649,24 +1649,149 @@ button:disabled:hover {
   }
 }
 
-/* Drag & Drop Resume Sections */
-.preview-section-block {
-  cursor: grab;
-}
+/* sign in and sign up styling */
+/* ================================
+   AUTH PAGES (SIGN IN / SIGN UP)
+   Scoped – Safe to paste in main CSS
 
-.preview-section-block:active {
-  cursor: grabbing;
-}
-
-.drag-handle {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  cursor: grab;
-  user-select: none;
-}
-
-.preview-section-block.dragging {
-  opacity: 0.5;
-}
-
+/* Page wrapper */
+.auth-page {
+    min-height: calc(100vh - 80px); /* keeps navbar safe */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f7fb;
+  }
+  
+  /* Card */
+  .auth-page .auth-card {
+    width: 380px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+  
+  /* Headings */
+  .auth-page .auth-card h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  
+  .auth-page .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #64748b;
+    margin: 6px 0 30px;
+  }
+  
+  /* Inputs */
+  .auth-page .input-group {
+    position: relative;
+    margin-bottom: 22px;
+  }
+  
+  .auth-page .input-group input {
+    width: 100%;
+    padding: 14px 44px 14px 14px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+    background: #f9fafb;
+    color: #0f172a;
+    outline: none;
+    transition: 0.25s;
+  }
+  
+  .auth-page .input-group input:focus {
+    border-color: #3b82f6;
+    background: #ffffff;
+  }
+  
+  /* Floating labels */
+  .auth-page .input-group label {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: #94a3b8;
+    pointer-events: none;
+    background: #ffffff;
+    padding: 0 6px;
+    transition: 0.25s;
+  }
+  
+  .auth-page .input-group input:focus + label,
+  .auth-page .input-group input:valid + label {
+    top: -7px;
+    font-size: 11px;
+    color: #2563eb;
+  }
+  
+  /* Eye icon */
+  .auth-page .password-group .eye {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #64748b;
+  }
+  
+  /* Forgot password */
+  .auth-page .forgot {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .auth-page .forgot a {
+    font-size: 13px;
+    color: #2563eb;
+    text-decoration: none;
+  }
+  
+  .auth-page .forgot a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Button */
+  .auth-page .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .auth-page .btn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+  }
+  
+  /* Bottom switch text */
+  .auth-page .switch {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: #64748b;
+  }
+  
+  .auth-page .switch a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  .auth-page .switch a:hover {
+    text-decoration: underline;
+  }
+  
