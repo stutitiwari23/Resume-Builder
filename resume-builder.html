@@ -230,9 +230,8 @@
             // Check if user is authenticated before allowing access
             const currentUser = localStorage.getItem('currentUser');
             if (!currentUser) {
-                // Redirect to home page if not logged in
-                alert('Please log in to access the resume builder.');
-                window.location.href = './index.html';
+                // Redirect to login page if not logged in
+                window.location.href = './login.html';
                 return;
             }
             const form = document.getElementById('resume-form');

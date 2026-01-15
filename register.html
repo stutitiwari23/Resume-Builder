@@ -7,94 +7,298 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 50%, #b0ede7 100%);
+            background-attachment: fixed;
             display: flex;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 20px 0;
+            padding: 20px;
+            font-family: 'Sen', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-color: rgba(40, 69, 78, 0.05);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background-color: rgba(40, 69, 78, 0.03);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            z-index: 0;
         }
         
         .register-container {
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 520px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
         
         .register-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            padding: 2rem;
-            margin: 1rem;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(40, 69, 78, 0.15);
+            padding: 3.5rem 2.5rem;
+            animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(224, 253, 249, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #28454e 0%, #e0fdf9 100%);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .register-card h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
-            color: #333;
+            margin-bottom: 0.5rem;
+            color: #28454e;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .register-card .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .register-form {
+            margin-top: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+            position: relative;
         }
         
         .register-form label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: #28454e;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .register-form label i {
+            margin-right: 8px;
+            color: #28454e;
+            opacity: 0.7;
         }
         
         .register-form input {
             width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 1rem 1.25rem;
+            padding-right: 3.5rem;
+            margin-bottom: 0;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fffe;
+            color: #2a2a2a;
+            font-family: 'Sen', sans-serif;
         }
-        
-        .register-form button {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #28a745;
-            color: white;
+
+        .register-form input::placeholder {
+            color: #999999;
+            font-weight: 400;
+        }
+
+        .register-form input:focus {
+            outline: none;
+            border-color: #28454e;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(40, 69, 78, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 42px;
+            background: none;
             border: none;
-            border-radius: 4px;
-            font-size: 1rem;
+            color: #666666;
             cursor: pointer;
+            font-size: 1.15rem;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: #28454e;
+            transform: scale(1.1);
         }
         
-        .register-form button:hover {
-            background-color: #218838;
+        .register-form button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background-color: #28454e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
+        }
+        
+        .register-form button[type="submit"]:hover {
+            background-color: #1f3539;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
+        }
+
+        .register-form button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .register-form button[type="submit"] i {
+            margin-right: 8px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.875rem;
+            margin-top: 1rem;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        
+        .btn-back-home-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 1rem;
+            background-color: #e0fdf9;
+            color: #28454e;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(224, 253, 249, 0.4);
+        }
+        
+        .btn-back-home-link:hover {
+            background-color: #c8f5f0;
+            border-color: #28454e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 253, 249, 0.5);
+            color: #28454e;
+            text-decoration: none;
+        }
+
+        .btn-back-home-link i {
+            margin-right: 8px;
         }
         
         .register-form p {
             text-align: center;
-            margin: 1rem 0;
+            margin: 2rem 0 0;
+            color: #666666;
+            font-size: 0.95rem;
         }
         
         .register-form a {
-            color: #007bff;
+            color: #28454e;
             text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
         
         .register-form a:hover {
-            text-decoration: underline;
+            color: #1f3539;
+            border-bottom-color: #28454e;
         }
         
         .error-message {
             color: #dc3545;
             font-size: 0.875rem;
-            margin-top: -0.5rem;
-            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
         }
         
         .password-strength {
-            margin-bottom: 1rem;
+            margin-top: 0.75rem;
         }
         
         .strength-bar {
             height: 5px;
-            background-color: #eee;
+            background-color: #e0fdf9;
             border-radius: 3px;
             margin: 0.5rem 0;
             overflow: hidden;
@@ -104,23 +308,51 @@
             height: 100%;
             width: 0%;
             transition: width 0.3s, background-color 0.3s;
+            border-radius: 3px;
+        }
+
+        .strength-fill.weak {
+            background-color: #dc3545;
+            width: 33%;
+        }
+
+        .strength-fill.medium {
+            background-color: #ffc107;
+            width: 66%;
+        }
+
+        .strength-fill.strong {
+            background-color: #28a745;
+            width: 100%;
         }
         
         .strength-text {
-            font-size: 0.75rem;
-            color: #666;
+            font-size: 0.8rem;
+            color: #666666;
+            margin-top: 0.25rem;
+            font-weight: 600;
         }
-        
-        .back-to-home {
-            display: block;
+
+        .divider {
+            display: flex;
+            align-items: center;
             text-align: center;
-            margin-top: 1rem;
-            color: #007bff;
-            text-decoration: none;
+            margin: 2rem 0;
+            color: #999999;
+            font-size: 0.85rem;
         }
-        
-        .back-to-home:hover {
-            text-decoration: underline;
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #e0fdf9;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            background: #ffffff;
+            font-weight: 600;
         }
         
         /* Toast Notification Styles */
@@ -130,17 +362,18 @@
             right: 2rem;
             background-color: #ffffff;
             color: #333333;
-            padding: 1rem 1.5rem;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border: 1px solid #e0e0e0;
+            padding: 1.25rem 1.75rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(40, 69, 78, 0.2);
+            border: 1px solid #e0fdf9;
             z-index: 1000;
             opacity: 0;
             transform: translateX(100%);
             transition: all 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.9rem;
-            max-width: 350px;
+            font-family: 'Sen', sans-serif;
+            font-size: 0.95rem;
+            max-width: 380px;
+            font-weight: 500;
         }
 
         .toast-notification.show {
@@ -157,16 +390,44 @@
         }
 
         .toast-info {
-            border-left: 4px solid #17a2b8;
+            border-left: 4px solid #28454e;
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
+            .register-card {
+                padding: 2.5rem 2rem;
+                border-radius: 20px;
+            }
+
+            .register-card h2 {
+                font-size: 1.75rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
             .toast-notification {
                 left: 1rem;
                 right: 1rem;
                 bottom: 1rem;
                 max-width: none;
+            }
+
+            body::before,
+            body::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .register-card h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -175,35 +436,60 @@
     <div class="register-container">
         <div class="register-card">
             <h2>Create Account</h2>
+            <p class="subtitle">Join us and start building your professional resume</p>
             
             <!-- Register Form -->
             <div id="register-form" class="register-form">
-                <h3>Register for an Account</h3>
                 <form id="register">
-                    <label for="reg-fullname">Full Name</label>
-                    <input type="text" id="reg-fullname" required>
-                    <div class="error-message" id="name-error-message"></div>
-                    
-                    <label for="reg-email">Email</label>
-                    <input type="email" id="reg-email" required>
-                    <div class="error-message" id="email-error-message"></div>
-                    
-                    <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" required>
-                    <div class="error-message" id="password-error-message"></div>
-                    <div class="password-strength">
-                        <div class="strength-bar">
-                            <div class="strength-fill" id="strength-fill"></div>
-                        </div>
-                        <div class="strength-text" id="strength-text"></div>
+                    <div class="form-group">
+                        <label for="reg-fullname">
+                            <i class="fa fa-user" aria-hidden="true"></i> Full Name
+                        </label>
+                        <input type="text" id="reg-fullname" placeholder="Enter your full name" required>
+                        <div class="error-message" id="name-error-message"></div>
                     </div>
                     
-                    <button type="submit">Register</button>
+                    <div class="form-group">
+                        <label for="reg-email">
+                            <i class="fa fa-envelope" aria-hidden="true"></i> Email Address
+                        </label>
+                        <input type="email" id="reg-email" placeholder="Enter your email" required>
+                        <div class="error-message" id="email-error-message"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-password">
+                            <i class="fa fa-lock" aria-hidden="true"></i> Password
+                        </label>
+                        <input type="password" id="reg-password" placeholder="Create a strong password" required>
+                        <button type="button" class="password-toggle" id="toggle-password">
+                            <i class="fa fa-eye" id="eye-icon"></i>
+                        </button>
+                        <div class="error-message" id="password-error-message"></div>
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strength-fill"></div>
+                            </div>
+                            <div class="strength-text" id="strength-text"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Register
+                        </button>
+                        <a href="./index.html" class="btn-back-home-link">
+                            <i class="fa fa-home" aria-hidden="true"></i> Home
+                        </a>
+                    </div>
                 </form>
-                <p>Already have an account? <a href="./login.html" id="show-login">Login</a></p>
-            </div>
 
-            <a href="./index.html" class="back-to-home">Back to Home</a>
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <p>Already have an account? <a href="./login.html" id="show-login">Sign In</a></p>
+            </div>
         </div>
     </div>
 
@@ -213,6 +499,25 @@
     <script src="theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Password toggle functionality
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('reg-password');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        eyeIcon.classList.remove('fa-eye');
+                        eyeIcon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordInput.type = 'password';
+                        eyeIcon.classList.remove('fa-eye-slash');
+                        eyeIcon.classList.add('fa-eye');
+                    }
+                });
+            }
+
             // Handle register form submission
             const registerForm = document.getElementById('register');
             if (registerForm) {
@@ -274,7 +579,7 @@
                     };
 
                     saveUserData(email, userData);
-                    ValidationUI.showToast('Registration successful! Please login.', 'success');
+                    ValidationUI.showToast('Registration successful! Redirecting to login...', 'success');
 
                     // Clear form and redirect to login
                     registerForm.reset();
@@ -308,11 +613,38 @@
             if (regPasswordInput) {
                 regPasswordInput.addEventListener('input', function () {
                     const password = this.value;
+                    const strengthFill = document.getElementById('strength-fill');
+                    const strengthText = document.getElementById('strength-text');
+                    
                     if (password.length > 0) {
                         const result = Validator.validatePassword(password);
                         ValidationUI.showPasswordStrength('reg-password', result);
+                        
+                        // Update visual strength indicator
+                        if (strengthFill && strengthText) {
+                            strengthFill.className = 'strength-fill';
+                            if (password.length < 6) {
+                                strengthFill.classList.add('weak');
+                                strengthText.textContent = 'Weak password';
+                            } else if (password.length < 10 || !result.isValid) {
+                                strengthFill.classList.add('medium');
+                                strengthText.textContent = 'Medium strength';
+                            } else {
+                                strengthFill.classList.add('strong');
+                                strengthText.textContent = 'Strong password';
+                            }
+                        }
+                        
                         if (result.isValid) {
                             ValidationUI.clearError('reg-password');
+                        }
+                    } else {
+                        if (strengthFill) {
+                            strengthFill.className = 'strength-fill';
+                            strengthFill.style.width = '0%';
+                        }
+                        if (strengthText) {
+                            strengthText.textContent = '';
                         }
                     }
                 });

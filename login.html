@@ -7,126 +7,293 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 50%, #b0ede7 100%);
+            background-attachment: fixed;
             display: flex;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 20px 0;
+            padding: 20px;
+            font-family: 'Sen', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-color: rgba(40, 69, 78, 0.05);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background-color: rgba(40, 69, 78, 0.03);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            z-index: 0;
         }
         
         .login-container {
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 480px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
         
         .login-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            padding: 2rem;
-            margin: 1rem;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(40, 69, 78, 0.15);
+            padding: 3.5rem 2.5rem;
+            animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(224, 253, 249, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #28454e 0%, #e0fdf9 100%);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .login-card h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
-            color: #333;
+            margin-bottom: 0.5rem;
+            color: #28454e;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .login-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+            position: relative;
         }
         
         .login-form label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: #28454e;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-form label i {
+            margin-right: 8px;
+            color: #28454e;
+            opacity: 0.7;
         }
         
         .login-form input {
             width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 1rem 1.25rem;
+            padding-right: 3.5rem;
+            margin-bottom: 0;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fffe;
+            color: #2a2a2a;
+            font-family: 'Sen', sans-serif;
         }
-        
-        .login-form button {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #007bff;
-            color: white;
+
+        .login-form input::placeholder {
+            color: #999999;
+            font-weight: 400;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #28454e;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(40, 69, 78, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 42px;
+            background: none;
             border: none;
-            border-radius: 4px;
-            font-size: 1rem;
+            color: #666666;
             cursor: pointer;
+            font-size: 1.15rem;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: #28454e;
+            transform: scale(1.1);
         }
         
-        .login-form button:hover {
-            background-color: #0056b3;
+        .login-form button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background-color: #28454e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
+        }
+        
+        .login-form button[type="submit"]:hover {
+            background-color: #1f3539;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
+        }
+
+        .login-form button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .login-form button[type="submit"] i {
+            margin-right: 8px;
         }
         
         .login-form p {
             text-align: center;
-            margin: 1rem 0;
+            margin: 2rem 0 0;
+            color: #666666;
+            font-size: 0.95rem;
         }
         
         .login-form a {
-            color: #007bff;
+            color: #28454e;
             text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
         
         .login-form a:hover {
-            text-decoration: underline;
+            color: #1f3539;
+            border-bottom-color: #28454e;
         }
         
         .error-message {
             color: #dc3545;
             font-size: 0.875rem;
-            margin-top: -0.5rem;
-            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
         }
-        
-        .password-strength {
-            margin-bottom: 1rem;
+
+        .success-message {
+            color: #28a745;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
         }
-        
-        .strength-bar {
-            height: 5px;
-            background-color: #eee;
-            border-radius: 3px;
-            margin: 0.5rem 0;
-            overflow: hidden;
-        }
-        
-        .strength-fill {
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s, background-color 0.3s;
-        }
-        
-        .strength-text {
-            font-size: 0.75rem;
-            color: #666;
-        }
-        
-        .form-navigation {
+
+        .divider {
             display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0;
+            color: #999999;
+            font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #e0fdf9;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            background: #ffffff;
+            font-weight: 600;
         }
         
         .back-to-home {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-top: 1rem;
-            color: #007bff;
+            margin-top: 2rem;
+            color: #28454e;
             text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background-color: rgba(224, 253, 249, 0.3);
         }
         
         .back-to-home:hover {
-            text-decoration: underline;
+            color: #1f3539;
+            background-color: rgba(224, 253, 249, 0.5);
+            text-decoration: none;
+            transform: translateX(-5px);
+        }
+
+        .back-to-home i {
+            margin-right: 8px;
         }
         
         /* Toast Notification Styles */
@@ -136,17 +303,18 @@
             right: 2rem;
             background-color: #ffffff;
             color: #333333;
-            padding: 1rem 1.5rem;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border: 1px solid #e0e0e0;
+            padding: 1.25rem 1.75rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(40, 69, 78, 0.2);
+            border: 1px solid #e0fdf9;
             z-index: 1000;
             opacity: 0;
             transform: translateX(100%);
             transition: all 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.9rem;
-            max-width: 350px;
+            font-family: 'Sen', sans-serif;
+            font-size: 0.95rem;
+            max-width: 380px;
+            font-weight: 500;
         }
 
         .toast-notification.show {
@@ -163,16 +331,40 @@
         }
 
         .toast-info {
-            border-left: 4px solid #17a2b8;
+            border-left: 4px solid #28454e;
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
+            .login-card {
+                padding: 2.5rem 2rem;
+                border-radius: 20px;
+            }
+
+            .login-card h2 {
+                font-size: 1.75rem;
+            }
+
             .toast-notification {
                 left: 1rem;
                 right: 1rem;
                 bottom: 1rem;
                 max-width: none;
+            }
+
+            body::before,
+            body::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-card h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -181,25 +373,45 @@
     <div class="login-container">
         <div class="login-card">
             <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to continue building your professional resume</p>
             
             <!-- Login Form -->
             <div id="login-form" class="login-form">
-                <h3>Login to Your Account</h3>
                 <form id="login">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" required>
-                    <div class="error-message" id="login-email-error"></div>
+                    <div class="form-group">
+                        <label for="login-email">
+                            <i class="fa fa-envelope" aria-hidden="true"></i> Email Address
+                        </label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                        <div class="error-message" id="login-email-error"></div>
+                    </div>
                     
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
-                    <div class="error-message" id="login-password-error"></div>
+                    <div class="form-group">
+                        <label for="login-password">
+                            <i class="fa fa-lock" aria-hidden="true"></i> Password
+                        </label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="toggle-password">
+                            <i class="fa fa-eye" id="eye-icon"></i>
+                        </button>
+                        <div class="error-message" id="login-password-error"></div>
+                    </div>
                     
-                    <button type="submit">Login</button>
+                    <button type="submit">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
+                    </button>
                 </form>
-                <p>Don't have an account? <a href="./register.html" id="show-register">Register</a></p>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <p>Don't have an account? <a href="./register.html" id="show-register">Create Account</a></p>
             </div>
 
-            <a href="./index.html" class="back-to-home">Back to Home</a>
+            <a href="./index.html" class="back-to-home">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home
+            </a>
         </div>
     </div>
 
@@ -209,6 +421,25 @@
     <script src="theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Password toggle functionality
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('login-password');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        eyeIcon.classList.remove('fa-eye');
+                        eyeIcon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordInput.type = 'password';
+                        eyeIcon.classList.remove('fa-eye-slash');
+                        eyeIcon.classList.add('fa-eye');
+                    }
+                });
+            }
+
             // Handle login form submission
             const loginForm = document.getElementById('login');
             if (loginForm) {
@@ -268,7 +499,7 @@
                     const email = this.value.trim();
                     if (!Validator.isEmpty(email) && !Validator.isValidEmail(email)) {
                         ValidationUI.showError('login-email', 'Please enter a valid email address');
-                    } else {
+                    } else if (!Validator.isEmpty(email)) {
                         ValidationUI.clearError('login-email');
                     }
                 });

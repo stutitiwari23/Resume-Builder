@@ -69,17 +69,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (topLoginBtn) {
         topLoginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            showAuthSection();
-            toggleAuthForms('login');
+            const href = topLoginBtn.getAttribute('href') || '';
+            // If link points to login.html or register.html (separate pages), allow normal navigation
+            if (href.includes('login.html') || href.includes('register.html')) {
+                // Allow normal navigation - don't prevent default
+                return;
+            }
+            // Only prevent default if auth section exists (resume-builder page with modal)
+            if (authSection) {
+                e.preventDefault();
+                showAuthSection();
+                toggleAuthForms('login');
+            }
         });
     }
 
     if (topRegisterBtn) {
         topRegisterBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            showAuthSection();
-            toggleAuthForms('register');
+            const href = topRegisterBtn.getAttribute('href') || '';
+            // If link points to login.html or register.html (separate pages), allow normal navigation
+            if (href.includes('login.html') || href.includes('register.html')) {
+                // Allow normal navigation - don't prevent default
+                return;
+            }
+            // Only prevent default if auth section exists (resume-builder page with modal)
+            if (authSection) {
+                e.preventDefault();
+                showAuthSection();
+                toggleAuthForms('register');
+            }
         });
     }
 

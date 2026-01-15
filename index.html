@@ -58,6 +58,7 @@
                   <form class="form-inline my-2 my-lg-0">
                      <div id="auth-controls">
                         <ul>
+                           <li><a href="./register.html" id="show-register-top">Sign Up</a></li>
                            <li><a href="./login.html" id="show-login-top">Sign In</a></li>
                         </ul>
                      </div>
@@ -449,6 +450,17 @@
          
          // Initialize auth UI for index page
          updateAuthUI();
+         
+         // Intercept resume builder links to check authentication
+         document.querySelectorAll('a[href*="resume-builder.html"]').forEach(link => {
+             link.addEventListener('click', function(e) {
+                 const currentUser = localStorage.getItem('currentUser');
+                 if (!currentUser) {
+                     e.preventDefault();
+                     window.location.href = './login.html';
+                 }
+             });
+         });
          
          // Toggle dropdown menu
          const profileBtn = document.querySelector('.profile-btn');
