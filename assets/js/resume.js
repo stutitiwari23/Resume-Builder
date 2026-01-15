@@ -1,13 +1,12 @@
 // resume.js - Handles resume form inputs, live preview, and data binding
 
 document.addEventListener('DOMContentLoaded', function () {
-
     const form = document.getElementById('resume-form');
     const skillsList = document.getElementById('skills-list');
     const addSkillBtn = document.getElementById('add-skill');
     const skillInput = document.getElementById('skill-input');
     let skills = [];
-    const downloadBtn = document.getElementById('download-resume');
+    const downloadBtn = document.getElementById('download-pdf');
     const ctaCreateBtn = document.getElementById('cta-create');
     const ctaDemoBtn = document.getElementById('cta-demo');
 

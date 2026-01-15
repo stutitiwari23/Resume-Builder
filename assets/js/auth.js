@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const nameErrorsms = document.getElementById('name-error-message');
     const emailErrorSms = document.getElementById('email-error-message');
     const passwordErrorSms = document.getElementById('password-error-message');
-    const downloadResumeBtn = document.getElementById('download-resume');
+    const downloadResumeBtn = document.getElementById('download-pdf');
     const nameRegex = /^[a-zA-Z\s]{2,}$/;
     const emailRegx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
         downloadResumeBtn.classList.add('hidden');
-    
     }
     if (currentUser && getUserData(currentUser).session) {
         downloadResumeBtn.classList.remove('hidden');
@@ -91,42 +90,41 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('reg-password').value;
         console.log("password", password);
 
-        if (!fullName.trim()) {
-            nameErrorsms.textContent = "Name fields are required.";
-            return;
-        }
-        else if (fullName.length < 2) {
-            nameErrorsms.textContent = "Name must be at least 2 characters Long."
-        }
-        if (!nameRegex.test(fullName)) {
-            nameErrorsms.textContent = "Please enter a valid name..";
-            return;
-        }
-        else {
-            nameErrorsms.textContent = "";
+        // if (!fullName.trim()) {
+        //     nameErrorsms.textContent = "Name fields are required.";
+        //     return;
+        // }
+        // else if (fullName.length < 2) {
+        //     nameErrorsms.textContent = "Name must be at least 2 characters Long."
+        // }
+        // if (!nameRegex.test(fullName)) {
+        //     nameErrorsms.textContent = "Please enter a valid name..";
+        //     return;
+        // }
+        // else {
+        //     nameErrorsms.textContent = "";
+        // }
+        // if (!email.trim()) {
+        //     emailErrorSms.textContent = "Email is required";
+        //     return
+        // }
+        // else if (!emailRegx.test(email)) {
+        //     emailErrorSms.textContent = "Please enter a valid email";
+        //     return
+        // }
+        // else {
+        //     emailErrorSms.textContent = "";
+        // }
 
-        }
-        if (!email.trim()) {
-            emailErrorSms.textContent = "Email is required";
-            return
-        }
-        else if (!emailRegx.test(email)) {
-            emailErrorSms.textContent = "Please enter a valid email";
-            return
-        }
-        else {
-            emailErrorSms.textContent = "";
-        }
-
-        if (!password.trim()) {
-            passwordErrorSms.textContent = "Password is required";
-            return
-        }
-        else if (!passwordRegex.test(password)) {
-            passwordErrorSms.textContent = "Please enter minimu 6 characters, at least one letter and one number.";
-            return
-        }
-        passwordErrorSms.textContent = "";
+        // if (!password.trim()) {
+        //     passwordErrorSms.textContent = "Password is required";
+        //     return
+        // }
+        // else if (!passwordRegex.test(password)) {
+        //     passwordErrorSms.textContent = "Please enter minimu 6 characters, at least one letter and one number.";
+        //     return
+        // }
+        // passwordErrorSms.textContent = "";
 
         let isValid = true;
 
@@ -138,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ValidationUI.showError('reg-fullname', 'Name must be at least 2 characters');
             isValid = false;
         }
-
         // Validate email
         if (Validator.isEmpty(email)) {
             ValidationUI.showError('reg-email', 'Email is required');
