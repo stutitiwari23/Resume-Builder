@@ -504,6 +504,15 @@
                     }
                 });
             }
+            
+            // Handle 'Create Account' link click
+            const showRegisterLink = document.getElementById('show-register');
+            if (showRegisterLink) {
+                showRegisterLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = './register.html';
+                });
+            }
         });
     </script>
 </body>

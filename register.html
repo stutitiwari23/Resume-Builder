@@ -581,10 +581,11 @@
                     saveUserData(email, userData);
                     ValidationUI.showToast('Registration successful! Redirecting to login...', 'success');
 
-                    // Clear form and redirect to login
-                    registerForm.reset();
+                    // Set current user and redirect to resume builder
+                    localStorage.setItem('currentUser', email);
+                    ValidationUI.showToast('Registration successful! Redirecting to resume builder...', 'success');
                     setTimeout(() => {
-                        window.location.href = './login.html';
+                        window.location.href = './resume-builder.html';
                     }, 1500);
                 });
             }
@@ -657,6 +658,15 @@
                         ValidationUI.clearError('reg-fullname');
                         ValidationUI.showSuccess('reg-fullname');
                     }
+                });
+            }
+
+            // Handle 'Sign In' link click
+            const showLoginLink = document.getElementById('show-login');
+            if (showLoginLink) {
+                showLoginLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = './login.html';
                 });
             }
         });

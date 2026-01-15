@@ -512,15 +512,6 @@ textarea:focus {
 .preview-contact {
     font-size: 0.9rem;
     color: #666;
-    text-align: center;
-    display: block;
-    width: 100%;
-    margin-top: 0.5rem;
-}
-
-.preview-contact span {
-    display: inline-block;
-    margin: 0 0.5rem;
 }
 
 .preview-summary h2,

@@ -20,6 +20,8 @@
       <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
       <!-- style css -->
       <link rel="stylesheet" type="text/css" href="css/style.css">
+      <!-- Additional styles for auth components -->
+      <link rel="stylesheet" type="text/css" href="./resume-style.css">
       <!-- Responsive-->
       <link rel="stylesheet" href="css/responsive.css">
       <!-- fevicon -->
@@ -62,7 +64,7 @@
                            <li><a href="./login.html" id="show-login-top">Sign In</a></li>
                         </ul>
                      </div>
-                     <div id="profile-dropdown" class="profile-dropdown" style="display: none;">
+                     <div id="profile-dropdown" class="profile-dropdown hidden">
                         <button class="profile-btn">
                            <i class="fa fa-user" aria-hidden="true"></i>
                            <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -189,7 +191,7 @@
             <div class="row">
                <div class="col-md-6 padding_left0">
                   <div class="about_taital_main">
-                     <h1 class="about_taital">About ResumeCraft</h1>
+                     <h1 class="about_taital">About ResumeBuilder</h1>
                      <h6 class="about_text">READY TO CREATE YOUR PERFECT RESUME?</h6>
                      <div class="btn_main">
                         <div class="started_bt"><a href="resume-builder.html">Start Building</a></div>
@@ -425,117 +427,33 @@
       <script src="auth.js"></script>
       <script src="theme.js"></script>
       <script>
-         // Material Select Initialization
+         // Initialize auth UI on page load
          $(document).ready(function() {
-         $('.mdb-select').materialSelect();
-         $('.select-wrapper.md-form.md-outline input.select-dropdown').bind('focus blur', function () {
-         $(this).closest('.select-outline').find('label').toggleClass('active');
-         $(this).closest('.select-outline').find('.caret').toggleClass('active');
-         });
-         
-         // Initialize carousels with more robust settings
-         if ($('#main_slider').length > 0) {
-             $('#main_slider').carousel({
-                 interval: 5000,
-                 pause: false
+             updateAuthUI();
+             $('.mdb-select').materialSelect();
+             $('.select-wrapper.md-form.md-outline input.select-dropdown').bind('focus blur', function () {
+             $(this).closest('.select-outline').find('label').toggleClass('active');
+             $(this).closest('.select-outline').find('.caret').toggleClass('active');
              });
-         }
-         
-         if ($('#my_slider').length > 0) {
-             $('#my_slider').carousel({
-                 interval: 6000,
-                 pause: false
-             });
-         }
-         
-         // Initialize auth UI for index page
-         updateAuthUI();
-         
-         // Intercept resume builder links to check authentication
-         document.querySelectorAll('a[href*="resume-builder.html"]').forEach(link => {
-             link.addEventListener('click', function(e) {
-                 const currentUser = localStorage.getItem('currentUser');
-                 if (!currentUser) {
-                     e.preventDefault();
-                     window.location.href = './login.html';
-                 }
-             });
-         });
-         
-         // Toggle dropdown menu
-         const profileBtn = document.querySelector('.profile-btn');
-         if (profileBtn) {
-             profileBtn.addEventListener('click', function (e) {
-                 e.preventDefault();
-                 const dropdown = document.getElementById('dropdown-menu');
-                 dropdown.classList.toggle('show');
-             });
-         }
-
-         // Close dropdown when clicking outside
-         document.addEventListener('click', function (event) {
-             const dropdown = document.getElementById('dropdown-menu');
-             const profileBtn = document.querySelector('.profile-btn');
-
-             if (dropdown && profileBtn) {
-                 if (!profileBtn.contains(event.target) && !dropdown.contains(event.target)) {
-                     dropdown.classList.remove('show');
-                 }
-             }
-         });
-
-         // Logout functionality
-         const logoutBtn = document.getElementById('logout');
-         if (logoutBtn) {
-             logoutBtn.addEventListener('click', function (e) {
-                 e.preventDefault();
-                 localStorage.removeItem('currentUser');
-                 updateAuthUI();
-                 // Optionally redirect to home or show a message
-                 ValidationUI.showToast('Logged out successfully', 'info');
-             });
-         }
-         
-         // Update auth UI based on login status
-         function updateAuthUI() {
-             const currentUser = localStorage.getItem('currentUser');
-
-             // Ensure both elements exist before manipulating them
-             const authControls = document.getElementById('auth-controls');
-             const profileDropdown = document.getElementById('profile-dropdown');
              
-             if (currentUser && getUserData(currentUser)) {
-                 // User is logged in
-                 if (authControls) {
-                     authControls.classList.add('hidden');
-                     authControls.style.display = 'none';
-                 }
-                 if (profileDropdown) {
-                     profileDropdown.classList.remove('hidden');
-                     profileDropdown.style.display = 'block';
-                     
-                     // Set user name in dropdown
-                     const userData = getUserData(currentUser);
-                     const displayName = userData?.profile?.fullname || userData?.profile?.email || currentUser;
-                     const userNameElement = document.getElementById('user-name');
-                     if (userNameElement) userNameElement.textContent = displayName;
-                 }
-             } else {
-                 // User is not logged in
-                 if (authControls) {
-                     authControls.classList.remove('hidden');
-                     authControls.style.display = 'block';
-                 }
-                 if (profileDropdown) {
-                     profileDropdown.classList.add('hidden');
-                     profileDropdown.style.display = 'none';
-                 }
+             // Initialize carousels with more robust settings
+             if ($('#main_slider').length > 0) {
+                 $('#main_slider').carousel({
+                     interval: 5000,
+                     pause: false
+                 });
              }
-         }
+             
+             if ($('#my_slider').length > 0) {
+                 $('#my_slider').carousel({
+                     interval: 6000,
+                     pause: false
+                 });
+             }
+         });
          
 
-         
-         });
       </script>
+   <script src="auth-ui.js"></script>
    </body>
 </html>
