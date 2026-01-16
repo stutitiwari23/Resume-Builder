@@ -1756,3 +1756,71 @@ input.email_text::placeholder {
     transform: scale(1.05);
     transition: all 0.3s ease;
 }
+/* ===============================
+   Scroll To Top Button
+   =============================== */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--primary-500);
+    color: var(--primary-500);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#scrollToTopBtn i {
+    position: absolute;
+    font-size: 22px;
+    transition: color 0.3s ease;
+    color: rgb(207, 87, 18);
+}
+
+#scrollToTopBtn svg {
+    position: absolute;
+    transform: rotate(-90deg);
+    transition: transform 0.3s ease;
+}
+
+#progressCircle {
+    fill: none;
+    stroke: var(--primary-500);
+    stroke-width: 2;
+    stroke-dasharray: 188;
+    stroke-dashoffset: 188;
+    transition: stroke 0.3s ease;
+    color: rgb(207, 87, 18);
+}
+
+#scrollToTopBtn:hover {
+    background: var(--primary-500);
+    color: rgb(207, 87, 18);
+    transform: scale(1.1);
+}
+
+#scrollToTopBtn:hover i {
+    color: rgb(207, 87, 18);
+}
+
+#scrollToTopBtn:hover #progressCircle {
+    stroke: rgb(207, 87, 18);
+}
+
+#scrollToTopBtn:hover svg {
+    transform: rotate(-90deg) scale(1.12);
+}
+
+@media (max-width: 768px) {
+    #scrollToTopBtn {
+        width: 60px;
+        height: 60px;
+    }
+}

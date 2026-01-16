@@ -32,7 +32,7 @@
       <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
    </head>
    <body>
       <div class="header_section">
@@ -411,6 +411,12 @@
             <p class="copyright_text">2026 ResumeBuilder. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
          </div>
       </div>
+      <button id="scrollToTopBtn" aria-label="Scroll to top">
+    <svg width="72" height="72">
+      <circle id="progressCircle" cx="36" cy="36" r="30" />
+    </svg>
+    <i class="ri-arrow-up-line"></i>
+  </button>
       <!-- copyright section end -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
@@ -455,5 +461,43 @@
 
       </script>
    <script src="auth-ui.js"></script>
+   <script>
+
+    const scrollBtn = document.getElementById("scrollToTopBtn");
+    const progressCircle = document.getElementById("progressCircle");
+
+    const circumference = 188;
+    progressCircle.style.strokeDasharray = circumference;
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress = scrollTop / docHeight;
+      const offset = circumference - progress * circumference;
+
+      progressCircle.style.strokeDashoffset = offset;
+
+      if (scrollTop > 10) {
+        scrollBtn.style.display = "flex";
+        scrollBtn.style.opacity = "1";
+        scrollBtn.style.visibility = "visible";
+      } else {
+        scrollBtn.style.display = "none";
+        scrollBtn.style.opacity = "0";
+        scrollBtn.style.visibility = "hidden";
+      }
+    });
+
+    // Click → smooth scroll
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+  </script>
    </body>
 </html>
