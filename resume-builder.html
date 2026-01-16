@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="resume-style.css">
 
     <!-- PDF Export and Validation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
@@ -175,36 +175,49 @@
                         </div>
 
                         <div class="preview-section">
-                            <div id="resume-preview">
-                                <div class="preview-header">
-                                    <h1 id="preview-name"></h1>
-                                    <div class="preview-contact">
-                                        <span id="preview-email"></span> | <span id="preview-phone"></span> | <span
-                                            id="preview-location"></span>
-                                        <br><span id="preview-linkedin"></span>
-                                    </div>
-                                </div>
-                                <div class="preview-summary">
-                                    <h2>Professional Summary</h2>
-                                    <p id="preview-summary"></p>
-                                </div>
-                                <div class="preview-education">
-                                    <h2>Education</h2>
-                                    <p id="preview-education"></p>
-                                </div>
-                                <div class="preview-skills">
-                                    <h2>Skills</h2>
-                                    <div id="preview-skills"></div>
-                                </div>
-                                <div class="preview-experience">
-                                    <h2>Experience / Projects</h2>
-                                    <div id="preview-experience"></div>
-                                </div>
-                                <div class="preview-achievements">
-                                    <h2>Achievements / Certifications</h2>
-                                    <p id="preview-achievements"></p>
-                                </div>
+                            <div class="preview-header-with-buttons">
+                                <h2>Live Preview</h2>
+                                <button id="download-preview-pdf" class="download-preview-btn">Download PDF</button>
                             </div>
+                            <article id="resume-preview">
+
+  <header class="preview-header">
+    <h1 id="preview-name"></h1>
+    <div class="preview-contact">
+      <span id="preview-email"></span> |
+      <span id="preview-phone"></span> |
+      <span id="preview-location"></span><br>
+      <span id="preview-linkedin"></span>
+    </div>
+  </header>
+
+  <section class="preview-section-block" data-section="summary" draggable="true">
+    <h2>Professional Summary</h2>
+    <p id="preview-summary"></p>
+  </section>
+
+  <section class="preview-section-block" data-section="education" draggable="true">
+    <h2>Education</h2>
+    <p id="preview-education"></p>
+  </section>
+
+  <section class="preview-section-block" data-section="skills" draggable="true">
+    <h2>Skills</h2>
+    <div id="preview-skills"></div>
+  </section>
+
+  <section class="preview-section-block" data-section="experience" draggable="true">
+    <h2>Experience / Projects</h2>
+    <div id="preview-experience"></div>
+  </section>
+
+  <section class="preview-section-block" data-section="achievements" draggable="true">
+    <h2>Achievements / Certifications</h2>
+    <p id="preview-achievements"></p>
+  </section>
+
+</article>
+
                         </div>
                     </div>
                 </div>
@@ -218,6 +231,13 @@
     <script>
         // resume-builder.js - Dedicated resume builder page functionality
         document.addEventListener('DOMContentLoaded', function () {
+            // Check if user is authenticated before allowing access
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                // Redirect to login page if not logged in
+                window.location.href = './login.html';
+                return;
+            }
             const form = document.getElementById('resume-form');
             const skillsList = document.getElementById('skills-list');
             const addSkillBtn = document.getElementById('add-skill');
@@ -370,51 +390,66 @@
                 });
             }
 
+
+
             // Check login status when page loads
             updateAuthUI();
 
-            // PDF Export functionality
+            // Reusable PDF export function
+            function exportToPDF(buttonElement) {
+                // Validate that resume has minimum required data
+                const nameValue = document.getElementById('name').value.trim();
+
+                if (!nameValue) {
+                    ValidationUI.showToast('Please enter your name before downloading', 'error');
+                    document.getElementById('name').focus();
+                    return;
+                }
+
+                // Show loading toast
+                ValidationUI.showToast('Generating PDF...', 'info');
+
+                const element = document.getElementById('resume-preview');
+                const userName = nameValue.replace(/\s+/g, '_');
+                const filename = `${userName}_Resume.pdf`;
+
+                const opt = {
+                    margin: [0.5, 0.5, 0.5, 0.5],
+                    filename: filename,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        letterRendering: true
+                    },
+                    jsPDF: {
+                        unit: 'in',
+                        format: 'letter',
+                        orientation: 'portrait',
+                        compress: true
+                    }
+                };
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    ValidationUI.showToast('Resume downloaded successfully!', 'success');
+                }).catch((error) => {
+                    console.error('PDF generation error:', error);
+                    ValidationUI.showToast('Error generating PDF. Please try again.', 'error');
+                });
+            }
+
+            // PDF Export functionality for header button
             if (downloadPdfBtn) {
                 downloadPdfBtn.addEventListener('click', function () {
-                    // Validate that resume has minimum required data
-                    const nameValue = document.getElementById('name').value.trim();
+                    exportToPDF(this);
+                });
+            }
 
-                    if (!nameValue) {
-                        ValidationUI.showToast('Please enter your name before downloading', 'error');
-                        document.getElementById('name').focus();
-                        return;
-                    }
-
-                    // Show loading toast
-                    ValidationUI.showToast('Generating PDF...', 'info');
-
-                    const element = document.getElementById('resume-preview');
-                    const userName = nameValue.replace(/\s+/g, '_');
-                    const filename = `${userName}_Resume.pdf`;
-
-                    const opt = {
-                        margin: [0.5, 0.5, 0.5, 0.5],
-                        filename: filename,
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: {
-                            scale: 2,
-                            useCORS: true,
-                            letterRendering: true
-                        },
-                        jsPDF: {
-                            unit: 'in',
-                            format: 'letter',
-                            orientation: 'portrait',
-                            compress: true
-                        }
-                    };
-
-                    html2pdf().set(opt).from(element).save().then(() => {
-                        ValidationUI.showToast('Resume downloaded successfully!', 'success');
-                    }).catch((error) => {
-                        console.error('PDF generation error:', error);
-                        ValidationUI.showToast('Error generating PDF. Please try again.', 'error');
-                    });
+            // Download Preview PDF button functionality
+            const downloadPreviewPdfBtn = document.getElementById('download-preview-pdf');
+            if (downloadPreviewPdfBtn) {
+                downloadPreviewPdfBtn.addEventListener('click', function () {
+                    exportToPDF(this);
                 });
             }
 
@@ -529,6 +564,99 @@
                 updatePreview();
                 updateAuthUI(); // Update UI after loading user data
             }
+
+            /* ===== Resume Section Reordering (Drag & Drop) ===== */
+
+const previewContainer = document.getElementById("resume-preview");
+let draggedSection = null;
+
+function initSectionDragAndDrop() {
+    const sections = previewContainer.querySelectorAll(".preview-section-block");
+
+    sections.forEach(section => {
+
+        section.addEventListener("dragstart", () => {
+            draggedSection = section;
+            section.classList.add("dragging");
+        });
+
+        section.addEventListener("dragend", () => {
+            section.classList.remove("dragging");
+            draggedSection = null;
+            saveSectionOrder();
+        });
+
+
+
+        previewContainer.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(previewContainer, e.clientY);
+    if (!draggedSection) return;
+
+    if (afterElement == null) {
+        previewContainer.appendChild(draggedSection);
+    } else {
+        previewContainer.insertBefore(draggedSection, afterElement);
+    }
+});
+
+        section.addEventListener("dragleave", () => {
+            section.classList.remove("drag-over");
+        });
+
+        section.addEventListener("drop", () => {
+            section.classList.remove("drag-over");
+        });
+    });
+    
+}
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [
+        ...container.querySelectorAll(".preview-section-block:not(.dragging)")
+    ];
+
+    return draggableElements.reduce(
+        (closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        },
+        { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+}
+
+
+/* Save order */
+function saveSectionOrder() {
+    const order = [];
+    previewContainer.querySelectorAll(".preview-section-block").forEach(section => {
+        order.push(section.dataset.section);
+    });
+    localStorage.setItem("resumeSectionOrder", JSON.stringify(order));
+}
+
+/* Load order */
+function loadSectionOrder() {
+    const savedOrder = JSON.parse(localStorage.getItem("resumeSectionOrder"));
+    if (!savedOrder) return;
+
+    savedOrder.forEach(key => {
+        const section = previewContainer.querySelector(
+            `.preview-section-block[data-section="${key}"]`
+        );
+        if (section) previewContainer.appendChild(section);
+    });
+}
+
+/* Initialize */
+loadSectionOrder();
+initSectionDragAndDrop();
+
         });
     </script>
 </body>

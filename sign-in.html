@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    
+  <div class="auth-container">
+    <div class="auth-page">
+    <form class="auth-card">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to continue</p>
+
+      <div class="input-group">
+        <input type="email" required />
+        <label>Email</label>
+      </div>
+
+      <div class="input-group password-group">
+        <input type="password" id="signin-password" required />
+        <label>Password</label>
+        <span class="eye" onclick="togglePassword('signin-password', this)">👁</span>
+      </div>
+
+      <div class="forgot">
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn">Sign In</button>
+
+      <p class="switch">
+        Don’t have an account?
+        <a href="sign-up.html">Sign Up</a>
+      </p>
+    </form>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(inputId, eyeIcon) {
+    const input = document.getElementById(inputId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        eyeIcon.textContent = "👁";
+    } else {
+        input.type = "password";
+        eyeIcon.textContent = "👁";
+    }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const authForms = document.querySelectorAll(".auth-card");
+
+  authForms.forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault(); 
+
+      const email = form.querySelector('input[type="email"]');
+      const password = form.querySelector('input[type="password"]');
+
+      if (!email.value || !password.value) {
+        alert("Please fill in all fields");
+        return;
+      }
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 300);
+    });
+  });
+});
+  </script>
+</body>
+</html>
