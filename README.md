@@ -38,7 +38,10 @@ This project demonstrates:
 - Achievements / Certifications
 - Custom sections
 
----
+# Resume Builder 📝
+
+A simple and interactive web-based Resume Builder that helps users create professional resumes quickly and easily.  
+Users can fill in their details, preview the resume in real time, and download it in a clean format.
 
 ## 🚀 Quick Start
 
@@ -210,7 +213,25 @@ This project is licensed under the **MIT License** - see [LICENSE](LICENSE) file
 - **Documentation**: [DEVELOPMENT.md](DEVELOPMENT.md)
 - **Security**: See [SECURITY.md](SECURITY.md) for vulnerability reporting
 
----
+## 🚀 Live Demo
+Coming soon.
+
+## 📸 Screenshots
+
+> Add screenshots of the Resume Builder UI here  
+> Example:
+- Resume Form Page  
+- Live Resume Preview  
+- Downloaded Resume
+
+## ✨ Features
+
+- Easy-to-use resume form
+- Live resume preview
+- Clean and professional layout
+- Custom sections for education, experience, and skills
+- Download resume in printable format
+
 
 ## 🌟 Credits
 
