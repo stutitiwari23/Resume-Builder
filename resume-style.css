@@ -879,10 +879,7 @@ textarea::placeholder {
     }
 }
 
-/
-* ============================================
-   Enhanced Dark Mode Improvements
-   ============================================ */
+
 
 /* Better contrast for preview header in dark mode */
 [data-theme="dark"] .preview-header-with-buttons {
