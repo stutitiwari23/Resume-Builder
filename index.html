@@ -46,52 +46,32 @@
 
       <div class="header_section">
          <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="index.html"><span class="logo-text">Resume Builder</span></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="resume-builder.html">Resume Builder</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#templates">Templates</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Pricing</a>
-                     </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                     <button type="button" id="theme-toggle" style="background: none; border: 1px solid #ddd; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; margin-right: 15px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">
-                        <span class="icon-sun" style="display: block;">☀️</span>
-                        <span class="icon-moon" style="display: none;">🌙</span>
-                     </button>
-                     <div id="auth-controls">
-                        <ul>
-                           <li><a href="./sign-up.html" id="show-register-top">Sign Up</a></li>
-                           <li><a href="./sign-in.html" id="show-login-top">Sign In</a></li>
-                        </ul>
-                     </div>
-                     <div id="profile-dropdown" class="profile-dropdown hidden">
-                        <button class="profile-btn">
-                           <i class="fa fa-user" aria-hidden="true"></i>
-                           <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </button>
-                        <div class="dropdown-content" id="dropdown-menu">
-                           <div class="dropdown-item user-info" id="user-name"></div>
-                           <a href="./edit-profile.html" class="dropdown-item" id="edit-profile-link">Edit Profile</a>
-                           <a href="#" class="dropdown-item" id="settings-link">Settings</a>
-                           <a href="#" class="dropdown-item" id="logout">Logout</a>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-            </nav>
+            <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="index.html"><span class="logo-text">Resume Builder</span></a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+         <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="resume-builder.html">Resume Builder</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#templates">Templates</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#pricing">Pricing</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+         </li>
+      </ul>
+   </div>
+</nav>
 
          <!-- banner section start --> 
          <div class="banner_section layout_padding">
@@ -197,7 +177,7 @@
       </div>
       <!-- shop section end -->
       <!-- about section start -->
-      <div class="about_section layout_padding">
+      <div id="about" class="about_section layout_padding">
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-6 padding_left0">
@@ -206,7 +186,7 @@
                      <h6 class="about_text">READY TO CREATE YOUR PERFECT RESUME?</h6>
                      <div class="btn_main">
                         <div class="started_bt"><a href="resume-builder.html">Start Building</a></div>
-                        <div class="buy_bt active"><a href="#">View Templates</a></div>
+                        <div class="buy_bt active"><a href="#templates">View Templates</a></div>
                      </div>
                   </div>
                </div>
@@ -437,6 +417,7 @@
       <script src="storage.js"></script>
       <script src="auth.js"></script>
       <script src="theme.js"></script>
+      <script src="smooth-scroll.js"></script>
       <script>
          // Initialize auth UI on page load
          $(document).ready(function() {
