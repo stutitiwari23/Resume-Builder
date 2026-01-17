@@ -1711,3 +1711,177 @@ button:disabled:hover {
     margin-bottom: 16px;
   }
 }
+
+
+
+
+/* Main Container */
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Card Wrapper */
+.auth-page {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Auth Card */
+.auth-card {
+  background: #ffffff;
+  padding: 32px 28px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Heading */
+.auth-card h2 {
+  text-align: center;
+  color: #1e3c72;
+  margin-bottom: 6px;
+}
+
+/* Subtitle */
+.subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+/* Input Field */
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #2a5298;
+}
+
+/* Floating Label */
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  background: #fff;
+  padding: 0 6px;
+  color: #888;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* Label animation */
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -7px;
+  font-size: 12px;
+  color: #2a5298;
+}
+
+/* Password Group */
+.password-group {
+  position: relative;
+}
+
+/* Eye Icon */
+.eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  user-select: none;
+}
+
+/* Forgot Password */
+.forgot {
+  text-align: right;
+  margin-bottom: 18px;
+}
+
+.forgot a {
+  font-size: 13px;
+  color: #2a5298;
+  text-decoration: none;
+}
+
+.forgot a:hover {
+  text-decoration: underline;
+}
+
+/* Button */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(42, 82, 152, 0.4);
+}
+
+/* Switch Text */
+.switch {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #444;
+}
+
+.switch a {
+  color: #2a5298;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch a:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 26px 20px;
+  }
+}
