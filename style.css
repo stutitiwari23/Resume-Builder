@@ -81,6 +81,34 @@ button:active {
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
 }
 
+/* Scroll to Top Button */
+#up-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ff7a18;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+#up-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#up-btn:hover {
+  background-color: #e96b10;
+}
+
+
 input,
 textarea {
     width: 100%;
