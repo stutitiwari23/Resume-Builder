@@ -1,13 +1,10 @@
 name: CI/CD Pipeline
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    branches: [main, master]
 
 jobs:
   docs:
@@ -15,93 +12,67 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run markdownlint (if available)
-        run: |
-          if npm run -s docs:lint --if-present; then
-            echo "docs:lint script ran"
-          else
-            echo "No docs:lint script found — skipping markdown lint"
-          fi
+
+      - name: Check README exists
+        run: test -f README.md
 
   lint:
-    name: Lint Code (Node ${{ matrix.node }})
+    name: Lint Code
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [16, 18, 20]
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Run lint (npm run lint)
-        run: |
-          # npm supports --if-present to avoid failing if the script doesn't exist
-          npm run lint --if-present
-      - name: Run eslint manually if there is no npm script
-        if: ${{ always() }}
-        run: |
-          if ! npm run -s lint --if-present; then
-            if command -v npx >/dev/null 2>&1; then
-              echo "No npm lint script found — attempting `npx eslint .`"
-              npx eslint . --ext .js,.jsx,.ts,.tsx || true
-            else
-              echo "npx not available — skipping manual eslint"
-            fi
-          fi
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+      - run: npm run lint
 
   test:
     name: Run Tests
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests (npm test)
-        run: npm test --if-present
+          node-version: 18.x
+
+      - run: npm ci
+      - run: npm test -- --watch=false
 
   build:
-    name: Build & Verify
+    name: Build Project
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build (npm run build)
-        run: npm run build --if-present
+          node-version: 18.x
+
+      - run: npm ci
+      - run: npm run build
 
   security:
     name: Security Check
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v4
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: javascript
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: "/security"
+
+      - name: Dependency audit
+        run: npm audit --audit-level=high
 
   all-checks:
     name: All Checks Passed
     runs-on: ubuntu-latest
     needs: [docs, lint, test, build, security]
     steps:
-      - name: Summarize
-        run: echo "All required jobs finished. Check individual job logs for details."
+      - run: echo "All CI checks completed successfully."

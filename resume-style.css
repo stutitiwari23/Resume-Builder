@@ -856,6 +856,181 @@ textarea::placeholder {
 }
 
 /* ============================================
+   Template Selector
+   ============================================ */
+.template-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+.template-selector label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.template-selector select {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   Resume Templates
+   ============================================ */
+
+/* Default Modern Template */
+#resume-preview.template-modern {
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    color: #333;
+    border-left: 4px solid #007bff;
+}
+
+#resume-preview.template-modern .preview-header {
+    text-align: left;
+    border-bottom: 2px solid #007bff;
+}
+
+#resume-preview.template-modern .preview-header h1 {
+    color: #007bff;
+    font-weight: 700;
+}
+
+#resume-preview.template-modern h2 {
+    color: #007bff;
+    border-bottom: 1px solid #007bff;
+}
+
+/* Classic Template */
+#resume-preview.template-classic {
+    font-family: 'Times New Roman', serif;
+    background-color: #f9f9f9;
+    color: #222;
+    border: 1px solid #ccc;
+}
+
+#resume-preview.template-classic .preview-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+}
+
+#resume-preview.template-classic .preview-header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: #000;
+}
+
+#resume-preview.template-classic .preview-contact {
+    font-style: italic;
+}
+
+#resume-preview.template-classic h2 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+/* Minimal Template */
+#resume-preview.template-minimal {
+    font-family: 'Helvetica', sans-serif;
+    background-color: white;
+    color: #333;
+    padding: 1.5rem;
+}
+
+#resume-preview.template-minimal .preview-header {
+    text-align: left;
+    border-bottom: none;
+    margin-bottom: 1rem;
+}
+
+#resume-preview.template-minimal .preview-header h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #000;
+    margin-bottom: 0.25rem;
+}
+
+#resume-preview.template-minimal .preview-contact {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+#resume-preview.template-minimal h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #000;
+    border-bottom: none;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: lowercase;
+}
+
+#resume-preview.template-minimal h2::first-letter {
+    text-transform: uppercase;
+}
+
+/* Responsive adjustments for templates */
+@media (max-width: 768px) {
+    #resume-preview.template-modern,
+    #resume-preview.template-classic,
+    #resume-preview.template-minimal {
+        padding: 1rem;
+    }
+
+    #resume-preview.template-classic .preview-header h1 {
+        font-size: 2rem;
+    }
+
+    #resume-preview.template-minimal .preview-header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ============================================
+   Section Reordering Controls
+   ============================================ */
+.preview-section-block h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.section-controls {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.section-controls button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.section-controls button:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.section-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
    Authentication Section
    ============================================ */
 #auth-section {

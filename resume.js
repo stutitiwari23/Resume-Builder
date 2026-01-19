@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const addSkillBtn = document.getElementById('add-skill');
   const skillInput = document.getElementById('skill-input');
   let skills = [];
+  let currentTemplate = 'modern';
   const downloadBtn = document.getElementById('download-resume');
   const ctaCreateBtn = document.getElementById('cta-create');
   const ctaDemoBtn = document.getElementById('cta-demo');
@@ -21,6 +22,16 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize
   loadUserDataInternal();
   updateAuthUI();
+
+  // Template selection
+  const templateSelect = document.getElementById('template-select');
+  if (templateSelect) {
+    templateSelect.addEventListener('change', function() {
+      currentTemplate = this.value;
+      applyTemplate();
+      saveResumeData();
+    });
+  }
 
   // Two-way data binding for inputs with validation
   if (form) {
@@ -310,9 +321,20 @@ document.addEventListener('DOMContentLoaded', function () {
       expOrg: document.getElementById('exp-org') ? document.getElementById('exp-org').value : '',
       expDuration: document.getElementById('exp-duration') ? document.getElementById('exp-duration').value : '',
       expDesc: document.getElementById('exp-desc') ? document.getElementById('exp-desc').value : '',
-      achievements: document.getElementById('achievements') ? document.getElementById('achievements').value : ''
+      achievements: document.getElementById('achievements') ? document.getElementById('achievements').value : '',
+      template: currentTemplate
     };
     saveUserData(currentUser, userData);
+  }
+
+  function applyTemplate() {
+    const resumePreview = document.getElementById('resume-preview');
+    if (resumePreview) {
+      // Remove all template classes
+      resumePreview.classList.remove('template-modern', 'template-classic', 'template-minimal');
+      // Add current template class
+      resumePreview.classList.add('template-' + currentTemplate);
+    }
   }
 
   function loadUserDataInternal() {
@@ -328,6 +350,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     renderSkills();
     updatePreview();
+    if (userData.resume && userData.resume.template) {
+      currentTemplate = userData.resume.template;
+      const templateSelect = document.getElementById('template-select');
+      if (templateSelect) {
+        templateSelect.value = currentTemplate;
+      }
+    }
+    applyTemplate();
     updateAuthUI(); // Update UI after loading user data
   }
 });

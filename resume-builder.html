@@ -181,6 +181,14 @@
                         <div class="preview-section">
                             <div class="preview-header-with-buttons">
                                 <h2>Live Preview</h2>
+                                <div class="template-selector">
+                                    <label for="template-select">Template:</label>
+                                    <select id="template-select">
+                                        <option value="modern">Modern</option>
+                                        <option value="classic">Classic</option>
+                                        <option value="minimal">Minimal</option>
+                                    </select>
+                                </div>
                                 <button id="download-preview-pdf" class="download-preview-btn">Download PDF</button>
                             </div>
                             <article id="resume-preview">
@@ -221,6 +229,42 @@
                                     <p id="preview-achievements"></p>
                                 </section>
                             </article>
+  <header class="preview-header">
+    <h1 id="preview-name"></h1>
+    <div class="preview-contact">
+      <span id="preview-email"></span> |
+      <span id="preview-phone"></span> |
+      <span id="preview-location"></span><br>
+      <span id="preview-linkedin"></span> |
+      <span id="preview-github"></span>
+    </div>
+  </header>
+
+  <section class="preview-section-block" data-section="summary" draggable="true">
+    <h2>Professional Summary <span class="section-controls"><button class="move-up" data-section="summary" aria-label="Move up">↑</button><button class="move-down" data-section="summary" aria-label="Move down">↓</button></span></h2>
+    <p id="preview-summary"></p>
+  </section>
+
+  <section class="preview-section-block" data-section="education" draggable="true">
+    <h2>Education <span class="section-controls"><button class="move-up" data-section="education" aria-label="Move up">↑</button><button class="move-down" data-section="education" aria-label="Move down">↓</button></span></h2>
+    <p id="preview-education"></p>
+  </section>
+
+  <section class="preview-section-block" data-section="skills" draggable="true">
+    <h2>Skills <span class="section-controls"><button class="move-up" data-section="skills" aria-label="Move up">↑</button><button class="move-down" data-section="skills" aria-label="Move down">↓</button></span></h2>
+    <div id="preview-skills"></div>
+  </section>
+
+  <section class="preview-section-block" data-section="experience" draggable="true">
+    <h2>Experience / Projects <span class="section-controls"><button class="move-up" data-section="experience" aria-label="Move up">↑</button><button class="move-down" data-section="experience" aria-label="Move down">↓</button></span></h2>
+    <div id="preview-experience"></div>
+  </section>
+
+  <section class="preview-section-block" data-section="achievements" draggable="true">
+    <h2>Achievements / Certifications <span class="section-controls"><button class="move-up" data-section="achievements" aria-label="Move up">↑</button><button class="move-down" data-section="achievements" aria-label="Move down">↓</button></span></h2>
+    <p id="preview-achievements"></p>
+  </section>
+</article>
 
 
                         </div>
