@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* =======================
+  /* =======================window.location.href = "resume-builder.html";
        ELEMENT REFERENCES
     ======================== */
   const authSection = document.getElementById('auth-section');
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (ctaBtn) {
         ctaBtn.addEventListener('click', () => {
             if (currentUser && userData?.session) {
-                showResumeSection();
+                window.location.href = "resume-builder.html";
             } else {
                 showAuthSection();
             }
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('currentUser', email);
 
       ValidationUI.showToast('Login successful!', 'success');
-      showResumeSection();
+      window.location.href = "resume-builder.html";
     });
   }
 
