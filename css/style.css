@@ -360,6 +360,81 @@ button {
     padding: 0px;
 }
 
+/* Dark theme  */
+
+.theme-toggle button {
+  background: transparent;
+  border: 2px solid #28454e;
+  color: #28454e;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle button:hover {
+  background-color: #eefdf9;
+}
+
+/* Dark theme style  */
+
+body.dark-theme {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* Header section */
+body.dark-theme .header_section {
+  background-color: #1e1e1e;
+  background-image: none;
+}
+
+/* Navbar */
+body.dark-theme .navbar {
+  background-color: #1a1a1a;
+}
+
+body.dark-theme .navbar-nav .nav-link {
+  color: #e0e0e0;
+  color: #ffffff !important;
+}
+
+body.dark-theme .navbar-nav .nav-link:hover {
+  color: #7ddbd2;
+  color: #7ddbd2 !important;
+}
+
+/* Auth buttons */
+body.dark-theme #auth-controls a {
+  background-color: transparent;
+  color: #7ddbd2;
+  border-color: #7ddbd2;
+}
+
+body.dark-theme #auth-controls a:hover {
+  background-color: rgba(125, 219, 210, 0.15);
+}
+
+/* Hero text */
+body.dark-theme h1,
+body.dark-theme p {
+  color: #eaeaea;
+}
+
+body.dark-theme .header_section::after {
+  background-color: #1a1a1a;
+}
+
+body.dark-theme .header_section h1,
+body.dark-theme .header_section h2,
+body.dark-theme .header_section p {
+  color: #f1f1f1 !important;
+}
+body.dark-theme .navbar-brand {
+  color: #7ddbd2 !important;
+}
 
 /* header section start */
 
