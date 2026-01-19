@@ -84,14 +84,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (ctaBtn) {
-    ctaBtn.addEventListener('click', () => {
-      if (currentUser && userData?.session) {
-        showResumeSection();
-      } else {
-        showAuthSection();
-      }
-    });
-  }
+  ctaBtn.addEventListener('click', () => {
+    if (currentUser && userData?.session) {
+      window.location.href = "resume-builder.html";
+    } else {
+      window.location.href = "login.html";
+    }
+  });
+}
+
 
   /* =======================
        REGISTER
