@@ -377,3 +377,4 @@ These constraints are intentional to keep the project framework-free and focused
 
 **Made with ❤️ by the community. Happy resume building! 🚀**
 
+This Resume Builder helps users create clean and professional resumes using simple web technologies.
