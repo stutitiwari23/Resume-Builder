@@ -1,16 +1,14 @@
 {
   "name": "resume-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modern, frontend-only resume builder with live preview and local data persistence",
   "main": "resume.js",
-
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest --passWithNoTests",
     "build": "echo \"No build step required\"",
-    "docs:lint": "markdownlint-cli2 \"**/*.md\""
+    "docs:lint": "markdownlint-cli \"**/*.md\""
   },
-
   "keywords": [
     "resume",
     "cv",
@@ -21,29 +19,23 @@
     "vanilla-js",
     "local-storage"
   ],
-
   "author": "Resume Builder Contributors",
   "license": "MIT",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/resume-builder.git"
   },
-
   "bugs": {
     "url": "https://github.com/yourusername/resume-builder/issues"
   },
-
   "homepage": "https://github.com/yourusername/resume-builder#readme",
-
   "devDependencies": {
     "eslint": "^8.55.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "markdownlint-cli2": "^0.13.0",
+    "markdownlint-cli": "^0.32.0",
     "http-server": "^14.1.1"
   },
-
   "engines": {
     "node": ">=18.0.0"
   }
