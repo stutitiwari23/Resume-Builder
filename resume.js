@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function saveResumeData() {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = localStorage.getItem('currentUser') || 'guest_user';
     if (!currentUser) {
       return;
     }
@@ -316,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
       institution: document.getElementById('institution') ? document.getElementById('institution').value : '',
       year: document.getElementById('year') ? document.getElementById('year').value : '',
       cgpa: document.getElementById('cgpa') ? document.getElementById('cgpa').value : '',
+      github: document.getElementById('github')?.value || '',
       skills: skills,
       expTitle: document.getElementById('exp-title') ? document.getElementById('exp-title').value : '',
       expOrg: document.getElementById('exp-org') ? document.getElementById('exp-org').value : '',
@@ -345,6 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
     const userData = getUserData(currentUser) || {};
+    
     if (userData.resume && userData.resume.skills) {
       skills = userData.resume.skills.slice();
     }

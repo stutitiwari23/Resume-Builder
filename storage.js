@@ -64,14 +64,11 @@
      * loadUserData();
      */
   window.loadUserData = function() {
-    const currentUser = localStorage.getItem('currentUser');
-    if (!currentUser) {
-      return;
-    }
+    // Try to get currentUser, fallback to a 'guest' key for drafts
+    const currentUser = localStorage.getItem('currentUser') || 'guest_user';
     const userData = getUserData(currentUser);
-    if (!userData) {
-      return;
-    }
+    
+    if (!userData || !userData.resume) return;
 
     // apply theme if stored
     if (userData.theme) {
@@ -97,6 +94,7 @@
       assign('phone', r.phone);
       assign('location', r.location);
       assign('linkedin', r.linkedin);
+      assign('github', r.github);
       assign('summary', r.summary);
       assign('degree', r.degree);
       assign('institution', r.institution);
