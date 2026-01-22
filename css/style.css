@@ -26,6 +26,70 @@ body {
     overflow-x: hidden;
 }
 
+/* ===== Auth Header Buttons ===== */
+.auth-header {
+  position: fixed;
+  top: 130px;
+  right: 30px;
+  display: flex;
+  gap: 12px;
+  z-index: 9999;
+  position: absolute;
+}
+
+/* Common button style */
+.btn-auth {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid #28454e;
+  cursor: pointer;
+}
+
+/* Sign In */
+.btn-login {
+  background-color: transparent;
+  color: #28454e;
+}
+
+.btn-login:hover {
+  background-color: #e6fdf9;
+  color: #1f3539;
+  transform: translateY(-2px);
+}
+
+/* Sign Up (Primary) */
+.btn-register {
+  background-color: #28454e;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(40, 69, 78, 0.3);
+}
+
+.btn-register:hover {
+  background-color: #1f3539;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(40, 69, 78, 0.4);
+}
+
+@media (max-width: 768px) {
+  .auth-header {
+    right: 15px;
+    gap: 10px;
+  }
+
+  .btn-auth {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+
+
 /* chat bot style */
 #chat-btn {
   position: fixed;
