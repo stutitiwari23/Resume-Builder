@@ -4,7 +4,7 @@
 /*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
 
 @import url(icomoon.css);
-@import url(css/font-awesome.min.css);
+@import url(font-awesome.min.css);
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
@@ -441,7 +441,7 @@ body.dark-theme .navbar-brand {
 .header_section {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
+    background-image: url(../../assets/images/banner-bg.png);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Resume Builder</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Login - Resume Builder</title>
+    <link rel="stylesheet" type="text/css" href="../src/styles/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../src/styles/style.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <script>
-        window.location.replace("sign-up.html");
+
+        window.location.replace("sign-in.html");
     </script>
 
     <style>
@@ -66,14 +67,14 @@
             z-index: 0;
         }
         
-        .register-container {
-            max-width: 520px;
+        .login-container {
+            max-width: 480px;
             width: 100%;
             position: relative;
             z-index: 1;
         }
         
-        .register-card {
+        .login-card {
             background: #ffffff;
             border-radius: 24px;
             box-shadow: 0 25px 80px rgba(40, 69, 78, 0.15);
@@ -84,7 +85,7 @@
             overflow: hidden;
         }
 
-        .register-card::before {
+        .login-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -105,7 +106,7 @@
             }
         }
         
-        .register-card h2 {
+        .login-card h2 {
             text-align: center;
             margin-bottom: 0.5rem;
             color: #28454e;
@@ -115,7 +116,7 @@
             letter-spacing: -0.5px;
         }
 
-        .register-card .subtitle {
+        .login-card .subtitle {
             text-align: center;
             color: #666666;
             margin-bottom: 2.5rem;
@@ -123,8 +124,8 @@
             font-weight: 400;
         }
         
-        .register-form {
-            margin-top: 1rem;
+        .login-form {
+            margin-top: 1.5rem;
         }
 
         .form-group {
@@ -132,7 +133,7 @@
             position: relative;
         }
         
-        .register-form label {
+        .login-form label {
             display: block;
             margin-bottom: 0.75rem;
             font-weight: 700;
@@ -142,13 +143,13 @@
             letter-spacing: 0.5px;
         }
 
-        .register-form label i {
+        .login-form label i {
             margin-right: 8px;
             color: #28454e;
             opacity: 0.7;
         }
         
-        .register-form input {
+        .login-form input {
             width: 100%;
             padding: 1rem 1.25rem;
             padding-right: 3.5rem;
@@ -162,12 +163,12 @@
             font-family: 'Sen', sans-serif;
         }
 
-        .register-form input::placeholder {
+        .login-form input::placeholder {
             color: #999999;
             font-weight: 400;
         }
 
-        .register-form input:focus {
+        .login-form input:focus {
             outline: none;
             border-color: #28454e;
             background-color: #ffffff;
@@ -193,7 +194,7 @@
             transform: scale(1.1);
         }
         
-        .register-form button[type="submit"] {
+        .login-form button[type="submit"] {
             width: 100%;
             padding: 1rem;
             background-color: #28454e;
@@ -211,72 +212,28 @@
             box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
         }
         
-        .register-form button[type="submit"]:hover {
+        .login-form button[type="submit"]:hover {
             background-color: #1f3539;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
         }
 
-        .register-form button[type="submit"]:active {
+        .login-form button[type="submit"]:active {
             transform: translateY(0);
         }
 
-        .register-form button[type="submit"] i {
+        .login-form button[type="submit"] i {
             margin-right: 8px;
         }
         
-        .button-group {
-            display: flex;
-            gap: 0.875rem;
-            margin-top: 1rem;
-        }
-        
-        .button-group button {
-            flex: 1;
-        }
-        
-        .btn-back-home-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            padding: 1rem;
-            background-color: #e0fdf9;
-            color: #28454e;
-            border: 2px solid #e0fdf9;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Sen', sans-serif;
-            box-shadow: 0 4px 15px rgba(224, 253, 249, 0.4);
-        }
-        
-        .btn-back-home-link:hover {
-            background-color: #c8f5f0;
-            border-color: #28454e;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(224, 253, 249, 0.5);
-            color: #28454e;
-            text-decoration: none;
-        }
-
-        .btn-back-home-link i {
-            margin-right: 8px;
-        }
-        
-        .register-form p {
+        .login-form p {
             text-align: center;
             margin: 2rem 0 0;
             color: #666666;
             font-size: 0.95rem;
         }
         
-        .register-form a {
+        .login-form a {
             color: #28454e;
             text-decoration: none;
             font-weight: 700;
@@ -284,7 +241,7 @@
             border-bottom: 2px solid transparent;
         }
         
-        .register-form a:hover {
+        .login-form a:hover {
             color: #1f3539;
             border-bottom-color: #28454e;
         }
@@ -303,47 +260,6 @@
             margin-top: 0.5rem;
             display: block;
             font-weight: 500;
-        }
-        
-        .password-strength {
-            margin-top: 0.75rem;
-        }
-        
-        .strength-bar {
-            height: 5px;
-            background-color: #e0fdf9;
-            border-radius: 3px;
-            margin: 0.5rem 0;
-            overflow: hidden;
-        }
-        
-        .strength-fill {
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s, background-color 0.3s;
-            border-radius: 3px;
-        }
-
-        .strength-fill.weak {
-            background-color: #dc3545;
-            width: 33%;
-        }
-
-        .strength-fill.medium {
-            background-color: #ffc107;
-            width: 66%;
-        }
-
-        .strength-fill.strong {
-            background-color: #28a745;
-            width: 100%;
-        }
-        
-        .strength-text {
-            font-size: 0.8rem;
-            color: #666666;
-            margin-top: 0.25rem;
-            font-weight: 600;
         }
 
         .divider {
@@ -366,6 +282,32 @@
             padding: 0 1rem;
             background: #ffffff;
             font-weight: 600;
+        }
+        
+        .back-to-home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 2rem;
+            color: #28454e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background-color: rgba(224, 253, 249, 0.3);
+        }
+        
+        .back-to-home:hover {
+            color: #1f3539;
+            background-color: rgba(224, 253, 249, 0.5);
+            text-decoration: none;
+            transform: translateX(-5px);
+        }
+
+        .back-to-home i {
+            margin-right: 8px;
         }
         
         /* Toast Notification Styles */
@@ -408,17 +350,13 @@
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .register-card {
+            .login-card {
                 padding: 2.5rem 2rem;
                 border-radius: 20px;
             }
 
-            .register-card h2 {
+            .login-card h2 {
                 font-size: 1.75rem;
-            }
-
-            .button-group {
-                flex-direction: column;
             }
 
             .toast-notification {
@@ -435,11 +373,11 @@
         }
 
         @media (max-width: 480px) {
-            .register-card {
+            .login-card {
                 padding: 2rem 1.5rem;
             }
 
-            .register-card h2 {
+            .login-card h2 {
                 font-size: 1.5rem;
             }
         }
@@ -462,76 +400,61 @@
 </div>
 
     <div class="main-content">
-        <div class="register-container">
-        <div class="register-card">
-            <h2>Create Account</h2>
-            <p class="subtitle">Join us and start building your professional resume</p>
+        <div class="login-container">
+        <div class="login-card">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to continue building your professional resume</p>
             
-            <!-- Register Form -->
-            <div id="register-form" class="register-form">
-                <form id="register">
+            <!-- Login Form -->
+            <div id="login-form" class="login-form">
+                <form id="login">
                     <div class="form-group">
-                        <label for="reg-fullname">
-                            <i class="fa fa-user" aria-hidden="true"></i> Full Name
-                        </label>
-                        <input type="text" id="reg-fullname" placeholder="Enter your full name" required>
-                        <div class="error-message" id="name-error-message"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="reg-email">
+                        <label for="login-email">
                             <i class="fa fa-envelope" aria-hidden="true"></i> Email Address
                         </label>
-                        <input type="email" id="reg-email" placeholder="Enter your email" required>
-                        <div class="error-message" id="email-error-message"></div>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                        <div class="error-message" id="login-email-error"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="reg-password">
+                        <label for="login-password">
                             <i class="fa fa-lock" aria-hidden="true"></i> Password
                         </label>
-                        <input type="password" id="reg-password" placeholder="Create a strong password" required>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
                         <button type="button" class="password-toggle" id="toggle-password">
                             <i class="fa fa-eye" id="eye-icon"></i>
                         </button>
-                        <div class="error-message" id="password-error-message"></div>
-                        <div class="password-strength">
-                            <div class="strength-bar">
-                                <div class="strength-fill" id="strength-fill"></div>
-                            </div>
-                            <div class="strength-text" id="strength-text"></div>
-                        </div>
+                        <div class="error-message" id="login-password-error"></div>
                     </div>
                     
-                    <div class="button-group">
-                        <button type="submit">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i> Register
-                        </button>
-                        <a href="./index.html" class="btn-back-home-link">
-                            <i class="fa fa-home" aria-hidden="true"></i> Home
-                        </a>
-                    </div>
+                    <button type="submit">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
+                    </button>
                 </form>
 
                 <div class="divider">
                     <span>or</span>
                 </div>
 
-                <p>Already have an account? <a href="./sign-in.html" id="show-login">Sign In</a></p>
+                <p>Don't have an account? <a href="./sign-up.html" id="show-register">Create Account</a></p>
 
             </div>
+
+            <a href="./index.html" class="back-to-home">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home
+            </a>
         </div>
     </div>
 
-    <script src="validation.js"></script>
-    <script src="storage.js"></script>
-    <script src="auth.js"></script>
-    <script src="theme.js"></script>
+    <script src="../src/utils/validation.js"></script>
+    <script src="../src/core/storage.js"></script>
+    <script src="../src/auth/auth.js"></script>
+    <script src="../src/ui/theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Password toggle functionality
             const togglePassword = document.getElementById('toggle-password');
-            const passwordInput = document.getElementById('reg-password');
+            const passwordInput = document.getElementById('login-password');
             const eyeIcon = document.getElementById('eye-icon');
 
             if (togglePassword && passwordInput) {
@@ -548,155 +471,77 @@
                 });
             }
 
-            // Handle register form submission
-            const registerForm = document.getElementById('register');
-            if (registerForm) {
-                registerForm.addEventListener('submit', function(e) {
+            // Handle login form submission
+            const loginForm = document.getElementById('login');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
                     e.preventDefault();
 
                     // Clear previous errors
-                    ValidationUI.clearError('reg-fullname');
-                    ValidationUI.clearError('reg-email');
-                    ValidationUI.clearError('reg-password');
+                    ValidationUI.clearError('login-email');
+                    ValidationUI.clearError('login-password');
 
-                    const fullName = document.getElementById('reg-fullname').value.trim();
-                    const email = document.getElementById('reg-email').value.trim();
-                    const password = document.getElementById('reg-password').value;
+                    const email = document.getElementById('login-email').value.trim();
+                    const password = document.getElementById('login-password').value;
 
                     let isValid = true;
 
-                    // Validate full name
-                    if (Validator.isEmpty(fullName)) {
-                        ValidationUI.showError('reg-fullname', 'Full name is required');
-                        isValid = false;
-                    } else if (fullName.length < 2) {
-                        ValidationUI.showError('reg-fullname', 'Name must be at least 2 characters');
-                        isValid = false;
-                    }
-
                     // Validate email
                     if (Validator.isEmpty(email)) {
-                        ValidationUI.showError('reg-email', 'Email is required');
+                        ValidationUI.showError('login-email', 'Email is required');
                         isValid = false;
                     } else if (!Validator.isValidEmail(email)) {
-                        ValidationUI.showError('reg-email', 'Please enter a valid email address');
-                        isValid = false;
-                    } else if (getUserData(email)) {
-                        ValidationUI.showError('reg-email', 'This email is already registered');
+                        ValidationUI.showError('login-email', 'Please enter a valid email address');
                         isValid = false;
                     }
 
                     // Validate password
-                    const passwordValidation = Validator.validatePassword(password);
                     if (Validator.isEmpty(password)) {
-                        ValidationUI.showError('reg-password', 'Password is required');
-                        isValid = false;
-                    } else if (!passwordValidation.isValid) {
-                        ValidationUI.showError('reg-password', passwordValidation.message);
+                        ValidationUI.showError('login-password', 'Password is required');
                         isValid = false;
                     }
 
                     if (!isValid) return;
 
-                    // Create user
-                    const userData = {
-                        fullName,
-                        password, // In production, this should be hashed
-                        profile: { fullname: fullName, email: email },
-                        resume: {},
-                        theme: 'light',
-                        session: false
-                    };
-
-                    saveUserData(email, userData);
-                    ValidationUI.showToast('Registration successful! Redirecting to login...', 'success');
-
-                    // Set current user and redirect to resume builder
-                    localStorage.setItem('currentUser', email);
-                    ValidationUI.showToast('Registration successful! Redirecting to resume builder...', 'success');
-                    setTimeout(() => {
-                        window.location.href = './resume-builder.html';
-                    }, 1500);
+                    // Check credentials
+                    const userData = getUserData(email);
+                    if (userData && userData.password === password) {
+                        userData.session = true;
+                        saveUserData(email, userData);
+                        localStorage.setItem('currentUser', email);
+                        ValidationUI.showToast('Login successful! Welcome back.', 'success');
+                        
+                        // Redirect to resume builder after successful login
+                        setTimeout(() => {
+                            window.location.href = './resume-builder.html';
+                        }, 1000);
+                    } else {
+                        ValidationUI.showError('login-email', 'Invalid email or password');
+                        ValidationUI.showError('login-password', 'Invalid email or password');
+                        ValidationUI.showToast('Invalid credentials. Please try again.', 'error');
+                    }
                 });
             }
             
-            // Handle real-time validation for registration form
-            const regEmailInput = document.getElementById('reg-email');
-            const regPasswordInput = document.getElementById('reg-password');
-            const regFullnameInput = document.getElementById('reg-fullname');
-
-            if (regEmailInput) {
-                regEmailInput.addEventListener('blur', function () {
+            // Handle real-time validation for login form
+            const loginEmailInput = document.getElementById('login-email');
+            if (loginEmailInput) {
+                loginEmailInput.addEventListener('blur', function () {
                     const email = this.value.trim();
-                    if (!Validator.isEmpty(email)) {
-                        if (!Validator.isValidEmail(email)) {
-                            ValidationUI.showError('reg-email', 'Please enter a valid email address');
-                        } else if (getUserData(email)) {
-                            ValidationUI.showError('reg-email', 'This email is already registered');
-                        } else {
-                            ValidationUI.clearError('reg-email');
-                            ValidationUI.showSuccess('reg-email');
-                        }
+                    if (!Validator.isEmpty(email) && !Validator.isValidEmail(email)) {
+                        ValidationUI.showError('login-email', 'Please enter a valid email address');
+                    } else if (!Validator.isEmpty(email)) {
+                        ValidationUI.clearError('login-email');
                     }
                 });
             }
-
-            if (regPasswordInput) {
-                regPasswordInput.addEventListener('input', function () {
-                    const password = this.value;
-                    const strengthFill = document.getElementById('strength-fill');
-                    const strengthText = document.getElementById('strength-text');
-                    
-                    if (password.length > 0) {
-                        const result = Validator.validatePassword(password);
-                        ValidationUI.showPasswordStrength('reg-password', result);
-                        
-                        // Update visual strength indicator
-                        if (strengthFill && strengthText) {
-                            strengthFill.className = 'strength-fill';
-                            if (password.length < 6) {
-                                strengthFill.classList.add('weak');
-                                strengthText.textContent = 'Weak password';
-                            } else if (password.length < 10 || !result.isValid) {
-                                strengthFill.classList.add('medium');
-                                strengthText.textContent = 'Medium strength';
-                            } else {
-                                strengthFill.classList.add('strong');
-                                strengthText.textContent = 'Strong password';
-                            }
-                        }
-                        
-                        if (result.isValid) {
-                            ValidationUI.clearError('reg-password');
-                        }
-                    } else {
-                        if (strengthFill) {
-                            strengthFill.className = 'strength-fill';
-                            strengthFill.style.width = '0%';
-                        }
-                        if (strengthText) {
-                            strengthText.textContent = '';
-                        }
-                    }
-                });
-            }
-
-            if (regFullnameInput) {
-                regFullnameInput.addEventListener('blur', function () {
-                    const name = this.value.trim();
-                    if (!Validator.isEmpty(name) && name.length >= 2) {
-                        ValidationUI.clearError('reg-fullname');
-                        ValidationUI.showSuccess('reg-fullname');
-                    }
-                });
-            }
-
-            // Handle 'Sign In' link click
-            const showLoginLink = document.getElementById('show-login');
-            if (showLoginLink) {
-                showLoginLink.addEventListener('click', function(e) {
+            
+            // Handle 'Create Account' link click
+            const showRegisterLink = document.getElementById('show-register');
+            if (showRegisterLink) {
+                showRegisterLink.addEventListener('click', function(e) {
                     e.preventDefault();
-                    window.location.href = './login.html';
+                    window.location.href = './register.html';
                 });
             }
         });
