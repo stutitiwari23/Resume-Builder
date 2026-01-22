@@ -1463,3 +1463,82 @@ textarea::placeholder {
     background-color: var(--accent-color);
     color: #121212;
 }
+
+/* ============================================
+   Tooltip Styles
+   ============================================ */
+
+/* Base tooltip styles */
+.tooltip {
+    position: relative;
+    display: block;
+    cursor: help;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    line-height: 1.4;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    word-wrap: break-word;
+}
+
+.tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--bg-tertiary) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Dark theme adjustments for tooltips */
+[data-theme="dark"] .tooltip .tooltip-text {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .tooltip .tooltip-text::after {
+    border-color: var(--bg-tertiary) transparent transparent transparent;
+}
+
+/* Responsive tooltip positioning */
+@media (max-width: 768px) {
+    .tooltip .tooltip-text {
+        width: 200px;
+        margin-left: -100px;
+        left: 50%;
+        bottom: 125%;
+    }
+}
+
+@media (max-width: 480px) {
+    .tooltip .tooltip-text {
+        width: 180px;
+        margin-left: -90px;
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}

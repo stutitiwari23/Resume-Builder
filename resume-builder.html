@@ -134,62 +134,115 @@
                         <div class="form-section">
                             <form id="resume-form">
                                 <h2 class="section-title">Personal Information</h2>
-                                <label for="name">Name</label>
-                                <input type="text" id="name">
+                                <div class="tooltip">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name">
+                                    <span class="tooltip-text">Enter your full name as it should appear on your resume</span>
+                                </div>
 
-                                <label for="email">Email</label>
-                                <input type="email" id="email">
+                                <div class="tooltip">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email">
+                                    <span class="tooltip-text">Enter your professional email address (e.g., john.doe@email.com)</span>
+                                </div>
 
-                                <label for="phone">Phone</label>
-                                <input type="tel" id="phone">
+                                <div class="tooltip">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone">
+                                    <span class="tooltip-text">Enter your phone number with country code (e.g., +1-555-123-4567)</span>
+                                </div>
 
-                                <label for="location">Location</label>
-                                <input type="text" id="location">
+                                <div class="tooltip">
+                                    <label for="location">Location</label>
+                                    <input type="text" id="location">
+                                    <span class="tooltip-text">Enter your city and state/country (e.g., New York, NY or London, UK)</span>
+                                </div>
 
-                                <label for="linkedin">LinkedIn URL</label>
-                                <input type="url" id="linkedin">
+                                <div class="tooltip">
+                                    <label for="linkedin">LinkedIn URL</label>
+                                    <input type="url" id="linkedin">
+                                    <span class="tooltip-text">Enter your LinkedIn profile URL (e.g., https://linkedin.com/in/johndoe)</span>
+                                </div>
 
-                                <label for="github">GitHub URL</label>
-                                <input type="url" id="github">
+                                <div class="tooltip">
+                                    <label for="github">GitHub URL</label>
+                                    <input type="url" id="github">
+                                    <span class="tooltip-text">Enter your GitHub profile URL (e.g., https://github.com/johndoe)</span>
+                                </div>
 
                                 <h2 class="section-title">Professional Summary</h2>
-                                <textarea id="summary" rows="4"></textarea>
+                                <div class="tooltip">
+                                    <label for="summary">Professional Summary</label>
+                                    <textarea id="summary" rows="4"></textarea>
+                                    <span class="tooltip-text">Write a brief 2-3 sentence summary of your professional background, skills, and career goals</span>
+                                </div>
 
                                 <h2 class="section-title">Education</h2>
-                                <label for="degree">Degree</label>
-                                <input type="text" id="degree">
+                                <div class="tooltip">
+                                    <label for="degree">Degree</label>
+                                    <input type="text" id="degree">
+                                    <span class="tooltip-text">Enter your degree (e.g., Bachelor of Science in Computer Science, MBA)</span>
+                                </div>
 
-                                <label for="institution">Institution</label>
-                                <input type="text" id="institution">
+                                <div class="tooltip">
+                                    <label for="institution">Institution</label>
+                                    <input type="text" id="institution">
+                                    <span class="tooltip-text">Enter the name of your educational institution (e.g., University of California, Berkeley)</span>
+                                </div>
 
-                                <label for="year">Year</label>
-                                <input type="number" id="year">
+                                <div class="tooltip">
+                                    <label for="year">Year</label>
+                                    <input type="number" id="year">
+                                    <span class="tooltip-text">Enter the year you graduated or expect to graduate (e.g., 2024)</span>
+                                </div>
 
-                                <label for="cgpa">CGPA</label>
-                                <input type="text" id="cgpa">
+                                <div class="tooltip">
+                                    <label for="cgpa">CGPA</label>
+                                    <input type="text" id="cgpa">
+                                    <span class="tooltip-text">Enter your CGPA or GPA on a 4.0 scale (e.g., 3.8/4.0 or 8.5/10)</span>
+                                </div>
 
                                 <h2 class="section-title">Skills</h2>
                                 <div id="skills-container">
-                                    <input type="text" id="skill-input" placeholder="Add a skill">
+                                    <div class="tooltip">
+                                        <input type="text" id="skill-input" placeholder="Add a skill">
+                                        <span class="tooltip-text">Enter technical or soft skills (e.g., JavaScript, Python, Communication, Leadership)</span>
+                                    </div>
                                     <button type="button" id="add-skill">Add</button>
                                     <div id="skills-list"></div>
                                 </div>
 
                                 <h2 class="section-title">Experience / Projects</h2>
-                                <label for="exp-title">Title</label>
-                                <input type="text" id="exp-title">
+                                <div class="tooltip">
+                                    <label for="exp-title">Title</label>
+                                    <input type="text" id="exp-title">
+                                    <span class="tooltip-text">Enter your job title or project name (e.g., Software Engineer, E-commerce Website)</span>
+                                </div>
 
-                                <label for="exp-org">Organization</label>
-                                <input type="text" id="exp-org">
+                                <div class="tooltip">
+                                    <label for="exp-org">Organization</label>
+                                    <input type="text" id="exp-org">
+                                    <span class="tooltip-text">Enter the company name or project type (e.g., Google Inc., Personal Project)</span>
+                                </div>
 
-                                <label for="exp-duration">Duration</label>
-                                <input type="text" id="exp-duration">
+                                <div class="tooltip">
+                                    <label for="exp-duration">Duration</label>
+                                    <input type="text" id="exp-duration">
+                                    <span class="tooltip-text">Enter the time period (e.g., Jan 2022 - Present, 6 months, 2023)</span>
+                                </div>
 
-                                <label for="exp-desc">Description</label>
-                                <textarea id="exp-desc" rows="4"></textarea>
+                                <div class="tooltip">
+                                    <label for="exp-desc">Description</label>
+                                    <textarea id="exp-desc" rows="4"></textarea>
+                                    <span class="tooltip-text">Describe your responsibilities, achievements, and technologies used in 3-5 bullet points</span>
+                                </div>
 
                                 <h2 class="section-title">Achievements / Certifications (Optional)</h2>
-                                <textarea id="achievements" rows="4"></textarea>
+                                <div class="tooltip">
+                                    <label for="achievements">Achievements / Certifications</label>
+                                    <textarea id="achievements" rows="4"></textarea>
+                                    <span class="tooltip-text">List your awards, certifications, or notable achievements (e.g., AWS Certified Developer, Dean's List)</span>
+                                </div>
                             </form>
                         </div>
 
