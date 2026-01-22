@@ -22,6 +22,23 @@
 }
 
 [data-theme="dark"] {
+    /* Dark Theme Colors - Matching site's teal/mint scheme */
+    --bg-primary: #1e2e32;
+    --bg-secondary: #152126;
+    --bg-tertiary: #2a4046;
+    --text-primary: #e0fdf9;
+    --text-secondary: #b0ede7;
+    --text-tertiary: #c8f5f0;
+    --border-color: #28454e;
+    --accent-color: #5ec9d4;
+    --accent-hover: #4db5c0;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+    --error-color: #ff6b6b;
+    --success-color: #51cf66;
+    --warning-color: #ffd43b;
+    --info-color: #74c0fc;
     /* Dark Theme Colors - WCAG AA Compliant */
     --bg-primary: #121212;
     --bg-secondary: #1e1e1e;
@@ -128,6 +145,10 @@ header h1 {
     background-color: rgba(94, 179, 246, 0.2);
 }
 
+[data-theme="dark"] .nav-link.active {
+    background-color: rgba(94, 201, 212, 0.2);
+}
+
 .header-controls {
     display: flex;
     align-items: center;
@@ -135,15 +156,49 @@ header h1 {
 }
 
 #theme-toggle {
-    background: none;
-    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, #28454e 0%, #1f3539 100%);
+    border: 2px solid #28454e;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(40, 69, 78, 0.25);
+}
+
+#theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(224, 253, 249, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+#theme-toggle:hover::before {
+    width: 120%;
+    height: 120%;
+}
+
+#theme-toggle:hover {
+    border-color: #e0fdf9;
+    background: linear-gradient(135deg, #1f3539 0%, #28454e 100%);
+    transform: translateY(-2px) rotate(15deg);
+    box-shadow: 0 6px 20px rgba(40, 69, 78, 0.35);
+}
+
+#theme-toggle:active {
+    transform: translateY(0) rotate(0deg) scale(0.95);
+    transition: all 0.1s ease;
     transition: all 0.2s ease;
     color: var(--text-primary);
 }
@@ -165,21 +220,91 @@ header h1 {
     color: white;
 }
 
-.icon-sun,
-.icon-moon {
+.theme-sun,
+.theme-moon {
+    display: none;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #ffffff;
+}
+
+.theme-sun svg,
+.theme-moon svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+#theme-toggle .theme-sun {
+    display: block;
+    animation: sunPulse 2s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+#theme-toggle:hover .theme-sun {
+    animation: sunRotate 0.6s ease-in-out;
+}
+
+@keyframes sunRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+[data-theme="dark"] #theme-toggle {
+    background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 100%);
+    border-color: #e0fdf9;
+    box-shadow: 0 4px 12px rgba(224, 253, 249, 0.3);
+}
+
+[data-theme="dark"] #theme-toggle:hover {
+    background: linear-gradient(135deg, #c8f5f0 0%, #e0fdf9 100%);
+    border-color: #28454e;
+    box-shadow: 0 6px 20px rgba(224, 253, 249, 0.4);
+}
+
+[data-theme="dark"] #theme-toggle .theme-sun {
     display: none;
 }
 
-#theme-toggle .icon-sun {
+[data-theme="dark"] #theme-toggle .theme-moon {
     display: block;
+    animation: moonFloat 3s ease-in-out infinite;
+    color: #28454e;
 }
 
-[data-theme="dark"] #theme-toggle .icon-sun {
-    display: none;
+@keyframes moonFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-3px) scale(1.05);
+    }
 }
 
-[data-theme="dark"] #theme-toggle .icon-moon {
-    display: block;
+[data-theme="dark"] #theme-toggle:hover .theme-moon {
+    animation: moonRotate 0.8s ease-in-out;
+}
+
+@keyframes moonRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
 }
 
 .pdf-download-btn {
@@ -402,6 +527,8 @@ textarea {
     font-family: inherit;
     font-size: 1rem;
     margin-bottom: 1rem;
+    transition: all 0.2s ease;
+    background-color: var(--bg-primary);
     transition: border-color 0.2s ease, background-color 0.2s ease;
     background-color: var(--bg-secondary);
     color: var(--text-primary);
@@ -411,11 +538,36 @@ input:focus,
 textarea:focus {
     outline: none;
     border-color: var(--accent-color);
+}
+
+[data-theme="light"] input:focus,
+[data-theme="light"] textarea:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+=======
     box-shadow: 0 0 0 3px rgba(94, 179, 246, 0.15);
     background-color: var(--bg-tertiary);
 }
 
 /* Placeholder styling for better visibility in dark mode */
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: #9a9a9a;
+    opacity: 1;
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+    box-shadow: 0 0 0 3px rgba(94, 201, 212, 0.2);
+    background-color: var(--bg-tertiary);
+}
+
+/* Placeholder styling for better visibility */
 input::placeholder,
 textarea::placeholder {
     color: var(--text-secondary);
@@ -576,6 +728,11 @@ textarea::placeholder {
     padding: 2rem;
     border-radius: 4px;
     box-shadow: var(--shadow-md);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] #resume-preview {
+    background-color: var(--bg-tertiary);
 }
 
 [data-theme="dark"] #resume-preview {
@@ -585,6 +742,11 @@ textarea::placeholder {
 
 #resume-preview * {
     color: #333;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] #resume-preview * {
+    color: var(--text-primary);
 }
 
 .preview-header {
@@ -592,12 +754,22 @@ textarea::placeholder {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid #eee;
+    transition: border-color 0.3s ease;
+}
+
+[data-theme="dark"] .preview-header {
+    border-bottom-color: var(--border-color);
 }
 
 .preview-header h1 {
     font-size: 2.2rem;
     margin-bottom: 0.5rem;
     color: #222;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .preview-header h1 {
+    color: var(--text-primary);
     text-align: center;
     width: 100%;
     display: block;
@@ -606,6 +778,11 @@ textarea::placeholder {
 .preview-contact {
     font-size: 0.9rem;
     color: #666;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .preview-contact {
+    color: var(--text-secondary);
 }
 
 .preview-summary h2,
@@ -618,6 +795,16 @@ textarea::placeholder {
     color: #222;
     border-bottom: 1px solid #eee;
     padding-bottom: 0.25rem;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="dark"] .preview-summary h2,
+[data-theme="dark"] .preview-education h2,
+[data-theme="dark"] .preview-skills h2,
+[data-theme="dark"] .preview-experience h2,
+[data-theme="dark"] .preview-achievements h2 {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
 }
 
 .preview-summary p,
@@ -625,6 +812,13 @@ textarea::placeholder {
 .preview-achievements p {
     line-height: 1.6;
     color: #555;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .preview-summary p,
+[data-theme="dark"] .preview-education p,
+[data-theme="dark"] .preview-achievements p {
+    color: var(--text-secondary);
 }
 
 #preview-skills {
@@ -640,6 +834,12 @@ textarea::placeholder {
     padding: 0.25rem 0.75rem;
     border-radius: 15px;
     font-size: 0.875rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] #preview-skills span {
+    background-color: rgba(94, 201, 212, 0.2);
+    color: var(--accent-color);
 }
 
 .preview-experience div {
@@ -648,6 +848,186 @@ textarea::placeholder {
 
 .preview-experience strong {
     color: #007bff;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .preview-experience strong {
+    color: var(--accent-color);
+}
+
+/* ============================================
+   Template Selector
+   ============================================ */
+.template-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+.template-selector label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.template-selector select {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   Resume Templates
+   ============================================ */
+
+/* Default Modern Template */
+#resume-preview.template-modern {
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    color: #333;
+    border-left: 4px solid #007bff;
+}
+
+#resume-preview.template-modern .preview-header {
+    text-align: left;
+    border-bottom: 2px solid #007bff;
+}
+
+#resume-preview.template-modern .preview-header h1 {
+    color: #007bff;
+    font-weight: 700;
+}
+
+#resume-preview.template-modern h2 {
+    color: #007bff;
+    border-bottom: 1px solid #007bff;
+}
+
+/* Classic Template */
+#resume-preview.template-classic {
+    font-family: 'Times New Roman', serif;
+    background-color: #f9f9f9;
+    color: #222;
+    border: 1px solid #ccc;
+}
+
+#resume-preview.template-classic .preview-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+}
+
+#resume-preview.template-classic .preview-header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: #000;
+}
+
+#resume-preview.template-classic .preview-contact {
+    font-style: italic;
+}
+
+#resume-preview.template-classic h2 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+/* Minimal Template */
+#resume-preview.template-minimal {
+    font-family: 'Helvetica', sans-serif;
+    background-color: white;
+    color: #333;
+    padding: 1.5rem;
+}
+
+#resume-preview.template-minimal .preview-header {
+    text-align: left;
+    border-bottom: none;
+    margin-bottom: 1rem;
+}
+
+#resume-preview.template-minimal .preview-header h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #000;
+    margin-bottom: 0.25rem;
+}
+
+#resume-preview.template-minimal .preview-contact {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+#resume-preview.template-minimal h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #000;
+    border-bottom: none;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: lowercase;
+}
+
+#resume-preview.template-minimal h2::first-letter {
+    text-transform: uppercase;
+}
+
+/* Responsive adjustments for templates */
+@media (max-width: 768px) {
+    #resume-preview.template-modern,
+    #resume-preview.template-classic,
+    #resume-preview.template-minimal {
+        padding: 1rem;
+    }
+
+    #resume-preview.template-classic .preview-header h1 {
+        font-size: 2rem;
+    }
+
+    #resume-preview.template-minimal .preview-header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ============================================
+   Section Reordering Controls
+   ============================================ */
+.preview-section-block h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.section-controls {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.section-controls button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.section-controls button:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.section-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* ============================================

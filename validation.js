@@ -24,6 +24,27 @@ const Validator = {
     const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
     return phoneRegex.test(phone);
   },
+
+  /**
+   * Validates LinkedIn profile URL
+   * @param {string} url - LinkedIn URL to validate
+   * @returns {boolean} - True if valid, false otherwise
+   */
+  isValidLinkedIn(url) {
+    const linkedinRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+    return linkedinRegex.test(url);
+  },
+
+  /**
+   * Validates GitHub profile URL
+   * @param {string} url - GitHub URL to validate
+   * @returns {boolean} - True if valid, false otherwise
+   */
+  isValidGitHub(url) {
+    const githubRegex = /^https:\/\/(www\.)?github\.com\/[a-zA-Z0-9_-]+\/?$/;
+    return githubRegex.test(url);
+  },
+
   isValidURL(url) {
     if (!url) {
       return false;

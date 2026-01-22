@@ -21,6 +21,15 @@ const Validator = {
     return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 7;
   },
 
+  isValidLinkedIn: (url) => {
+    const regex = /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+    return typeof url === 'string' && regex.test(url);
+  },
+  isValidGitHub: (url) => {
+    const regex = /^https:\/\/(www\.)?github\.com\/[a-zA-Z0-9_-]+\/?$/;
+    return typeof url === 'string' && regex.test(url);
+  },
+
   isValidURL: (url) => {
     if (typeof url !== 'string') {
       return false;
@@ -97,6 +106,32 @@ describe('Validator', () => {
       expect(Validator.isValidPhone(null)).toBe(false);
       expect(Validator.isValidPhone(undefined)).toBe(false);
       expect(Validator.isValidPhone(1234567890)).toBe(false);
+    });
+  });
+
+  describe('isValidLinkedIn', () => {
+    test('should return true for valid LinkedIn URLs', () => {
+      expect(Validator.isValidLinkedIn('https://www.linkedin.com/in/john-doe')).toBe(true);
+      expect(Validator.isValidLinkedIn('https://linkedin.com/in/johndoe123/')).toBe(true);
+    });
+
+    test('should return false for non-LinkedIn or malformed URLs', () => {
+      expect(Validator.isValidLinkedIn('https://github.com/johndoe')).toBe(false);
+      expect(Validator.isValidLinkedIn('linkedin.com/in/johndoe')).toBe(false);
+      expect(Validator.isValidLinkedIn('https://www.linkedin.com/feed/')).toBe(false);
+    });
+  });
+
+  describe('isValidGitHub', () => {
+    test('should return true for valid GitHub URLs', () => {
+      expect(Validator.isValidGitHub('https://github.com/johndoe')).toBe(true);
+      expect(Validator.isValidGitHub('https://www.github.com/john_doe/')).toBe(true);
+    });
+
+    test('should return false for non-GitHub or malformed URLs', () => {
+      expect(Validator.isValidGitHub('https://linkedin.com/in/johndoe')).toBe(false);
+      expect(Validator.isValidGitHub('github.com/johndoe')).toBe(false);
+      expect(Validator.isValidGitHub('https://github.com/')).toBe(false);
     });
   });
 
