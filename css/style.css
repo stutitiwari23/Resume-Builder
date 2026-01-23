@@ -424,6 +424,216 @@ button {
     padding: 0px;
 }
 
+/* AUTH PAGE – SIGN UP */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(
+    circle at left,
+    #408376 0%,
+    #c7dcdd 55%
+  );
+  color: #1f3539;
+}
+
+/* Page wrapper */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative background blob */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(
+    circle,
+    rgba(40, 69, 78, 0.15),
+    transparent 70%
+  );
+  top: -120px;
+  left: -120px;
+  z-index: 0;
+}
+
+/* Card wrapper */
+.auth-page {
+  width: 100%;
+  max-width: 440px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Auth Card */
+.auth-card {
+  background: rgb(119, 198, 201);
+  border-radius: 18px;
+  padding: 38px 34px;
+  box-shadow:
+    25px 25px 60px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(40, 69, 78, 0.06);
+  animation: fadeUp 0.7s ease;
+}
+
+/* Headings */
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  color: #28454e;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.auth-card .subtitle {
+  text-align: center;
+  color: #4f7378;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/* Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 16px 14px;
+  border-radius: 12px;
+  border: 2px solid #d3e5e2;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1f3539;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+  color: rgb(17, 20, 20);
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: #24676e;
+  background: #ffffff;
+  padding: 0 6px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Floating label */
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+  border-color: #28454e;
+  box-shadow: 0 0 0 3px rgba(40, 69, 78, 0.12);
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #000000;
+}
+
+/* Password eye */
+.password-group {
+  position: relative;
+}
+
+.password-group .eye {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 15px;
+  color: #000000;
+  opacity: 0.7;
+}
+
+.password-group .eye:hover {
+  opacity: 1;
+}
+
+/* Primary Button */
+.auth-card .btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 15px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    #28454e,
+    #1f3539
+  );
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 12px 24px rgba(40, 69, 78, 0.35);
+}
+
+.auth-card .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(40, 69, 78, 0.45);
+}
+
+/* Switch text */
+.switch {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #041214;
+  font-size: 1.15rem;
+}
+
+.switch a {
+  color: #28454e;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.switch a:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subtitle{
+    font-weight: bold;
+    font-size: 6rem;
+}
+
+
+
 /* Dark theme  */
 
 .theme-toggle button {
@@ -1730,7 +1940,7 @@ body.dark-theme .navbar-brand {
 }
 
 input.mail_text::placeholder {
-    color: #4f4e4e;
+    color: #3a2828;
 }
 
 .massage-bt {
