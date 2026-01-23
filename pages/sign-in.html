@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="../src/styles/style.css" />
+  <link rel="stylesheet" type="text/css" href="../src/styles/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../src/styles/style.css">
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 </head>
 <body>
-<div
+    <div
   style="
     background:#fff3cd;
     padding:12px;
@@ -27,26 +27,30 @@
 
   <div class="auth-container">
     <div class="auth-page">
-    <form class="auth-card" >
-      <h2>Create Account</h2>
-      <p class="subtitle">Join us today</p>
+    <form class="auth-card">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to continue</p>
 
       <div class="input-group">
-        <input type="email" required placeholder=""/>
-        <label >Email</label>
+        <input type="email" required />
+        <label>Email</label>
       </div>
 
       <div class="input-group password-group">
-        <input type="password" id="signup-password" required placeholder="" />
+        <input type="password" id="signin-password" required />
         <label>Password</label>
-        <span class="eye" onclick="togglePassword('signup-password', this)">👁</span>
+        <span class="eye" onclick="togglePassword('signin-password', this)">👁</span>
       </div>
 
-      <button type="submit" class="btn">Sign Up</button>
+      <div class="forgot">
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn">Sign In</button>
 
       <p class="switch">
-        Already have an account?
-        <a href="sign-in.html">Sign In</a>
+        Don’t have an account?
+        <a href="sign-up.html">Sign Up</a>
       </p>
     </form>
     </div>
@@ -63,7 +67,6 @@
         input.type = "password";
         eyeIcon.textContent = "👁";
     }
-
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -71,7 +74,7 @@
 
   authForms.forEach((form) => {
     form.addEventListener("submit", (e) => {
-      e.preventDefault();
+      e.preventDefault(); 
 
       const email = form.querySelector('input[type="email"]');
       const password = form.querySelector('input[type="password"]');

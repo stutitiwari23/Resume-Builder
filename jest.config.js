@@ -2,7 +2,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
-    '*.js',
+    'src/**/*.js',
     '!node_modules/**',
     '!coverage/**',
     '!jest.config.js'
