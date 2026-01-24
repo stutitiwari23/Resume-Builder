@@ -139,13 +139,12 @@
                <button
                   class="navbar-toggler"
                   type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarSupportedContent"
+                  id="navToggle"
                   aria-controls="navbarSupportedContent"
                   aria-expanded="false"
                   aria-label="Toggle navigation"
                >
-                  <span class="navbar-toggler-icon"></span>
+               <span class="navbar-toggler-icon"></span>
                </button>
 
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -225,7 +224,17 @@
                </div>
             </nav>
          </div>
-         
+         <!-- JS for hamburger -->
+
+         <script>
+            const navToggle = document.getElementById("navToggle");
+            const navMenu = document.getElementById("navbarSupportedContent");
+
+            navToggle.addEventListener("click", () => {
+               navMenu.classList.toggle("show");
+            });
+         </script>
+
          <!-- banner section start --> 
          <div class="banner_section layout_padding">
             <div class="container">

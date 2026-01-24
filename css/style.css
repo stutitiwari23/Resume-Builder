@@ -710,6 +710,22 @@ body.dark-theme .navbar-brand {
   color: #7ddbd2 !important;
 }
 
+body.dark-theme .theme-toggle button {
+  border-color: #7ddbd2;
+  color: #7ddbd2;
+}
+
+body.dark-theme .theme-toggle button:hover {
+  background-color: rgba(125, 219, 210, 0.15);
+}
+
+body.dark-theme .navbar-toggler-icon,
+body.dark-theme .navbar-toggler-icon::before,
+body.dark-theme .navbar-toggler-icon::after {
+  background-color: #7ddbd2;
+}
+
+
 /* header section start */
 
 .header_section {
@@ -824,6 +840,83 @@ body.dark-theme .navbar-brand {
     color: #252525;
     background-color: #e0fdf9;
 }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* Hamburger button */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 12px;
+  display: none;
+}
+
+/* Hamburger icon (3 clean lines) */
+.navbar-toggler-icon {
+  width: 26px;
+  height: 2px;
+  background-color: #1f3b3a;
+  display: block;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 2px;
+  background-color: #1f3b3a;
+  left: 0;
+  transition: 0.3s ease;
+}
+
+.navbar-toggler-icon::before {
+  top: -7px;
+}
+
+.navbar-toggler-icon::after {
+  top: 7px;
+}
+
+
+@media (max-width: 991px) {
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    display: none;
+    width: 100%;
+    background: #e0fdf9;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+
+  .navbar-collapse.show {
+    display: block;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+    /* KEEP icons in top row */
+  .form-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
 
 
 /* Auth controls (Sign Up / Sign In buttons in header) */
