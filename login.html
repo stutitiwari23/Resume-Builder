@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Resume Builder</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <script>
+
+        window.location.replace("sign-in.html");
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 50%, #b0ede7 100%);
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+            font-family: 'Sen', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-color: rgba(40, 69, 78, 0.05);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background-color: rgba(40, 69, 78, 0.03);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            z-index: 0;
+        }
+        
+        .login-container {
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .login-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(40, 69, 78, 0.15);
+            padding: 3.5rem 2.5rem;
+            animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(224, 253, 249, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #28454e 0%, #e0fdf9 100%);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #28454e;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .login-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+            position: relative;
+        }
+        
+        .login-form label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: #28454e;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-form label i {
+            margin-right: 8px;
+            color: #28454e;
+            opacity: 0.7;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            padding-right: 3.5rem;
+            margin-bottom: 0;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fffe;
+            color: #2a2a2a;
+            font-family: 'Sen', sans-serif;
+        }
+
+        .login-form input::placeholder {
+            color: #999999;
+            font-weight: 400;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #28454e;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(40, 69, 78, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 42px;
+            background: none;
+            border: none;
+            color: #666666;
+            cursor: pointer;
+            font-size: 1.15rem;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: #28454e;
+            transform: scale(1.1);
+        }
+        
+        .login-form button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background-color: #28454e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
+        }
+        
+        .login-form button[type="submit"]:hover {
+            background-color: #1f3539;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
+        }
+
+        .login-form button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .login-form button[type="submit"] i {
+            margin-right: 8px;
+        }
+        
+        .login-form p {
+            text-align: center;
+            margin: 2rem 0 0;
+            color: #666666;
+            font-size: 0.95rem;
+        }
+        
+        .login-form a {
+            color: #28454e;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .login-form a:hover {
+            color: #1f3539;
+            border-bottom-color: #28454e;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0;
+            color: #999999;
+            font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #e0fdf9;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            background: #ffffff;
+            font-weight: 600;
+        }
+        
+        .back-to-home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 2rem;
+            color: #28454e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background-color: rgba(224, 253, 249, 0.3);
+        }
+        
+        .back-to-home:hover {
+            color: #1f3539;
+            background-color: rgba(224, 253, 249, 0.5);
+            text-decoration: none;
+            transform: translateX(-5px);
+        }
+
+        .back-to-home i {
+            margin-right: 8px;
+        }
+        
+        /* Toast Notification Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #ffffff;
+            color: #333333;
+            padding: 1.25rem 1.75rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(40, 69, 78, 0.2);
+            border: 1px solid #e0fdf9;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            font-family: 'Sen', sans-serif;
+            font-size: 0.95rem;
+            max-width: 380px;
+            font-weight: 500;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-left: 4px solid #28a745;
+        }
+
+        .toast-error {
+            border-left: 4px solid #dc3545;
+        }
+
+        .toast-info {
+            border-left: 4px solid #28454e;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 2.5rem 2rem;
+                border-radius: 20px;
+            }
+
+            .login-card h2 {
+                font-size: 1.75rem;
+            }
+
+            .toast-notification {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                max-width: none;
+            }
+
+            body::before,
+            body::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-card h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div
+  style="
+    background:#fff3cd;
+    padding:12px;
+    border:1px solid #ffeeba;
+    font-size:14px;
+    margin-bottom:10px;
+  "
+  role="alert"
+>
+  ⚠️ <strong>Demo Project:</strong>
+  This resume builder is for demonstration purposes only.
+  Do not enter real personal information (email, phone, address, etc.).
+</div>
+
+    <div class="main-content">
+        <div class="login-container">
+        <div class="login-card">
+          <div class="brand-logo">
+            <img src="./assets/logo.svg" alt="Resume Builder Logo">
+          </div>
+
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to continue building your professional resume</p>
+            
+            <!-- Login Form -->
+            <div id="login-form" class="login-form">
+                <form id="login">
+                    <div class="form-group">
+                        <label for="login-email">
+                            <i class="fa fa-envelope" aria-hidden="true"></i> Email Address
+                        </label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                        <div class="error-message" id="login-email-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">
+                            <i class="fa fa-lock" aria-hidden="true"></i> Password
+                        </label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="toggle-password">
+                            <i class="fa fa-eye" id="eye-icon"></i>
+                        </button>
+                        <div class="error-message" id="login-password-error"></div>
+                    </div>
+                    
+                    <button type="submit">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <p>Don't have an account? <a href="./sign-up.html" id="show-register">Create Account</a></p>
+
+            </div>
+
+            <a href="./index.html" class="back-to-home">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script src="validation.js"></script>
+    <script src="storage.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password toggle functionality
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('login-password');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        eyeIcon.classList.remove('fa-eye');
+                        eyeIcon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordInput.type = 'password';
+                        eyeIcon.classList.remove('fa-eye-slash');
+                        eyeIcon.classList.add('fa-eye');
+                    }
+                });
+            }
+
+            // Handle login form submission
+            const loginForm = document.getElementById('login');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Clear previous errors
+                    ValidationUI.clearError('login-email');
+                    ValidationUI.clearError('login-password');
+
+                    const email = document.getElementById('login-email').value.trim();
+                    const password = document.getElementById('login-password').value;
+
+                    let isValid = true;
+
+                    // Validate email
+                    if (Validator.isEmpty(email)) {
+                        ValidationUI.showError('login-email', 'Email is required');
+                        isValid = false;
+                    } else if (!Validator.isValidEmail(email)) {
+                        ValidationUI.showError('login-email', 'Please enter a valid email address');
+                        isValid = false;
+                    }
+
+                    // Validate password
+                    if (Validator.isEmpty(password)) {
+                        ValidationUI.showError('login-password', 'Password is required');
+                        isValid = false;
+                    }
+
+                    if (!isValid) return;
+
+                    // Check credentials
+                    const userData = getUserData(email);
+                    if (userData && userData.password === password) {
+                        userData.session = true;
+                        saveUserData(email, userData);
+                        localStorage.setItem('currentUser', email);
+                        ValidationUI.showToast('Login successful! Welcome back.', 'success');
+                        
+                        // Redirect to resume builder after successful login
+                        setTimeout(() => {
+                            window.location.href = './resume-builder.html';
+                        }, 1000);
+                    } else {
+                        ValidationUI.showError('login-email', 'Invalid email or password');
+                        ValidationUI.showError('login-password', 'Invalid email or password');
+                        ValidationUI.showToast('Invalid credentials. Please try again.', 'error');
+                    }
+                });
+            }
+            
+            // Handle real-time validation for login form
+            const loginEmailInput = document.getElementById('login-email');
+            if (loginEmailInput) {
+                loginEmailInput.addEventListener('blur', function () {
+                    const email = this.value.trim();
+                    if (!Validator.isEmpty(email) && !Validator.isValidEmail(email)) {
+                        ValidationUI.showError('login-email', 'Please enter a valid email address');
+                    } else if (!Validator.isEmpty(email)) {
+                        ValidationUI.clearError('login-email');
+                    }
+                });
+            }
+            
+            // Handle 'Create Account' link click
+            const showRegisterLink = document.getElementById('show-register');
+            if (showRegisterLink) {
+                showRegisterLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = './register.html';
+                });
+            }
+        });
+    </script>
+    </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer_section" role="contentinfo" aria-label="Site Footer">
+        <div class="container">
+            <!-- Footer Brand -->
+            <div class="footer_brand">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer_logo">
+                            <h2 class="footer_brand_title">RESUME BUILDER</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Content Grid -->
+            <div class="footer_content">
+                <div class="row">
+                    <!-- Column 1: Quick Links -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Quick Links</h3>
+                        <nav class="footer_nav" aria-label="Quick Links">
+                            <ul class="footer_menu">
+                                <li><a href="index.html" class="footer_link">Home</a></li>
+                                <li><a href="resume-builder.html" class="footer_link">Resume Builder</a></li>
+                                <li><a href="#templates" class="footer_link">Resume Templates</a></li>
+                                <li><a href="#pricing" class="footer_link">Pricing</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Column 2: Resume Help -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Resume Help</h3>
+                        <nav class="footer_nav" aria-label="Resume Resources">
+                            <ul class="footer_menu">
+                                <li><a href="#guide" class="footer_link">Resume Writing Guide</a></li>
+                                <li><a href="#cover-letter" class="footer_link">Cover Letter Tips</a></li>
+                                <li><a href="#interview" class="footer_link">Interview Preparation</a></li>
+                                <li><a href="#job-search" class="footer_link">Job Search Strategies</a></li>
+                                <li><a href="#linkedin" class="footer_link">LinkedIn Optimization</a></li>
+                                <li><a href="#career" class="footer_link">Career Change Advice</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Support</h3>
+                        <address class="footer_contact">
+                            <div class="contact_item">
+                                <i class="fa fa-phone contact_icon" aria-hidden="true"></i>
+                                <a href="tel:+91XXXXXXXXXX" class="contact_link">+91 XXXXXXXXXX</a>
+                            </div>
+                            <div class="contact_item">
+                                <i class="fa fa-envelope contact_icon" aria-hidden="true"></i>
+                                <a href="mailto:support@resumebuilder.com" class="contact_link">support@resumebuilder.com</a>
+                            </div>
+                            <div class="contact_item">
+                                <i class="fa fa-comments contact_icon" aria-hidden="true"></i>
+                                <a href="#chat" class="contact_link">Live Chat Available</a>
+                            </div>
+                        </address>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Follow Us</h3>
+                        <p class="footer_description">Stay updated with career tips and resume advice</p>
+                        <nav class="social_links" aria-label="Social Media">
+                            <ul class="social_list">
+                                <li><a href="#" class="social_link" aria-label="Follow us on Facebook" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link social_link--twitter" aria-label="Follow us on Twitter" title="Twitter">𝕏</a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on LinkedIn" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on Instagram" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on YouTube" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright Section -->
+    <div class="copyright_section" role="contentinfo">
+        <div class="container">
+            <div class="copyright_wrapper">
+                <p class="copyright_text">
+                    <span id="current-year">2026</span> ResumeBuilder. All Rights Reserved.
+                </p>
+                <nav class="copyright_links" aria-label="Legal">
+                    <a href="#privacy" class="copyright_link">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#terms" class="copyright_link">Terms of Service</a>
+                    <span class="separator">|</span>
+                    <a href="#accessibility" class="copyright_link">Accessibility</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic copyright year
+        const currentYearElement = document.getElementById('current-year');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>

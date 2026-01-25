@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder | Editor</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 50%, #b0ede7 100%);
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+            font-family: 'Sen', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-color: rgba(40, 69, 78, 0.05);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background-color: rgba(40, 69, 78, 0.03);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            z-index: 0;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(40, 69, 78, 0.15);
+            padding: 3.5rem 2.5rem;
+            animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(224, 253, 249, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #28454e 0%, #e0fdf9 100%);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .profile-card h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #28454e;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-card .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(40, 69, 78, 0.1);
+            padding: 2rem;
+            border: 1px solid rgba(224, 253, 249, 0.5);
+        }
+        
+        .card h3 {
+            color: #28454e;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-form {
+            margin-top: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+            position: relative;
+        }
+        
+        .profile-form label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: #28454e;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-form label i {
+            margin-right: 8px;
+            color: #28454e;
+            opacity: 0.7;
+        }
+        
+        .profile-form input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fffe;
+            color: #2a2a2a;
+            font-family: 'Sen', sans-serif;
+        }
+
+        .profile-form input::placeholder {
+            color: #999999;
+            font-weight: 400;
+        }
+
+        .profile-form input:focus {
+            outline: none;
+            border-color: #28454e;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(40, 69, 78, 0.1);
+        }
+        
+        .profile-form input[readonly] {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
+        
+        .upload-area {
+            border: 2px dashed #e0fdf9;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8fffe;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1rem auto;
+            display: none;
+            border: 3px solid #e0fdf9;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .preview-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #e0fdf9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            border: 3px solid #e0fdf9;
+        }
+        
+        .preview-placeholder i {
+            font-size: 2.5rem;
+            color: #28454e;
+        }
+        
+        .upload-area:hover {
+            border-color: #28454e;
+            background-color: #e8f9f5;
+        }
+        
+        .upload-area i {
+            font-size: 2.5rem;
+            color: #28454e;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area p {
+            color: #666666;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .upload-area input[type="file"] {
+            display: none;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.875rem;
+            margin-top: 2rem;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        
+        .btn-save {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 1rem;
+            background-color: #28454e;
+            color: #ffffff;
+            border: 2px solid #28454e;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
+        }
+        
+        .btn-save:hover {
+            background-color: #1f3539;
+            border-color: #1f3539;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .btn-cancel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 1rem;
+            background-color: #e0fdf9;
+            color: #28454e;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(224, 253, 249, 0.4);
+        }
+        
+        .btn-cancel:hover {
+            background-color: #c8f5f0;
+            border-color: #28454e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 253, 249, 0.5);
+            color: #28454e;
+            text-decoration: none;
+        }
+
+        .btn-save i,
+        .btn-cancel i {
+            margin-right: 8px;
+        }
+        
+        .profile-form button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background-color: #28454e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
+        }
+        
+        .profile-form button[type="submit"]:hover {
+            background-color: #1f3539;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
+        }
+
+        .profile-form button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .profile-form button[type="submit"] i {
+            margin-right: 8px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.875rem;
+            margin-top: 1rem;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        
+        .btn-back-dashboard {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 1rem;
+            background-color: #e0fdf9;
+            color: #28454e;
+            border: 2px solid #e0fdf9;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Sen', sans-serif;
+            box-shadow: 0 4px 15px rgba(224, 253, 249, 0.4);
+        }
+        
+        .btn-back-dashboard:hover {
+            background-color: #c8f5f0;
+            border-color: #28454e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 253, 249, 0.5);
+            color: #28454e;
+            text-decoration: none;
+        }
+
+        .btn-back-dashboard i {
+            margin-right: 8px;
+        }
+        
+        .profile-form p {
+            text-align: center;
+            margin: 2rem 0 0;
+            color: #666666;
+            font-size: 0.95rem;
+        }
+        
+        .profile-form a {
+            color: #28454e;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .profile-form a:hover {
+            color: #1f3539;
+            border-bottom-color: #28454e;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
+            font-weight: 500;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0;
+            color: #999999;
+            font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #e0fdf9;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            background: #ffffff;
+            font-weight: 600;
+        }
+        
+        /* Toast Notification Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #ffffff;
+            color: #333333;
+            padding: 1.25rem 1.75rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(40, 69, 78, 0.2);
+            border: 1px solid #e0fdf9;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            font-family: 'Sen', sans-serif;
+            font-size: 0.95rem;
+            max-width: 380px;
+            font-weight: 500;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-left: 4px solid #28a745;
+        }
+
+        .toast-error {
+            border-left: 4px solid #dc3545;
+        }
+
+        .toast-info {
+            border-left: 4px solid #28454e;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 992px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .right-column {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .profile-card h2 {
+                font-size: 1.75rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .toast-notification {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                max-width: none;
+            }
+
+            body::before,
+            body::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .profile-card h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div
+  style="
+    background:#fff3cd;
+    padding:12px;
+    border:1px solid #ffeeba;
+    font-size:14px;
+    margin-bottom:10px;
+  "
+  role="alert"
+>
+  ⚠️ <strong>Demo Project:</strong>
+  This resume builder is for demonstration purposes only.
+  Do not enter real personal information (email, phone, address, etc.).
+</div>
+
+    <div class="main-content">
+        <div class="edit-profile-container">
+        <div class="profile-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <a href="./index.html" class="btn-back" style="display: flex; align-items: center; text-decoration: none; color: #28454e; padding: 0.5rem 1rem; border-radius: 8px; background-color: #e0fdf9; transition: all 0.3s ease;">
+                    <i class="fa fa-arrow-left" aria-hidden="true" style="margin-right: 0.5rem;"></i> Back
+                </a>
+                <h2 style="margin: 0;">Edit Profile</h2>
+                <div style="width: 120px;"></div> <!-- Spacer to balance the layout -->
+            </div>
+            <p class="subtitle">Update your personal information</p>
+            
+            <!-- Profile Form -->
+            <div id="profile-form" class="profile-form">
+                <form id="edit-profile">
+                    <div class="profile-grid">
+                        <div class="left-column">
+                            <!-- Personal Information Card -->
+                            <div class="card">
+                                <h3>Personal Information</h3>
+                                <div class="form-group">
+                                    <label for="profile-fullname">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Full Name
+                                    </label>
+                                    <input type="text" id="profile-fullname" placeholder="Enter your full name" required>
+                                    <div class="error-message" id="name-error-message"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="profile-email">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i> Email Address
+                                    </label>
+                                    <input type="email" id="profile-email" placeholder="Enter your email" required readonly>
+                                    <div class="error-message" id="email-error-message"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="profile-phone">
+                                        <i class="fa fa-phone" aria-hidden="true"></i> Phone Number
+                                    </label>
+                                    <input type="tel" id="profile-phone" placeholder="Enter your phone number">
+                                    <div class="error-message" id="phone-error-message"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Links Card -->
+                            <div class="card">
+                                <h3>Social Profiles</h3>
+                                <div class="form-group">
+                                    <label for="profile-linkedin">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn Profile
+                                    </label>
+                                    <input type="url" id="profile-linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                                    <div class="error-message" id="linkedin-error-message"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="profile-github">
+                                        <i class="fa fa-github" aria-hidden="true"></i> GitHub Profile
+                                    </label>
+                                    <input type="url" id="profile-github" placeholder="https://github.com/yourusername">
+                                    <div class="error-message" id="github-error-message"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="profile-portfolio">
+                                        <i class="fa fa-briefcase" aria-hidden="true"></i> Portfolio URL
+                                    </label>
+                                    <input type="url" id="profile-portfolio" placeholder="https://yourportfolio.com">
+                                    <div class="error-message" id="portfolio-error-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="right-column">
+                            <!-- Upload Image Card -->
+                            <div class="card">
+                                <h3>Upload Photo</h3>
+                                <div class="upload-area" id="upload-area">
+                                    <div class="preview-placeholder" id="preview-placeholder">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="image-preview" id="image-preview">
+                                        <img id="preview-img" src="" alt="Preview">
+                                    </div>
+                                    <p>Click to upload or drag and drop<br><small>Max file size: 5MB | Formats: JPG, PNG, GIF</small></p>
+                                    <input type="file" id="profile-image" accept="image/*">
+                                </div>
+                                <div class="error-message" id="image-error-message"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="btn-save">
+                            <i class="fa fa-save" aria-hidden="true"></i> Save Profile
+                        </button>
+                        <a href="./index.html" class="btn-cancel">
+                            <i class="fa fa-times" aria-hidden="true"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="validation.js"></script>
+    <script src="storage.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load current user profile data
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                // Redirect to login if not authenticated
+                window.location.href = './login.html';
+                return;
+            }
+            
+            // Load user data and populate form
+            const userData = getUserData(currentUser);
+            if (userData && userData.profile) {
+                document.getElementById('profile-fullname').value = userData.profile.fullname || '';
+                document.getElementById('profile-email').value = userData.profile.email || '';
+                document.getElementById('profile-phone').value = userData.profile.phone || '';
+                document.getElementById('profile-linkedin').value = userData.profile.linkedin || '';
+                document.getElementById('profile-github').value = userData.profile.github || '';
+                document.getElementById('profile-portfolio').value = userData.profile.portfolio || '';
+                
+                // Load profile image if available
+                if (userData.profile.image) {
+                    const imagePreview = document.getElementById('image-preview');
+                    const previewImg = document.getElementById('preview-img');
+                    const previewPlaceholder = document.getElementById('preview-placeholder');
+                    
+                    // Check if the image is stored as a base64 string
+                    if (userData.profile.image.startsWith('data:image')) {
+                        previewImg.src = userData.profile.image;
+                        imagePreview.style.display = 'block';
+                        previewPlaceholder.style.display = 'none';
+                    } else {
+                        // If it's not a base64 string, it might be a filename or URL
+                        // For now, we'll create a placeholder with the user's initial
+                        previewPlaceholder.style.display = 'none';
+                        imagePreview.style.display = 'block';
+                        previewImg.src = 'https://via.placeholder.com/120x120/28454e/FFFFFF?text=' + (userData.profile.fullname || 'User')[0].toUpperCase();
+                    }
+                }
+            }
+            
+            // Handle image upload area click
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('profile-image');
+            const imagePreview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            const previewPlaceholder = document.getElementById('preview-placeholder');
+            
+            uploadArea.addEventListener('click', function(e) {
+                // Only trigger file input if the click is not on the preview image
+                if (!e.target.closest('.image-preview')) {
+                    fileInput.click();
+                }
+            });
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
+                    
+                    // Validate file type
+                    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                    if (!validTypes.includes(file.type)) {
+                        ValidationUI.showError('profile-image', 'Please select a valid image file (JPG, PNG, GIF)');
+                        return;
+                    }
+                    
+                    // Validate file size (max 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        ValidationUI.showError('profile-image', 'File size exceeds 5MB limit');
+                        return;
+                    }
+                    
+                    // Clear any previous errors
+                    ValidationUI.clearError('profile-image');
+                    
+                    // Display image preview
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        previewImg.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                        previewPlaceholder.style.display = 'none';
+                    };
+                    
+                    reader.readAsDataURL(file);
+                    
+                    // Display success message
+                    ValidationUI.showSuccess('profile-image');
+                }
+            });
+            
+            // Handle profile update form submission
+            const profileForm = document.getElementById('edit-profile');
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Clear previous errors
+                    ValidationUI.clearError('profile-fullname');
+                    ValidationUI.clearError('profile-phone');
+                    ValidationUI.clearError('profile-linkedin');
+                    ValidationUI.clearError('profile-github');
+                    ValidationUI.clearError('profile-portfolio');
+
+                    const fullName = document.getElementById('profile-fullname').value.trim();
+                    const email = document.getElementById('profile-email').value.trim();
+                    const phone = document.getElementById('profile-phone').value.trim();
+                    const linkedin = document.getElementById('profile-linkedin').value.trim();
+                    const github = document.getElementById('profile-github').value.trim();
+                    const portfolio = document.getElementById('profile-portfolio').value.trim();
+
+                    let isValid = true;
+
+                    // Validate full name
+                    if (Validator.isEmpty(fullName)) {
+                        ValidationUI.showError('profile-fullname', 'Full name is required');
+                        isValid = false;
+                    } else if (fullName.length < 2) {
+                        ValidationUI.showError('profile-fullname', 'Name must be at least 2 characters');
+                        isValid = false;
+                    }
+
+                    // Validate phone if provided
+                    if (phone && !Validator.isValidPhone(phone)) {
+                        ValidationUI.showError('profile-phone', 'Please enter a valid phone number');
+                        isValid = false;
+                    }
+                    
+                    // Validate URLs if provided
+                    if (linkedin && !Validator.isValidURL(linkedin)) {
+                        ValidationUI.showError('profile-linkedin', 'Please enter a valid LinkedIn URL');
+                        isValid = false;
+                    }
+                    
+                    if (github && !Validator.isValidURL(github)) {
+                        ValidationUI.showError('profile-github', 'Please enter a valid GitHub URL');
+                        isValid = false;
+                    }
+                    
+                    if (portfolio && !Validator.isValidURL(portfolio)) {
+                        ValidationUI.showError('profile-portfolio', 'Please enter a valid Portfolio URL');
+                        isValid = false;
+                    }
+
+                    if (!isValid) return;
+
+                    // Update user profile data
+                    const userData = getUserData(currentUser);
+                    if (userData) {
+                        userData.profile.fullname = fullName;
+                        userData.profile.phone = phone;
+                        userData.profile.linkedin = linkedin;
+                        userData.profile.github = github;
+                        userData.profile.portfolio = portfolio;
+                        
+                        // Handle image upload if selected
+                        if (fileInput.files && fileInput.files[0]) {
+                            const file = fileInput.files[0];
+                            
+                            // Convert the image to base64 to store it locally
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                userData.profile.image = event.target.result;
+                                
+                                // Save updated data with the image
+                                saveUserData(currentUser, userData);
+                                
+                                // Show success message
+                                ValidationUI.showToast('Profile updated successfully!', 'success');
+                                
+                                // Update current user in localStorage to reflect changes
+                                localStorage.setItem('currentUser', email);
+                                
+                                // Redirect back to dashboard after a delay
+                                setTimeout(() => {
+                                    window.location.href = './index.html';
+                                }, 1500);
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            // If no new image was selected, preserve the existing image if it exists
+                            const existingUserData = getUserData(currentUser);
+                            if (existingUserData && existingUserData.profile && existingUserData.profile.image) {
+                                userData.profile.image = existingUserData.profile.image;
+                            }
+                            
+                            // Save updated data
+                            saveUserData(currentUser, userData);
+                            
+                            // Show success message
+                            ValidationUI.showToast('Profile updated successfully!', 'success');
+                            
+                            // Update current user in localStorage to reflect changes
+                            localStorage.setItem('currentUser', email);
+                            
+                            // Redirect back to dashboard after a delay
+                            setTimeout(() => {
+                                window.location.href = './index.html';
+                            }, 1500);
+                        }
+                    } else {
+                        ValidationUI.showToast('Error updating profile. Please try again.', 'error');
+                    }
+                });
+            }
+        });
+    </script>
+    </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer_section" role="contentinfo" aria-label="Site Footer">
+        <div class="container">
+            <!-- Footer Brand -->
+            <div class="footer_brand">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer_logo">
+                            <h2 class="footer_brand_title">RESUME BUILDER</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Content Grid -->
+            <div class="footer_content">
+                <div class="row">
+                    <!-- Column 1: Quick Links -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Quick Links</h3>
+                        <nav class="footer_nav" aria-label="Quick Links">
+                            <ul class="footer_menu">
+                                <li><a href="index.html" class="footer_link">Home</a></li>
+                                <li><a href="resume-builder.html" class="footer_link">Resume Builder</a></li>
+                                <li><a href="#templates" class="footer_link">Resume Templates</a></li>
+                                <li><a href="#pricing" class="footer_link">Pricing</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Column 2: Resume Help -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Resume Help</h3>
+                        <nav class="footer_nav" aria-label="Resume Resources">
+                            <ul class="footer_menu">
+                                <li><a href="#guide" class="footer_link">Resume Writing Guide</a></li>
+                                <li><a href="#cover-letter" class="footer_link">Cover Letter Tips</a></li>
+                                <li><a href="#interview" class="footer_link">Interview Preparation</a></li>
+                                <li><a href="#job-search" class="footer_link">Job Search Strategies</a></li>
+                                <li><a href="#linkedin" class="footer_link">LinkedIn Optimization</a></li>
+                                <li><a href="#career" class="footer_link">Career Change Advice</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Support</h3>
+                        <address class="footer_contact">
+                            <div class="contact_item">
+                                <i class="fa fa-phone contact_icon" aria-hidden="true"></i>
+                                <a href="tel:+91XXXXXXXXXX" class="contact_link">+91 XXXXXXXXXX</a>
+                            </div>
+                            <div class="contact_item">
+                                <i class="fa fa-envelope contact_icon" aria-hidden="true"></i>
+                                <a href="mailto:support@resumebuilder.com" class="contact_link">support@resumebuilder.com</a>
+                            </div>
+                            <div class="contact_item">
+                                <i class="fa fa-comments contact_icon" aria-hidden="true"></i>
+                                <a href="#chat" class="contact_link">Live Chat Available</a>
+                            </div>
+                        </address>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Follow Us</h3>
+                        <p class="footer_description">Stay updated with career tips and resume advice</p>
+                        <nav class="social_links" aria-label="Social Media">
+                            <ul class="social_list">
+                                <li><a href="#" class="social_link" aria-label="Follow us on Facebook" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link social_link--twitter" aria-label="Follow us on Twitter" title="Twitter">𝕏</a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on LinkedIn" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on Instagram" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on YouTube" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright Section -->
+    <div class="copyright_section" role="contentinfo">
+        <div class="container">
+            <div class="copyright_wrapper">
+                <p class="copyright_text">
+                    <span id="current-year">2026</span> ResumeBuilder. All Rights Reserved.
+                </p>
+                <nav class="copyright_links" aria-label="Legal">
+                    <a href="#privacy" class="copyright_link">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#terms" class="copyright_link">Terms of Service</a>
+                    <span class="separator">|</span>
+                    <a href="#accessibility" class="copyright_link">Accessibility</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic copyright year
+        const currentYearElement = document.getElementById('current-year');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>

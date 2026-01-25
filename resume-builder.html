@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder - Create Your Professional Resume</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20fill='%23007bff'/%3E%3Ctext%20x='50'%20y='57'%20font-size='50'%20fill='%23fff'%20font-family='Arial'%20font-weight='700'%20text-anchor='middle'%3ERB%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="resume-style.css" />
+
+    <!-- PDF Export and Validation -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+      integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="validation.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <h1>Resume Builder</h1>
+        <nav class="navbar">
+          <a href="./index.html" class="nav-link">Home</a>
+          <a href="./resume-builder.html" class="nav-link active"
+            >Resume Builder</a
+          >
+        </nav>
+        <div class="header-controls">
+          <button
+            id="theme-toggle"
+            aria-label="Switch to Dark Mode"
+            title="Switch to Dark Mode"
+          >
+            <span class="icon-moon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </button>
+
+          <button id="download-pdf" class="pdf-download-btn">
+            Download PDF
+          </button>
+          <div id="auth-controls">
+            <button id="show-auth" class="sign-in-btn">Sign In</button>
+          </div>
+          <div id="profile-dropdown" class="profile-dropdown hidden">
+            <button class="profile-btn">
+              <svg
+                class="profile-icon"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <svg
+                class="dropdown-arrow"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="6,9 12,15 18,9"></polyline>
+              </svg>
+            </button>
+            <div class="dropdown-content" id="dropdown-menu">
+              <div class="dropdown-item user-info" id="dropdown-user-name">
+                User Name
+              </div>
+              <a
+                href="./edit-profile.html"
+                class="dropdown-item"
+                id="edit-profile-link"
+                >Edit Profile</a
+              >
+              <a href="#" class="dropdown-item" id="settings-link">Settings</a>
+              <a href="#" class="dropdown-item" id="logout-dropdown">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <!-- Authentication Section -->
+        <div id="auth-section" class="hidden">
+          <div id="register-form" class="auth-form">
+            <h2>Register</h2>
+            <form id="register">
+              <label for="reg-fullname">Full Name</label>
+              <input type="text" id="reg-fullname" required />
+
+              <label for="reg-email">Email</label>
+              <input type="email" id="reg-email" required />
+
+              <label for="reg-password">Password</label>
+              <input type="password" id="reg-password" required />
+
+              <button type="submit">Register</button>
+            </form>
+            <p>
+              Already have an account? <a href="#" id="show-login">Login</a>
+            </p>
+          </div>
+
+          <div id="login-form" class="auth-form hidden">
+            <h2>Login</h2>
+            <form id="login">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" required />
+
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" required />
+
+              <button type="submit">Login</button>
+            </form>
+            <p>
+              Don't have an account? <a href="#" id="show-register">Register</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Resume Builder Section -->
+        <div id="resume-section">
+          <div class="intro-section">
+            <div class="container">
+              <h1>Resume Builder</h1>
+              <h2>Fill in your information to create a professional resume</h2>
+            </div>
+          </div>
+          <div class="main-content">
+            <div class="container">
+              <div class="form-section">
+                <form id="resume-form">
+                  <h2 class="section-title">Personal Information</h2>
+                  <label for="name">Name</label>
+                  <input type="text" id="name" />
+
+                  <label for="email">Email</label>
+                  <input type="email" id="email" />
+
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" />
+
+                  <label for="location">Location</label>
+                  <input type="text" id="location" />
+
+                  <label for="linkedin">LinkedIn / Portfolio URL</label>
+                  <input type="url" id="linkedin" />
+
+                  <h2 class="section-title">Professional Summary</h2>
+                  <textarea id="summary" rows="4"></textarea>
+
+                  <h2 class="section-title">Education</h2>
+                  <label for="degree">Degree</label>
+                  <input type="text" id="degree" />
+
+                  <label for="institution">Institution</label>
+                  <input type="text" id="institution" />
+
+                  <label for="year">Year</label>
+                  <input type="number" id="year" />
+
+                  <label for="cgpa">CGPA</label>
+                  <input type="text" id="cgpa" />
+
+                  <h2 class="section-title">Skills</h2>
+                  <div id="skills-container">
+                    <input
+                      type="text"
+                      id="skill-input"
+                      placeholder="Add a skill"
+                    />
+                    <button type="button" id="add-skill">Add</button>
+                    <div id="skills-list"></div>
+                  </div>
+
+                  <h2 class="section-title">Experience / Projects</h2>
+                  <label for="exp-title">Title</label>
+                  <input type="text" id="exp-title" />
+
+                  <label for="exp-org">Organization</label>
+                  <input type="text" id="exp-org" />
+
+                  <label for="exp-duration">Duration</label>
+                  <input type="text" id="exp-duration" />
+
+                  <label for="exp-desc">Description</label>
+                  <textarea id="exp-desc" rows="4"></textarea>
+
+                  <h2 class="section-title">
+                    Achievements / Certifications (Optional)
+                  </h2>
+                  <textarea id="achievements" rows="4"></textarea>
+                </form>
+              </div>
+
+              <div class="preview-section">
+                <div class="preview-header-with-buttons">
+                  <h2>Live Preview</h2>
+                  <button
+                    id="download-preview-pdf"
+                    class="download-preview-btn"
+                  >
+                    Download PDF
+                  </button>
+                </div>
+                <article id="resume-preview">
+                  <header class="preview-header">
+                    <h1 id="preview-name"></h1>
+                    <div class="preview-contact">
+                      <span id="preview-email"></span> |
+                      <span id="preview-phone"></span> |
+                      <span id="preview-location"></span><br />
+                      <span id="preview-linkedin"></span>
+                    </div>
+                  </header>
+
+                  <section
+                    class="preview-section-block"
+                    data-section="summary"
+                    draggable="true"
+                  >
+                    <h2>Professional Summary</h2>
+                    <p id="preview-summary"></p>
+                  </section>
+
+                  <section
+                    class="preview-section-block"
+                    data-section="education"
+                    draggable="true"
+                  >
+                    <h2>Education</h2>
+                    <p id="preview-education"></p>
+                  </section>
+
+                  <section
+                    class="preview-section-block"
+                    data-section="skills"
+                    draggable="true"
+                  >
+                    <h2>Skills</h2>
+                    <div id="preview-skills"></div>
+                  </section>
+
+                  <section
+                    class="preview-section-block"
+                    data-section="experience"
+                    draggable="true"
+                  >
+                    <h2>Experience / Projects</h2>
+                    <div id="preview-experience"></div>
+                  </section>
+
+                  <section
+                    class="preview-section-block"
+                    data-section="achievements"
+                    draggable="true"
+                  >
+                    <h2>Achievements / Certifications</h2>
+                    <p id="preview-achievements"></p>
+                  </section>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script>
+      // resume-builder.js - Dedicated resume builder page functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check if user is authenticated before allowing access
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+          // Redirect to login page if not logged in
+          window.location.href = "./login.html";
+          return;
+        }
+        const form = document.getElementById("resume-form");
+        const skillsList = document.getElementById("skills-list");
+        const addSkillBtn = document.getElementById("add-skill");
+        const skillInput = document.getElementById("skill-input");
+        let skills = [];
+        const downloadPdfBtn = document.getElementById("download-pdf");
+
+        // New elements for updated header
+        const authControls = document.getElementById("auth-controls");
+        const profileDropdown = document.getElementById("profile-dropdown");
+        const showAuthBtn = document.getElementById("show-auth");
+        const logoutDropdown = document.getElementById("logout-dropdown");
+        const dropdownUserName = document.getElementById("dropdown-user-name");
+
+        // Initialize
+        loadUserDataInternal();
+        updateAuthUI();
+
+        // Two-way data binding for inputs with validation
+        if (form) {
+          form.addEventListener("input", function (e) {
+            // Real-time validation for specific fields
+            const fieldId = e.target.id;
+
+            if (fieldId === "email") {
+              const email = e.target.value.trim();
+              if (email && !Validator.isValidEmail(email)) {
+                ValidationUI.showError(
+                  "email",
+                  "Please enter a valid email address",
+                );
+              } else {
+                ValidationUI.clearError("email");
+              }
+            }
+
+            if (fieldId === "phone") {
+              const phone = e.target.value.trim();
+              if (phone && !Validator.isValidPhone(phone)) {
+                ValidationUI.showError(
+                  "phone",
+                  "Please enter a valid phone number",
+                );
+              } else {
+                ValidationUI.clearError("phone");
+              }
+            }
+
+            if (fieldId === "linkedin") {
+              const url = e.target.value.trim();
+              if (url && !Validator.isValidURL(url)) {
+                ValidationUI.showError("linkedin", "Please enter a valid URL");
+              } else {
+                ValidationUI.clearError("linkedin");
+              }
+            }
+
+            updatePreview();
+            saveResumeData();
+          });
+        }
+
+        // Handle skills
+        if (addSkillBtn) {
+          addSkillBtn.addEventListener("click", function () {
+            const skill = skillInput.value.trim();
+            if (skill && !skills.includes(skill)) {
+              skills.push(skill);
+              renderSkills();
+              skillInput.value = "";
+              updatePreview();
+              saveResumeData();
+            }
+          });
+        }
+
+        if (skillsList) {
+          skillsList.addEventListener("click", function (e) {
+            if (e.target.classList.contains("skill-tag")) {
+              const skill = e.target.textContent;
+              skills = skills.filter((s) => s !== skill);
+              renderSkills();
+              updatePreview();
+              saveResumeData();
+            }
+          });
+        }
+
+        // Toggle dropdown menu
+        const profileBtn = document.querySelector(".profile-btn");
+        if (profileBtn) {
+          profileBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            const dropdown = document.getElementById("dropdown-menu");
+            dropdown.classList.toggle("show");
+          });
+        }
+
+        // Close dropdown when clicking outside - Fixed null reference bug
+        document.addEventListener("click", function (event) {
+          const dropdown = document.getElementById("dropdown-menu");
+          const profileBtn = document.querySelector(".profile-btn");
+
+          if (dropdown && profileBtn) {
+            if (
+              !profileBtn.contains(event.target) &&
+              !dropdown.contains(event.target)
+            ) {
+              dropdown.classList.remove("show");
+            }
+          }
+        });
+
+        // Conditionally show download button based on login status
+        function updateDownloadButtonVisibility() {
+          const currentUser = localStorage.getItem("currentUser");
+          if (currentUser) {
+            downloadPdfBtn.classList.remove("hidden");
+          } else {
+            downloadPdfBtn.classList.add("hidden");
+          }
+        }
+
+        // Update auth UI based on login status
+        function updateAuthUI() {
+          const currentUser = localStorage.getItem("currentUser");
+
+          if (currentUser) {
+            // User is logged in
+            authControls.classList.add("hidden");
+            profileDropdown.classList.remove("hidden");
+
+            // Set user name in dropdown
+            const userData = getUserData(currentUser);
+            const displayName =
+              userData?.profile?.fullname ||
+              userData?.profile?.email ||
+              currentUser;
+            dropdownUserName.textContent = displayName;
+          } else {
+            // User is not logged in
+            authControls.classList.remove("hidden");
+            profileDropdown.classList.add("hidden");
+          }
+
+          updateDownloadButtonVisibility();
+        }
+
+        // Sign In button click handler
+        if (showAuthBtn) {
+          showAuthBtn.addEventListener("click", function () {
+            document.getElementById("auth-section").classList.remove("hidden");
+          });
+        }
+
+        // Logout from dropdown
+        if (logoutDropdown) {
+          logoutDropdown.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("currentUser");
+            updateAuthUI();
+            ValidationUI.showToast("Logged out successfully", "info");
+            // Redirect to home page after logout
+            setTimeout(() => {
+              window.location.href = "./index.html";
+            }, 1000);
+          });
+        }
+
+        // Check login status when page loads
+        updateAuthUI();
+
+        // Reusable PDF export function
+        function exportToPDF(buttonElement) {
+          // Validate that resume has minimum required data
+          const nameValue = document.getElementById("name").value.trim();
+
+          if (!nameValue) {
+            ValidationUI.showToast(
+              "Please enter your name before downloading",
+              "error",
+            );
+            document.getElementById("name").focus();
+            return;
+          }
+
+          // Show loading toast
+          ValidationUI.showToast("Generating PDF...", "info");
+
+          const element = document.getElementById("resume-preview");
+          const userName = nameValue.replace(/\s+/g, "_");
+          const filename = `${userName}_Resume.pdf`;
+
+          const opt = {
+            margin: [0.5, 0.5, 0.5, 0.5],
+            filename: filename,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: {
+              scale: 2,
+              useCORS: true,
+              letterRendering: true,
+            },
+            jsPDF: {
+              unit: "in",
+              format: "letter",
+              orientation: "portrait",
+              compress: true,
+            },
+          };
+
+          html2pdf()
+            .set(opt)
+            .from(element)
+            .save()
+            .then(() => {
+              ValidationUI.showToast(
+                "Resume downloaded successfully!",
+                "success",
+              );
+            })
+            .catch((error) => {
+              console.error("PDF generation error:", error);
+              ValidationUI.showToast(
+                "Error generating PDF. Please try again.",
+                "error",
+              );
+            });
+        }
+
+        // PDF Export functionality for header button
+        if (downloadPdfBtn) {
+          downloadPdfBtn.addEventListener("click", function () {
+            exportToPDF(this);
+          });
+        }
+
+        // Download Preview PDF button functionality
+        const downloadPreviewPdfBtn = document.getElementById(
+          "download-preview-pdf",
+        );
+        if (downloadPreviewPdfBtn) {
+          downloadPreviewPdfBtn.addEventListener("click", function () {
+            exportToPDF(this);
+          });
+        }
+
+        function renderSkills() {
+          if (!skillsList) return;
+          skillsList.innerHTML = skills
+            .map((skill) => `<span class="skill-tag">${skill}</span>`)
+            .join("");
+        }
+
+        function updatePreview() {
+          const byId = (id) => document.getElementById(id);
+          const setText = (id, text, fallback = "") => {
+            const el = byId(id);
+            if (el) el.textContent = text || fallback;
+          };
+
+          setText(
+            "preview-name",
+            byId("name") ? byId("name").value : "",
+            "Your Name",
+          );
+          setText("preview-email", byId("email") ? byId("email").value : "");
+          setText("preview-phone", byId("phone") ? byId("phone").value : "");
+          setText(
+            "preview-location",
+            byId("location") ? byId("location").value : "",
+          );
+          setText(
+            "preview-linkedin",
+            byId("linkedin") ? byId("linkedin").value : "",
+          );
+          setText(
+            "preview-summary",
+            byId("summary") ? byId("summary").value : "",
+          );
+
+          const degree = byId("degree") ? byId("degree").value : "";
+          const inst = byId("institution") ? byId("institution").value : "";
+          const year = byId("year") ? byId("year").value : "";
+          const cgpa = byId("cgpa") ? byId("cgpa").value : "";
+          setText(
+            "preview-education",
+            `${degree}${degree || inst ? " from " : ""}${inst}${year ? ", " + year : ""}${cgpa ? " (CGPA: " + cgpa + ")" : ""}`,
+          );
+
+          const previewSkills = byId("preview-skills");
+          if (previewSkills)
+            previewSkills.innerHTML = skills
+              .map((skill) => `<span>${skill}</span>`)
+              .join("");
+
+          const previewExp = document.getElementById("preview-experience");
+          if (previewExp) {
+            const title = byId("exp-title") ? byId("exp-title").value : "";
+            const org = byId("exp-org") ? byId("exp-org").value : "";
+            const dur = byId("exp-duration") ? byId("exp-duration").value : "";
+            const desc = byId("exp-desc") ? byId("exp-desc").value : "";
+            previewExp.innerHTML = `<strong>${title}</strong>${org ? " at " + org : ""}${dur ? "<br>" + dur : ""}${desc ? "<br>" + desc : ""}`;
+          }
+
+          setText(
+            "preview-achievements",
+            byId("achievements") ? byId("achievements").value : "",
+          );
+        }
+
+        function saveResumeData() {
+          const currentUser = localStorage.getItem("currentUser");
+          if (!currentUser) return;
+          const userData = getUserData(currentUser) || {};
+          userData.resume = {
+            name: document.getElementById("name")
+              ? document.getElementById("name").value
+              : "",
+            email: document.getElementById("email")
+              ? document.getElementById("email").value
+              : "",
+            phone: document.getElementById("phone")
+              ? document.getElementById("phone").value
+              : "",
+            location: document.getElementById("location")
+              ? document.getElementById("location").value
+              : "",
+            linkedin: document.getElementById("linkedin")
+              ? document.getElementById("linkedin").value
+              : "",
+            summary: document.getElementById("summary")
+              ? document.getElementById("summary").value
+              : "",
+            degree: document.getElementById("degree")
+              ? document.getElementById("degree").value
+              : "",
+            institution: document.getElementById("institution")
+              ? document.getElementById("institution").value
+              : "",
+            year: document.getElementById("year")
+              ? document.getElementById("year").value
+              : "",
+            cgpa: document.getElementById("cgpa")
+              ? document.getElementById("cgpa").value
+              : "",
+            skills: skills,
+            expTitle: document.getElementById("exp-title")
+              ? document.getElementById("exp-title").value
+              : "",
+            expOrg: document.getElementById("exp-org")
+              ? document.getElementById("exp-org").value
+              : "",
+            expDuration: document.getElementById("exp-duration")
+              ? document.getElementById("exp-duration").value
+              : "",
+            expDesc: document.getElementById("exp-desc")
+              ? document.getElementById("exp-desc").value
+              : "",
+            achievements: document.getElementById("achievements")
+              ? document.getElementById("achievements").value
+              : "",
+          };
+          saveUserData(currentUser, userData);
+        }
+
+        function loadUserDataInternal() {
+          // First check if there's sample data from the homepage
+          const sampleData = localStorage.getItem("sampleResumeData");
+          if (sampleData) {
+            const data = JSON.parse(sampleData);
+
+            // Populate form fields with sample data
+            document.getElementById("name").value = data.name;
+            document.getElementById("email").value = data.email;
+            document.getElementById("phone").value = data.phone;
+            document.getElementById("location").value = data.location;
+            document.getElementById("linkedin").value = data.linkedin;
+            document.getElementById("summary").value = data.summary;
+            document.getElementById("degree").value = data.degree;
+            document.getElementById("institution").value = data.institution;
+            document.getElementById("year").value = data.year;
+            document.getElementById("cgpa").value = data.cgpa;
+            document.getElementById("exp-title").value = data.expTitle;
+            document.getElementById("exp-org").value = data.expOrg;
+            document.getElementById("exp-duration").value = data.expDuration;
+            document.getElementById("exp-desc").value = data.expDesc;
+            document.getElementById("achievements").value = data.achievements;
+
+            // Set skills
+            skills = data.skills;
+
+            // Clear the sample data from localStorage
+            localStorage.removeItem("sampleResumeData");
+
+            // Update preview
+            renderSkills();
+            updatePreview();
+
+            // Return early since we loaded sample data
+            return;
+          }
+
+          // storage.loadUserData will populate basic fields, then we sync skills and preview
+          loadUserData();
+          const currentUser = localStorage.getItem("currentUser");
+          if (!currentUser) return;
+          const userData = getUserData(currentUser) || {};
+          if (userData.resume && userData.resume.skills) {
+            skills = userData.resume.skills.slice();
+          }
+          renderSkills();
+          updatePreview();
+          updateAuthUI(); // Update UI after loading user data
+        }
+
+        /* ===== Resume Section Reordering (Drag & Drop) ===== */
+
+        const previewContainer = document.getElementById("resume-preview");
+        let draggedSection = null;
+
+        function initSectionDragAndDrop() {
+          const sections = previewContainer.querySelectorAll(
+            ".preview-section-block",
+          );
+
+          sections.forEach((section) => {
+            section.addEventListener("dragstart", () => {
+              draggedSection = section;
+              section.classList.add("dragging");
+            });
+
+            section.addEventListener("dragend", () => {
+              section.classList.remove("dragging");
+              draggedSection = null;
+              saveSectionOrder();
+            });
+
+            previewContainer.addEventListener("dragover", (e) => {
+              e.preventDefault();
+              const afterElement = getDragAfterElement(
+                previewContainer,
+                e.clientY,
+              );
+              if (!draggedSection) return;
+
+              if (afterElement == null) {
+                previewContainer.appendChild(draggedSection);
+              } else {
+                previewContainer.insertBefore(draggedSection, afterElement);
+              }
+            });
+
+            section.addEventListener("dragleave", () => {
+              section.classList.remove("drag-over");
+            });
+
+            section.addEventListener("drop", () => {
+              section.classList.remove("drag-over");
+            });
+          });
+        }
+
+        function getDragAfterElement(container, y) {
+          const draggableElements = [
+            ...container.querySelectorAll(
+              ".preview-section-block:not(.dragging)",
+            ),
+          ];
+
+          return draggableElements.reduce(
+            (closest, child) => {
+              const box = child.getBoundingClientRect();
+              const offset = y - box.top - box.height / 2;
+              if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+              } else {
+                return closest;
+              }
+            },
+            { offset: Number.NEGATIVE_INFINITY },
+          ).element;
+        }
+
+        /* Save order */
+        function saveSectionOrder() {
+          const order = [];
+          previewContainer
+            .querySelectorAll(".preview-section-block")
+            .forEach((section) => {
+              order.push(section.dataset.section);
+            });
+          localStorage.setItem("resumeSectionOrder", JSON.stringify(order));
+        }
+
+        /* Load order */
+        function loadSectionOrder() {
+          const savedOrder = JSON.parse(
+            localStorage.getItem("resumeSectionOrder"),
+          );
+          if (!savedOrder) return;
+
+          savedOrder.forEach((key) => {
+            const section = previewContainer.querySelector(
+              `.preview-section-block[data-section="${key}"]`,
+            );
+            if (section) previewContainer.appendChild(section);
+          });
+        }
+
+        /* Initialize */
+        loadSectionOrder();
+        initSectionDragAndDrop();
+      });
+    </script>
+  </body>
+</html>

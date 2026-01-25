@@ -1,230 +1,698 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Builder</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20fill='%23007bff'/%3E%3Ctext%20x='50'%20y='57'%20font-size='50'%20fill='%23fff'%20font-family='Arial'%20font-weight='700'%20text-anchor='middle'%3ERB%3C/text%3E%3C/svg%3E">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="app">
-        <header>
-            <h1>Resume Builder</h1>
-            <div class="header-controls">
-                <button id="theme-toggle" aria-label="Toggle Theme" title="Toggle Theme">
-                    <span class="icon-sun" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4V2M12 22v-2M4.93 4.93 3.52 3.52M20.48 20.48 19.07 19.07M4 12H2M22 12h-2M4.93 19.07 3.52 20.48M20.48 3.52 19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/></svg>
-                    </span>
-                    <span class="icon-moon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </span>
-                </button>
-                <button id="download-resume" class="hidden">Download</button>
-                <div id="auth-controls">
-                    <button id="show-auth" class="sign-in-btn">Sign In</button>
-                </div>
-                <div id="profile-dropdown" class="profile-dropdown hidden">
-                    <button class="profile-btn">
-                        <svg class="profile-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6,9 12,15 18,9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="dropdown-content" id="dropdown-menu">
-                        <div class="dropdown-item user-info" id="dropdown-user-name">User Name</div>
-                        <a href="#" class="dropdown-item" id="profile-link">Profile</a>
-                        <a href="#" class="dropdown-item" id="settings-link">Settings</a>
-                        <a href="#" class="dropdown-item" id="logout-dropdown">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </header>
-        
-        <section id="landing-section">
-            <div class="landing-wrap">
-                <div class="landing-content">
-                    <div class="hero-badge">Professional Resume Builder</div>
-                    <h1 class="landing-title">Build Your Perfect Resume in Minutes</h1>
-                    <p class="landing-desc">
-                        Create professional, ATS-friendly resumes that get noticed by employers.<br>
-                        No sign-up required. Completely private. 100% free.
-                    </p>
-                    <div class="landing-features">
-                        <span class="feature-chip animated-chip">ATS-Friendly Templates</span>
-                        <span class="feature-chip animated-chip">Professional Designs</span>
-                        <span class="feature-chip animated-chip">Instant Download</span>
-                        <span class="feature-chip animated-chip">No Registration Needed</span>
-                    </div>
-                    <div class="hero-buttons">
-                        <button id="cta-create" class="cta-button primary-btn" aria-label="Create Resume" title="Create Resume">Create Resume Now</button>
-                        <button id="cta-demo" class="cta-button secondary-btn" aria-label="View Demo" title="View Demo">View Sample</button>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">50K+</div>
-                            <div class="stat-label">Resumes Created</div>
+<html>
+   <head>
+      <!-- scroll up icon -->
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+         crossorigin="anonymous"
+         referrerpolicy="no-referrer"
+      >
+
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- site metas -->
+      <title>Resume Builder - Professional Resume Builder</title>
+      <meta name="keywords" content="resume builder, cv maker, professional resume, job application, career tools">
+      <meta
+         name="description"
+         content="Create professional resumes in minutes with ResumeCraft. Free templates, easy to use, perfect for job seekers."
+      >
+      <meta name="author" content="ResumeCraft">
+
+      <!-- bootstrap css -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="css/style.css?v=20260120">
+
+      <!-- Additional styles for auth components -->
+      <link rel="stylesheet" type="text/css" href="./resume-style.css">
+
+      <!-- Responsive -->
+      <link rel="stylesheet" href="css/responsive.css">
+
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <link rel="icon" type="image/png" href="./assets/favicon.ico">
+
+      <!-- font css -->
+      <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      
+
+      <link rel="icon" href="images/fevicon.png" type="image/gif">
+
+      <!-- font css -->
+      <link
+         href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap"
+         rel="stylesheet"
+      >
+
+      <!-- Scrollbar Custom CSS (removed: not used) -->
+
+      <!-- Inline styles (icon alignment only) -->
+      <style>
+         /* Footer social icon alignment fix */
+         .social_icon ul {
+            display: flex;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+         }
+
+         .social_icon ul li {
+            list-style: none;
+         }
+
+         .social_icon ul li a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #0d2c3d;
+            font-size: 18px;
+         }
+
+         .social_icon ul li a i {
+            line-height: 1;
+         }
+      </style>
+   </head>
+
+   <body>
+      <header class="main-header">
+         <img src="./assets/logo.svg" alt="Resume Builder Logo" class="app-logo">
+      </header>
+      <!-- Auth Buttons -->
+      <div id="auth-wrapper">
+      <!-- Paste auth-header.html content here -->
+      <div class="auth-header">
+         <a href="register.html" class="btn-auth btn-register">Sign Up</a>
+         <a href="login.html" class="btn-auth btn-login">Sign In</a>
+      </div>
+      </div>
+
+      <div
+  style="
+    background:#fff3cd;
+    padding:12px;
+    border:1px solid #ffeeba;
+    font-size:14px;
+  "
+  role="alert"
+  aria-live="polite"
+
+  ⚠️ <strong>Demo Project:</strong>
+  This application is for demonstration purposes only.
+  Do not enter real personal, login, or sensitive information.
+</div>
+
+      <!-- Scroll up btn -->
+      <button id="up-btn">
+         <i class="fa-solid fa-chevron-up"></i>
+      </button>
+
+      <!-- up-btn js file -->
+      <script src="up-btn.js"></script>
+
+      <!-- header section start -->
+      <div class="header_section">
+         <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+               <a class="navbar-brand" href="index.html">
+                  <span class="logo-text">Resume Builder</span>
+               </a>
+
+               <button
+                  class="navbar-toggler"
+                  type="button"
+                  id="navToggle"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+               >
+               <span class="navbar-toggler-icon"></span>
+               </button>
+
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ml-auto">
+                     <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="resume-builder.html">Resume Builder</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="#templates">Templates</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                     </li>
+                  </ul>
+
+                  <form class="form-inline my-2 my-lg-0">
+
+                    <button
+  id="theme-toggle"
+  aria-label="Switch to Dark Mode"
+  title="Switch to Dark Mode"
+>
+  <i class="fa-solid fa-moon"></i>
+</button>
+
+                     <button
+                        type="button"
+                        id="theme-toggle"
+                        style="
+                           background: none;
+                           border: 1px solid #ddd;
+                           border-radius: 50%;
+                           width: 40px;
+                           height: 40px;
+                           cursor: pointer;
+                           margin-right: 15px;
+                           display: flex;
+                           align-items: center;
+                           justify-content: center;
+                           transition: all 0.2s ease;
+                        "
+                     >
+                        <span class="theme-sun" style="display: block;">☀️</span>
+                        <span class="theme-moon" style="display: none;">🌙</span>
+                     </button>
+
+                     <div id="auth-controls">
+                        <ul>
+                           <li><a href="./sign-up.html" id="show-register-top">Sign Up</a></li>
+                           <li><a href="./sign-in.html" id="show-login-top">Sign In</a></li>
+                           <!-- Dark mode toggle -->
+                           <li class="theme-toggle">
+                           <button id="themeToggle" aria-label="Toggle dark mode">
+                              🌙
+                           </button>
+                           </li>
+                           <script src="dark.js"></script>
+                           <!-- <li><a href="sign-up.html" id="show-register-top">Sign Up</a></li>
+                           <li><a href="sign-in.html" id="show-login-top">Sign In</a></li> -->
+                        </ul>
+                     </div>
+
+                     <div id="profile-dropdown" class="profile-dropdown hidden">
+                        <button class="profile-btn">
+                           <i class="fa fa-user" aria-hidden="true"></i>
+                           <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="dropdown-content" id="dropdown-menu">
+                           <div class="dropdown-item user-info" id="user-name"></div>
+                           <a
+                              href="./edit-profile.html"
+                              class="dropdown-item"
+                              id="edit-profile-link"
+                           >
+                              Edit Profile
+                           </a>
+                           <a href="#" class="dropdown-item" id="settings-link">Settings</a>
+                           <a href="#" class="dropdown-item" id="logout">Logout</a>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">98%</div>
-                            <div class="stat-label">Interview Success Rate</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">5min</div>
-                            <div class="stat-label">Average Time</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-images-overlap">
-                    <div class="image-card back-card">
-                        <img src="res1.jpeg" alt="Professional Resume Template 1" class="hero-image">
-                    </div>
-                    <div class="image-card front-card">
-                        <img src="res2.webp" alt="Professional Resume Template 2" class="hero-image">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Authentication Section -->
-        <div id="auth-section" class="hidden">
-            <div id="register-form" class="auth-form">
-                <h2>Register</h2>
-                <form id="register">
-                    <label for="reg-fullname">Full Name</label>
-                    <input type="text" id="reg-fullname" required>
-                    
-                    <label for="reg-email">Email</label>
-                    <input type="email" id="reg-email" required>
-                    
-                    <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" required>
-                    
-                    <button type="submit">Register</button>
-                </form>
-                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
-            </div>
-            
-            <div id="login-form" class="auth-form hidden">
-                <h2>Login</h2>
-                <form id="login">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" required>
-                    
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
-                    
-                    <button type="submit">Login</button>
-                </form>
-                <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
-            </div>
-        </div>
-        
-        <!-- Resume Builder Section -->
-        <div id="resume-section" class="hidden">
+                     </div>
+                  </form>
+               </div>
+            </nav>
+         </div>
+         <!-- JS for hamburger -->
+
+         <script>
+            const navToggle = document.getElementById("navToggle");
+            const navMenu = document.getElementById("navbarSupportedContent");
+
+            navToggle.addEventListener("click", () => {
+               navMenu.classList.toggle("show");
+            });
+         </script>
+
+         <!-- banner section start --> 
+         <div class="banner_section layout_padding">
             <div class="container">
-                <div class="form-section">
-                    <form id="resume-form">
-                        <h2>Personal Information</h2>
-                        <label for="name">Name</label>
-                        <input type="text" id="name">
-                        
-                        <label for="email">Email</label>
-                        <input type="email" id="email">
-                        
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone">
-                        
-                        <label for="location">Location</label>
-                        <input type="text" id="location">
-                        
-                        <label for="linkedin">LinkedIn / Portfolio URL</label>
-                        <input type="url" id="linkedin">
-                        
-                        <h2>Professional Summary</h2>
-                        <textarea id="summary" rows="4"></textarea>
-                        
-                        <h2>Education</h2>
-                        <label for="degree">Degree</label>
-                        <input type="text" id="degree">
-                        
-                        <label for="institution">Institution</label>
-                        <input type="text" id="institution">
-                        
-                        <label for="year">Year</label>
-                        <input type="number" id="year">
-                        
-                        <label for="cgpa">CGPA</label>
-                        <input type="text" id="cgpa">
-                        
-                        <h2>Skills</h2>
-                        <div id="skills-container">
-                            <input type="text" id="skill-input" placeholder="Add a skill">
-                            <button type="button" id="add-skill">Add</button>
-                            <div id="skills-list"></div>
+               <div class="row align-items-center">
+                  <div class="col-md-6 fade-in-up">
+                     <h1 class="banner_taital">CREATE PROFESSIONAL RESUMES & <span style="color: #2b2b2b;">LAND YOUR DREAM JOB</span></h1>
+                     <p class="banner_text">Build impressive resumes in minutes with our easy-to-use platform. Professional templates, expert guidance, and ATS-friendly designs.</p>
+                     <div class="banner_actions">
+                        <div class="started_text"><a href="resume-builder.html"><i class="fa fa-rocket" aria-hidden="true"></i> Create Resume</a></div>
+                        <div class="watch_demo"><a href="#templates"><i class="fa fa-eye" aria-hidden="true"></i> View Templates</a></div>
+                     </div>
+                     <div class="banner_features">
+                        <div class="feature_badge"><i class="fa fa-check-circle"></i> ATS Optimized</div>
+                        <div class="feature_badge"><i class="fa fa-check-circle"></i> Free to Start</div>
+                        <div class="feature_badge"><i class="fa fa-check-circle"></i> No Credit Card</div>
+                     </div>
+                  </div>
+                  <div class="col-md-6 fade-in-right">
+                     <div class="hero-images-overlap">
+                        <div class="image-card back-card">
+                           <img src="images/res1.jpeg" alt="Professional Resume Template 1" class="hero-image">
                         </div>
-                        
-                        <h2>Experience / Projects</h2>
-                        <label for="exp-title">Title</label>
-                        <input type="text" id="exp-title">
-                        
-                        <label for="exp-org">Organization</label>
-                        <input type="text" id="exp-org">
-                        
-                        <label for="exp-duration">Duration</label>
-                        <input type="text" id="exp-duration">
-                        
-                        <label for="exp-desc">Description</label>
-                        <textarea id="exp-desc" rows="4"></textarea>
-                        
-                        <h2>Achievements / Certifications (Optional)</h2>
-                        <textarea id="achievements" rows="4"></textarea>
-                    </form>
-                </div>
-                
-                <div class="preview-section">
-                    <div id="resume-preview">
-                        <div class="preview-header">
-                            <h1 id="preview-name"></h1>
-                            <div class="preview-contact">
-                                <span id="preview-email"></span> | <span id="preview-phone"></span> | <span id="preview-location"></span>
-                                <br><span id="preview-linkedin"></span>
-                            </div>
+                     </div>
+
+                     <div class="col-md-6">
+                        <div class="hero-images-overlap">
+                           <div class="image-card back-card">
+                              <img
+                                 src="images/res1.jpeg"
+                                 alt="Professional Resume Template 1"
+                                 class="hero-image"
+                              >
+                           </div>
+                           <div class="image-card front-card">
+                              <img
+                                 src="images/res2.webp"
+                                 alt="Professional Resume Template 2"
+                                 class="hero-image"
+                              >
+                           </div>
                         </div>
-                        <div class="preview-summary">
-                            <h2>Professional Summary</h2>
-                            <p id="preview-summary"></p>
-                        </div>
-                        <div class="preview-education">
-                            <h2>Education</h2>
-                            <p id="preview-education"></p>
-                        </div>
-                        <div class="preview-skills">
-                            <h2>Skills</h2>
-                            <div id="preview-skills"></div>
-                        </div>
-                        <div class="preview-experience">
-                            <h2>Experience / Projects</h2>
-                            <div id="preview-experience"></div>
-                        </div>
-                        <div class="preview-achievements">
-                            <h2>Achievements / Certifications</h2>
-                            <p id="preview-achievements"></p>
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-    
-    <script src="storage.js"></script>
-    <script src="auth.js"></script>
-    <script src="theme.js"></script>
-    <script src="resume.js"></script>
-</body>
+            <!-- banner section end -->
+      </div>
+      <!-- header section end -->
+      <!-- services section start -->
+      <div class="services_section layout_padding">
+         <div class="container">
+            <div class="section_header text-center mb-5">
+               <h2 class="section_subtitle">WHY CHOOSE US</h2>
+               <h1 class="section_title">Resume Building Features</h1>
+               <p class="section_description">Our platform offers everything you need to create a standout resume</p>
+            </div>
+            <div class="row">
+               <div class="col-md-6 col-lg-3 mb-4 fade-in-up" style="animation-delay: 0.1s;">
+                  <div class="feature_card">
+                     <div class="feature_icon">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                     </div>
+                     <h5 class="feature_title">ATS Optimized</h5>
+                     <p class="feature_desc">Pass applicant tracking systems with our ATS-friendly formats</p>
+                  </div>
+               </div>
+               <div class="col-md-6 col-lg-3 mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                  <div class="feature_card">
+                     <div class="feature_icon">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                     </div>
+                     <h5 class="feature_title">Professional Templates</h5>
+                     <p class="feature_desc">Choose from beautifully designed templates for every industry</p>
+                  </div>
+               </div>
+               <div class="col-md-6 col-lg-3 mb-4 fade-in-up" style="animation-delay: 0.3s;">
+                  <div class="feature_card">
+                     <div class="feature_icon">
+                        <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                     </div>
+                     <h5 class="feature_title">Expert Tips</h5>
+                     <p class="feature_desc">Get professional guidance at every step of your resume creation</p>
+                  </div>
+               </div>
+               <div class="col-md-6 col-lg-3 mb-4 fade-in-up" style="animation-delay: 0.4s;">
+                  <div class="feature_card">
+                     <div class="feature_icon">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                     </div>
+                     <h5 class="feature_title">Instant Download</h5>
+                     <p class="feature_desc">Download your resume in PDF format instantly, anytime</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- services section end -->
+      <!-- shop section start -->
+      <div id="templates" class="blog_section layout_padding">
+         <div class="container">
+            <div class="section_header text-center mb-5">
+               <h2 class="section_subtitle">TEMPLATES</h2>
+               <h1 class="section_title">FEATURED RESUME TEMPLATES</h1>
+               <p class="section_description">Professional designs to make your resume stand out</p>
+            </div>
+            <div class="blog_section_2">
+               <div class="blog_static_content">
+                  <div class="row">
+                     <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="template_card">
+                           <div class="blog_img"><img src="images/res3.png" alt="Modern Professional Resume"></div>
+                           <div class="template_overlay">
+                              <h6 class="template_number">01</h6>
+                              <h4 class="template_name">Modern Professional</h4>
+                           </div>
+                           <div class="callnow_btn">
+                              <div class="chat_bt"><a href="#"><i class="fa fa-eye"></i> Preview</a></div>
+                              <div class="call_bt active"><a href="resume-builder.html"><i class="fa fa-plus"></i> Use Template</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="template_card">
+                           <div class="blog_img"><img src="images/res7.jpg" alt="Creative Designer Resume"></div>
+                           <div class="template_overlay">
+                              <h6 class="template_number">02</h6>
+                              <h4 class="template_name">Creative Designer</h4>
+                           </div>
+                           <div class="callnow_btn">
+                              <div class="chat_bt"><a href="#"><i class="fa fa-eye"></i> Preview</a></div>
+                              <div class="call_bt active"><a href="resume-builder.html"><i class="fa fa-plus"></i> Use Template</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="template_card">
+                           <div class="blog_img"><img src="images/res5.jpg" alt="Executive CV Template"></div>
+                           <div class="template_overlay">
+                              <h6 class="template_number">03</h6>
+                              <h4 class="template_name">Executive CV</h4>
+                           </div>
+                           <div class="callnow_btn">
+                              <div class="chat_bt"><a href="#"><i class="fa fa-eye"></i> Preview</a></div>
+                              <div class="call_bt active"><a href="resume-builder.html"><i class="fa fa-plus"></i> Use Template</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- shop section end -->
+      <!-- about section start -->
+      <div class="about_section layout_padding">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-6 padding_left0">
+                  <div class="about_taital_main">
+                     <h1 class="about_taital">About ResumeBuilder</h1>
+                     <h6 class="about_text">READY TO CREATE YOUR PERFECT RESUME?</h6>
+                     <div class="btn_main">
+                        <div class="started_bt"><a href="resume-builder.html">Start Building</a></div>
+                        <div class="buy_bt active"><a href="view-temp.html">View Templates</a></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="about_img"><img src="images/about-img.png" alt="Resume Building Process"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- about section end -->
+      <!-- pricing section start -->
+      <div id="pricing" class="pricing_section layout_padding">
+         <div class="container">
+            <div class="section_header text-center mb-5">
+               <h2 class="section_subtitle">PRICING</h2>
+               <h1 class="section_title">CHOOSE YOUR PLAN</h1>
+               <p class="section_description">Select the perfect plan for your career goals</p>
+            </div>
+            <div class="pricing_section_2">
+               <div class="row">
+                  <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.1s;">
+                     <div class="pricing_box">
+                        <h6 class="regular_text">Basic</h6>
+                        <div class="taital_main">
+                           <h3 class="dolor_text">$</h3>
+                           <h1 class="dolor_text_1">0</h1>
+                           <p class="month_text">/Forever</p>
+                        </div>
+                        <p class="using_text">One professional resume template, basic formatting, PDF export</p>
+                        <div class="readmore_bt basic-bt"><a href="#">Get Started</a></div>
+                     </div>
+                  </div>
+                  <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                     <div class="pricing_box active">
+                        <h6 class="regular_text">Premium</h6>
+                        <div class="taital_main">
+                           <h3 class="dolor_text">$</h3>
+                           <h1 class="dolor_text_1">19</h1>
+                           <p class="month_text">/Per Month</p>
+                        </div>
+                        <p class="using_text">Unlimited templates, cover letters, ATS optimization, priority support</p>
+                        <div class="readmore_bt active"><a href="#">Choose Plan</a></div>
+                     </div>
+                  </div>
+                  <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.3s;">
+                     <div class="pricing_box">
+                        <h6 class="regular_text">Pro</h6>
+                        <div class="taital_main">
+                           <h3 class="dolor_text">$</h3>
+                           <h1 class="dolor_text_1">49</h1>
+                           <p class="month_text">/Per Month</p>
+                        </div>
+                        <p class="using_text">All Premium features plus interview prep, portfolio builder, career coaching</p>
+                        <div class="readmore_bt"><a href="#">Go Pro</a></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- pricing section end -->
+      <!-- customer section end -->
+      <div class="customer_section layout_padding">
+         <div class="container">
+            <div class="section_header text-center mb-5">
+               <h2 class="section_subtitle">TESTIMONIALS</h2>
+               <h1 class="section_title">WHAT OUR USERS SAY</h1>
+               <p class="section_description">Real success stories from professionals like you</p>
+            </div>
+         </div>
+         <div class="customer_cards_row">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.1s;">
+                     <div class="testimonial_card">
+                        <div class="customer_icon_wrapper">
+                           <i class="fa fa-user" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="customer_name">Sarah Johnson</h3>
+                        <p class="web_text">Marketing Manager</p>
+                        <p class="testimonial_text">This resume builder completely transformed my job search! I created a professional resume in just 30 minutes and landed three interviews within a week.</p>
+                     </div>
+                  </div>
+                  <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                     <div class="testimonial_card">
+                        <div class="customer_icon_wrapper">
+                           <i class="fa fa-user" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="customer_name">Michael Chen</h3>
+                        <p class="web_text">Software Engineer</p>
+                        <p class="testimonial_text">I was struggling with my resume for months until I found this platform. The professional templates made me stand out from other candidates.</p>
+                     </div>
+                  </div>
+                  <div class="col-md-4 mb-4 fade-in-up" style="animation-delay: 0.3s;">
+                     <div class="testimonial_card">
+                        <div class="customer_icon_wrapper">
+                           <i class="fa fa-user" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="customer_name">Emma Rodriguez</h3>
+                        <p class="web_text">Business Analyst</p>
+                        <p class="testimonial_text">As a recent graduate, I had no idea how to create a compelling resume. This builder guided me step-by-step and helped me land my first job.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- customer section end -->
+      <!-- contact section start -->
+      <div class="contact_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-12">
+                  <h1 class="contact_taital contact_heading">GET IN TOUCH</h1>
+               </div>
+            </div>
+            <div class="contact_section_2">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="mail_section map_form_container">
+                        <form action="">
+                           <input type="text" class="mail_text" placeholder="Your Name" name="Your Name">
+                           <input type="text" class="mail_text" placeholder="Email" name="Email">
+                           <input type="text" class="mail_text" placeholder="Subject" name="Subject">
+                           <textarea class="massage-bt" placeholder="How can we help you with your resume?" rows="5" id="comment" name="Message"></textarea>
+                           <div class="contact_btn_main">
+                              <div class="send_bt active"><a href="#">Send Message</a></div>
+                              <div class="map_bt"><a href="#" id="showMap">Live Chat</a></div>
+                           </div>
+                        </form>
+                        <div class="map_main map_container">
+                           <div class="map-responsive">
+                              <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="368" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
+                              <div class="btn_main">
+                                 <div class="map_bt d-flex justify-content-center w-100 map_center"><a href="#" id="showForm">Form</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- contact section end -->
+      <!-- footer section start -->
+      <footer class="footer_section" role="contentinfo" aria-label="Site Footer">
+         <div class="container">
+            <!-- Footer Brand -->
+            <div class="footer_brand">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="footer_logo">
+                        <h2 class="footer_brand_title">RESUME BUILDER</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Footer Content Grid -->
+            <div class="footer_content">
+               <div class="row">
+                  <!-- Column 1: Quick Links -->
+                  <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                     <h3 class="footer_heading">Quick Links</h3>
+                     <nav class="footer_nav" aria-label="Quick Links">
+                        <ul class="footer_menu">
+                           <li><a href="index.html" class="footer_link">Home</a></li>
+                           <li><a href="resume-builder.html" class="footer_link">Resume Builder</a></li>
+                           <li><a href="#templates" class="footer_link">Resume Templates</a></li>
+                           <li><a href="#pricing" class="footer_link">Pricing</a></li>
+                        </ul>
+                     </nav>
+                  </div>
+
+                  <!-- Column 2: Resume Help -->
+                  <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                     <h3 class="footer_heading">Resume Help</h3>
+                     <nav class="footer_nav" aria-label="Resume Resources">
+                        <ul class="footer_menu">
+                           <li><a href="#guide" class="footer_link">Resume Writing Guide</a></li>
+                           <li><a href="#cover-letter" class="footer_link">Cover Letter Tips</a></li>
+                           <li><a href="#interview" class="footer_link">Interview Preparation</a></li>
+                           <li><a href="#job-search" class="footer_link">Job Search Strategies</a></li>
+                           <li><a href="#linkedin" class="footer_link">LinkedIn Optimization</a></li>
+                           <li><a href="#career" class="footer_link">Career Change Advice</a></li>
+                        </ul>
+                     </nav>
+                  </div>
+
+                  <!-- Column 3: Support -->
+                  <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                     <h3 class="footer_heading">Support</h3>
+                     <address class="footer_contact">
+                        <div class="contact_item">
+                           <i class="fa fa-phone contact_icon" aria-hidden="true"></i>
+                           <a href="tel:+91XXXXXXXXXX" class="contact_link">+91 XXXXXXXXXX</a>
+                        </div>
+                        <div class="contact_item">
+                           <i class="fa fa-envelope contact_icon" aria-hidden="true"></i>
+                           <a href="mailto:support@resumebuilder.com" class="contact_link">support@resumebuilder.com</a>
+                        </div>
+                        <div class="contact_item">
+                           <i class="fa fa-comments contact_icon" aria-hidden="true"></i>
+                           <a href="#chat" class="contact_link">Live Chat Available</a>
+                        </div>
+                     </address>
+                  </div>
+
+                  <!-- Column 4: Follow Us -->
+                  <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                     <h3 class="footer_heading">Follow Us</h3>
+                     <p class="footer_description">Stay updated with career tips and resume advice</p>
+                     <nav class="social_links" aria-label="Social Media">
+                        <ul class="social_list">
+                           <li><a href="#" class="social_link" aria-label="Follow us on Facebook" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                           <li><a href="#" class="social_link social_link--twitter" aria-label="Follow us on Twitter" title="Twitter">𝕏</a></li>
+                           <li><a href="#" class="social_link" aria-label="Follow us on LinkedIn" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                           <li><a href="#" class="social_link" aria-label="Follow us on Instagram" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                           <li><a href="#" class="social_link" aria-label="Follow us on YouTube" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                        </ul>
+                     </nav>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- footer section end -->
+      <!-- copyright section start -->
+      <div class="copyright_section" role="contentinfo">
+         <div class="container">
+            <div class="copyright_wrapper">
+               <p class="copyright_text">
+                  <span id="current-year">2026</span> ResumeBuilder. All Rights Reserved.
+               </p>
+               <nav class="copyright_links" aria-label="Legal">
+                  <a href="#privacy" class="copyright_link">Privacy Policy</a>
+                  <span class="separator">|</span>
+                  <a href="#terms" class="copyright_link">Terms of Service</a>
+                  <span class="separator">|</span>
+                  <a href="#accessibility" class="copyright_link">Accessibility</a>
+               </nav>
+            </div>
+         </div>
+      </div>
+
+      <!-- AI Chat Assistant -->
+      <div id="chat-btn">💬</div>
+      <div id="chat-container">
+      <div class="chat-resize-handle" id="chat-resize-handle"></div>
+      <div class="chat-header">
+         <span>AI Resume Assistant</span>
+         <button id="close-chat">✕</button>
+      </div>
+      <div class="chat-body" id="chat-body">
+         <div class="bot-msg">
+            Hi 👋 I’m your AI Resume Assistant.  
+            Ask me anything about resumes, ATS, or templates.
+         </div>
+      </div>
+      <div class="chat-input">
+         <input type="text" id="user-input" placeholder="Ask your question..." />
+         <button id="send-btn">Send</button>
+      </div>
+      </div>
+      
+      <script src="chat.js"></script>
+
+      <!-- copyright section end -->
+      <!-- Bootstrap JS bundle (no jQuery required) -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0j5nV6Q0sP6N9a8+" crossorigin="anonymous"></script>
+      <!-- javascript --> 
+      <script src="validation.js"></script>
+      <script src="storage.js"></script>
+      <script src="auth.js"></script>
+      <script src="theme.js"></script>
+      <script>
+         // Dynamic copyright year
+         (function () {
+           var el = document.getElementById('current-year');
+           if (el) {
+             el.textContent = new Date().getFullYear();
+           }
+         })();
+      </script>
+   <script src="auth-ui.js"></script>
+   </body>
 </html>

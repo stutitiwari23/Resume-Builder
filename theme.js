@@ -1,24 +1,39 @@
-// theme.js - simple theme toggling and persistence per user
-document.addEventListener('DOMContentLoaded', function(){
-    const btn = document.getElementById('theme-toggle');
-    if(!btn) return;
+// theme.js — FINAL, STABLE VERSION
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
 
-    function applyTheme(t){
-        document.documentElement.setAttribute('data-theme', t);
+  const icon = btn.querySelector("i");
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+
+    if (theme === "dark") {
+      icon.className = "fa-solid fa-sun";
+      btn.title = "Switch to Light Mode";
+      btn.setAttribute("aria-label", "Switch to Light Mode");
+    } else {
+      icon.className = "fa-solid fa-moon";
+      btn.title = "Switch to Dark Mode";
+      btn.setAttribute("aria-label", "Switch to Dark Mode");
     }
+  }
 
-    btn.addEventListener('click', function(){
-        const current = document.documentElement.getAttribute('data-theme') || 'light';
-        const next = current === 'light' ? 'dark' : 'light';
-        applyTheme(next);
+  // Load saved theme
+  const savedTheme =
+    localStorage.getItem("theme") ||
+    (window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light");
 
-        const currentUser = localStorage.getItem('currentUser');
-        if(currentUser){
-            const userData = getUserData(currentUser) || {};
-            userData.theme = next;
-            saveUserData(currentUser, userData);
-        }
-    });
+  applyTheme(savedTheme);
 
-    // on load, if user has theme saved it will already be applied by storage.loadUserData
+  btn.addEventListener("click", () => {
+    const current =
+      document.documentElement.getAttribute("data-theme") || "light";
+    const next = current === "light" ? "dark" : "light";
+
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  });
 });
