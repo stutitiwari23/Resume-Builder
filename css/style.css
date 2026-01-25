@@ -3025,3 +3025,474 @@ textarea#comment::placeholder {
         font-size: 14px;
     }
 }
+/* ================= PROFESSIONAL CONTACT RESET ================= */
+
+/* ===== MODERN CONTACT FORM ===== */
+
+/* ===== GET IN TOUCH SECTION ===== */
+
+/* ===== GET IN TOUCH PROFESSIONAL STYLE ===== */
+
+.contact_section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #349d9a 0%, #b4f8f8 50%, #c5f6fa 100%);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.contact_section::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+    top: -150px;
+    right: -150px;
+    animation: float 8s ease-in-out infinite;
+    border-radius: 50%;
+}
+
+.contact_section::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(160, 231, 229, 0.4), transparent 70%);
+    bottom: -100px;
+    left: -100px;
+    animation: float 10s ease-in-out infinite reverse;
+    border-radius: 50%;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* GET IN TOUCH heading with vibrant slide animation */
+.contact_taital {
+    text-align: center;
+    font-size: 48px;
+    letter-spacing: 4px;
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-transform: uppercase;
+    filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.5));
+    background-size: 200% 200%;
+    position: relative;
+    animation: slideInFromLeft 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), gradientShift 4s ease infinite;
+}
+
+.contact_taital::before {
+    content: 'GET IN TOUCH';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: blur(20px);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Center card */
+.contact_section_2 {
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 70px;
+}
+
+.contact_section_2 .row {
+    justify-content: center;
+}
+
+/* Main card with cyan-navy glow effect */
+.mail_section.map_form_container {
+    max-width: 100%;
+    margin: auto;
+    background: linear-gradient(135deg, rgba(224, 252, 255, 0.95), rgba(207, 250, 254, 0.9), rgba(186, 230, 253, 0.95));
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 50px 45px;
+    box-shadow: 
+        0 0 40px rgba(6, 182, 212, 0.4),
+        0 0 80px rgba(14, 165, 233, 0.3),
+        0 15px 60px rgba(48, 95, 196, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 5px 20px rgba(6, 182, 212, 0.5);
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideInLeft 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both, glowPulse 3s ease-in-out infinite;
+    position: relative;
+}
+
+.mail_section.map_form_container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(135deg, #318291, #000000, #2563eb, #06b6d4);
+    border-radius: 30px;
+    z-index: -1;
+    opacity: 0.4;
+    filter: blur(15px);
+    animation: rotateBorder 4s linear infinite;
+    background-size: 400% 400%;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 40px rgba(6, 182, 212, 0.4),
+            0 0 80px rgba(14, 165, 233, 0.3),
+            0 15px 60px rgba(37, 99, 235, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8),
+            0 5px 20px rgba(6, 182, 212, 0.5);
+    }
+    50% {
+        box-shadow: 
+            0 0 60px rgba(6, 182, 212, 0.6),
+            0 0 100px rgba(14, 165, 233, 0.5),
+            0 15px 60px rgba(37, 99, 235, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8),
+            0 5px 30px rgba(6, 182, 212, 0.7);
+    }
+}
+
+@keyframes rotateBorder {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Form labels */
+.mail_section label {
+    display: block;
+    font-size: 12px;
+    color: #4a5568;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Inputs with enhanced styling */
+.mail_text,
+.massage-bt {
+    width: 100%;
+    padding: 16px 20px;
+    margin-top: 8px;
+    margin-bottom: 24px;
+    border-radius: 18px;
+    border: 2px solid rgba(168, 197, 193, 0.3);
+    background: #ffffff;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    color: #2d3748;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mail_text::placeholder,
+.massage-bt::placeholder {
+    color: #a0aec0;
+}
+
+.mail_text:focus,
+.massage-bt:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 
+        0 0 0 4px rgba(102, 126, 234, 0.1),
+        0 4px 12px rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+.massage-bt {
+    min-height: 160px;
+    resize: vertical;
+}
+
+/* Buttons container */
+.contact_btn_main {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.send_bt,
+.map_bt {
+    width: auto;
+    flex: 1;
+    max-width: 220px;
+}
+
+/* Enhanced button styling */
+.send_bt a,
+.map_bt a {
+    display: block;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-size: 13px;
+    position: relative;
+    overflow: hidden;
+     background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #2563eb 100%);
+}
+
+/* Send Message button with cool cyan gradient effect */
+.send_bt a {
+    background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #2563eb 100%);
+    color: white;
+    border: none;
+    box-shadow: 
+        0 8px 25px rgba(6, 182, 212, 0.5),
+        0 4px 15px rgba(14, 165, 233, 0.4),
+        0 0 20px rgba(6, 182, 212, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.send_bt a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.send_bt a:hover::before {
+    left: 100%;
+}
+
+.send_bt a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.send_bt a:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.send_bt a:hover {
+    transform: translateY(-8px) scale(1.08);
+    box-shadow: 
+        0 15px 45px rgba(6, 182, 212, 0.6),
+        0 10px 30px rgba(14, 165, 233, 0.5),
+        0 0 40px rgba(6, 182, 212, 0.5);
+    animation: buttonGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 
+            0 15px 45px rgba(6, 182, 212, 0.6),
+            0 10px 30px rgba(14, 165, 233, 0.5),
+            0 0 40px rgba(6, 182, 212, 0.5);
+    }
+    50% {
+        box-shadow: 
+            0 15px 45px rgba(6, 182, 212, 0.8),
+            0 10px 30px rgba(14, 165, 233, 0.7),
+            0 0 60px rgba(6, 182, 212, 0.7);
+    }
+}
+
+.send_bt a:active {
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Live Chat button with cool cyan border effect */
+.map_bt a {
+    padding: 16px 40px;
+    border-radius: 50px;
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #0c9db7, #0ea5e9, #2b67e8) border-box;
+    color: #0ea5e9;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 15px rgba(6, 182, 212, 0.3),
+        0 0 20px rgba(14, 165, 233, 0.2);
+}
+
+.map_bt a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: -1;
+}
+
+.map_bt a::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #06b6d4, #0ea5e9, #2563eb, #06b6d4);
+    border-radius: 50px;
+    z-index: -2;
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.4s ease;
+    background-size: 400% 400%;
+    animation: rotateBorder 3s linear infinite;
+}
+
+.map_bt a:hover::before {
+    width: 350px;
+    height: 350px;
+}
+
+.map_bt a:hover::after {
+    opacity: 0.8;
+}
+
+.map_bt a:hover {
+    color: #ffffff;
+    transform: translateY(-8px) scale(1.08);
+    box-shadow: 
+        0 15px 45px rgba(6, 182, 212, 0.5),
+        0 10px 30px rgba(14, 165, 233, 0.4),
+        0 0 40px rgba(6, 182, 212, 0.4);
+    animation: buttonGlow 1.5s ease-in-out infinite;
+}
+
+.map_bt a:active {
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Slide-in animation keyframes */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .contact_section_2 {
+        width: 90%;
+    }
+    
+    .contact_btn_main {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .send_bt,
+    .map_bt {
+        max-width: 100%;
+    }
+    
+    .mail_section.map_form_container {
+        padding: 35px 25px;
+    }
+    
+    .contact_taital {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact_taital {
+        font-size: 28px;
+        letter-spacing: 2px;
+    }
+    
+    .send_bt a,
+    .map_bt a {
+        padding: 14px 32px;
+        font-size: 12px;
+    }
+}
