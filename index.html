@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20fill='%23007bff'/%3E%3Ctext%20x='50'%20y='57'%20font-size='50'%20fill='%23fff'%20font-family='Arial'%20font-weight='700'%20text-anchor='middle'%3ERB%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Resume Builder</h1>
+            <div class="header-controls">
+                <button id="theme-toggle" aria-label="Toggle Theme" title="Toggle Theme">
+                    <span class="icon-sun" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4V2M12 22v-2M4.93 4.93 3.52 3.52M20.48 20.48 19.07 19.07M4 12H2M22 12h-2M4.93 19.07 3.52 20.48M20.48 3.52 19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/></svg>
+                    </span>
+                    <span class="icon-moon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </button>
+                <button id="download-resume" class="hidden">Download</button>
+                <div id="auth-controls">
+                    <button id="show-auth" class="sign-in-btn">Sign In</button>
+                </div>
+                <div id="profile-dropdown" class="profile-dropdown hidden">
+                    <button class="profile-btn">
+                        <svg class="profile-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content" id="dropdown-menu">
+                        <div class="dropdown-item user-info" id="dropdown-user-name">User Name</div>
+                        <a href="#" class="dropdown-item" id="profile-link">Profile</a>
+                        <a href="#" class="dropdown-item" id="settings-link">Settings</a>
+                        <a href="#" class="dropdown-item" id="logout-dropdown">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section id="landing-section">
+            <div class="landing-wrap">
+                <div class="landing-content">
+                    <div class="hero-badge">Professional Resume Builder</div>
+                    <h1 class="landing-title">Build Your Perfect Resume in Minutes</h1>
+                    <p class="landing-desc">
+                        Create professional, ATS-friendly resumes that get noticed by employers.<br>
+                        No sign-up required. Completely private. 100% free.
+                    </p>
+                    <div class="landing-features">
+                        <span class="feature-chip animated-chip">ATS-Friendly Templates</span>
+                        <span class="feature-chip animated-chip">Professional Designs</span>
+                        <span class="feature-chip animated-chip">Instant Download</span>
+                        <span class="feature-chip animated-chip">No Registration Needed</span>
+                    </div>
+                    <div class="hero-buttons">
+                        <button id="cta-create" class="cta-button primary-btn" aria-label="Create Resume" title="Create Resume">Create Resume Now</button>
+                        <button id="cta-demo" class="cta-button secondary-btn" aria-label="View Demo" title="View Demo">View Sample</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Resumes Created</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Interview Success Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5min</div>
+                            <div class="stat-label">Average Time</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-images-overlap">
+                    <div class="image-card back-card">
+                        <img src="res1.jpeg" alt="Professional Resume Template 1" class="hero-image">
+                    </div>
+                    <div class="image-card front-card">
+                        <img src="res2.webp" alt="Professional Resume Template 2" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Authentication Section -->
+        <div id="auth-section" class="hidden">
+            <div id="register-form" class="auth-form">
+                <h2>Register</h2>
+                <form id="register">
+                    <label for="reg-fullname">Full Name</label>
+                    <input type="text" id="reg-fullname" required>
+                    
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" required>
+                    
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" required>
+                    
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+            
+            <div id="login-form" class="auth-form hidden">
+                <h2>Login</h2>
+                <form id="login">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                    
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                    
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+            </div>
+        </div>
+        
+        <!-- Resume Builder Section -->
+        <div id="resume-section" class="hidden">
+            <div class="container">
+                <div class="form-section">
+                    <form id="resume-form">
+                        <h2>Personal Information</h2>
+                        <label for="name">Name</label>
+                        <input type="text" id="name">
+                        
+                        <label for="email">Email</label>
+                        <input type="email" id="email">
+                        
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone">
+                        
+                        <label for="location">Location</label>
+                        <input type="text" id="location">
+                        
+                        <label for="linkedin">LinkedIn / Portfolio URL</label>
+                        <input type="url" id="linkedin">
+                        
+                        <h2>Professional Summary</h2>
+                        <textarea id="summary" rows="4"></textarea>
+                        
+                        <h2>Education</h2>
+                        <label for="degree">Degree</label>
+                        <input type="text" id="degree">
+                        
+                        <label for="institution">Institution</label>
+                        <input type="text" id="institution">
+                        
+                        <label for="year">Year</label>
+                        <input type="number" id="year">
+                        
+                        <label for="cgpa">CGPA</label>
+                        <input type="text" id="cgpa">
+                        
+                        <h2>Skills</h2>
+                        <div id="skills-container">
+                            <input type="text" id="skill-input" placeholder="Add a skill">
+                            <button type="button" id="add-skill">Add</button>
+                            <div id="skills-list"></div>
+                        </div>
+                        
+                        <h2>Experience / Projects</h2>
+                        <label for="exp-title">Title</label>
+                        <input type="text" id="exp-title">
+                        
+                        <label for="exp-org">Organization</label>
+                        <input type="text" id="exp-org">
+                        
+                        <label for="exp-duration">Duration</label>
+                        <input type="text" id="exp-duration">
+                        
+                        <label for="exp-desc">Description</label>
+                        <textarea id="exp-desc" rows="4"></textarea>
+                        
+                        <h2>Achievements / Certifications (Optional)</h2>
+                        <textarea id="achievements" rows="4"></textarea>
+                    </form>
+                </div>
+                
+                <div class="preview-section">
+                    <div id="resume-preview">
+                        <div class="preview-header">
+                            <h1 id="preview-name"></h1>
+                            <div class="preview-contact">
+                                <span id="preview-email"></span> | <span id="preview-phone"></span> | <span id="preview-location"></span>
+                                <br><span id="preview-linkedin"></span>
+                            </div>
+                        </div>
+                        <div class="preview-summary">
+                            <h2>Professional Summary</h2>
+                            <p id="preview-summary"></p>
+                        </div>
+                        <div class="preview-education">
+                            <h2>Education</h2>
+                            <p id="preview-education"></p>
+                        </div>
+                        <div class="preview-skills">
+                            <h2>Skills</h2>
+                            <div id="preview-skills"></div>
+                        </div>
+                        <div class="preview-experience">
+                            <h2>Experience / Projects</h2>
+                            <div id="preview-experience"></div>
+                        </div>
+                        <div class="preview-achievements">
+                            <h2>Achievements / Certifications</h2>
+                            <p id="preview-achievements"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="storage.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="resume.js"></script>
+</body>
+</html>
