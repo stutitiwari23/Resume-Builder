@@ -1,0 +1,61 @@
+name: Auto-close issues mentioned in merged PR
+
+on:
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  auto-close-issues:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Auto-close referenced issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const text = `${pr.title}\n${pr.body || ""}`;
+
+            // Prefer Fixes/Closes/Resolves
+            const keywordRegex = /(Fixes|Closes|Resolves)\s+#(\d+)/gi;
+            let matches = [...text.matchAll(keywordRegex)];
+
+            // Fallback: plain #123 if no keywords used
+            if (matches.length === 0) {
+              console.log("No keywords found, falling back to plain issue references.");
+              matches = [...text.matchAll(/#(\d+)/g)].map(m => [null, null, m[1]]);
+            }
+
+            if (matches.length === 0) {
+              console.log("No issues referenced.");
+              return;
+            }
+
+            for (const match of matches) {
+              const issueNumber = match[2] || match[1];
+
+              try {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  state: "closed",
+                });
+
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  body: `Closed automatically via merged PR #${pr.number}.`,
+                });
+
+                console.log(`Closed issue #${issueNumber}`);
+              } catch (error) {
+                console.log(`Failed to close issue #${issueNumber}: ${error.message}`);
+              }
+            }

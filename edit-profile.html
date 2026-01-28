@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile - Resume Builder</title>
+    <title>Resume Builder | Editor</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
@@ -19,13 +19,22 @@
             background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 50%, #b0ede7 100%);
             background-attachment: fixed;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
             font-family: 'Sen', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             position: relative;
             overflow-x: hidden;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Decorative background elements */
@@ -566,7 +575,23 @@
     </style>
 </head>
 <body>
-    <div class="profile-container">
+    <div
+  style="
+    background:#fff3cd;
+    padding:12px;
+    border:1px solid #ffeeba;
+    font-size:14px;
+    margin-bottom:10px;
+  "
+  role="alert"
+>
+  ⚠️ <strong>Demo Project:</strong>
+  This resume builder is for demonstration purposes only.
+  Do not enter real personal information (email, phone, address, etc.).
+</div>
+
+    <div class="main-content">
+        <div class="edit-profile-container">
         <div class="profile-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                 <a href="./index.html" class="btn-back" style="display: flex; align-items: center; text-decoration: none; color: #28454e; padding: 0.5rem 1rem; border-radius: 8px; background-color: #e0fdf9; transition: all 0.3s ease;">
@@ -881,6 +906,117 @@
                 });
             }
         });
+    </script>
+    </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer_section" role="contentinfo" aria-label="Site Footer">
+        <div class="container">
+            <!-- Footer Brand -->
+            <div class="footer_brand">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer_logo">
+                            <h2 class="footer_brand_title">RESUME BUILDER</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Content Grid -->
+            <div class="footer_content">
+                <div class="row">
+                    <!-- Column 1: Quick Links -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Quick Links</h3>
+                        <nav class="footer_nav" aria-label="Quick Links">
+                            <ul class="footer_menu">
+                                <li><a href="index.html" class="footer_link">Home</a></li>
+                                <li><a href="resume-builder.html" class="footer_link">Resume Builder</a></li>
+                                <li><a href="#templates" class="footer_link">Resume Templates</a></li>
+                                <li><a href="#pricing" class="footer_link">Pricing</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Column 2: Resume Help -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Resume Help</h3>
+                        <nav class="footer_nav" aria-label="Resume Resources">
+                            <ul class="footer_menu">
+                                <li><a href="#guide" class="footer_link">Resume Writing Guide</a></li>
+                                <li><a href="#cover-letter" class="footer_link">Cover Letter Tips</a></li>
+                                <li><a href="#interview" class="footer_link">Interview Preparation</a></li>
+                                <li><a href="#job-search" class="footer_link">Job Search Strategies</a></li>
+                                <li><a href="#linkedin" class="footer_link">LinkedIn Optimization</a></li>
+                                <li><a href="#career" class="footer_link">Career Change Advice</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Support</h3>
+                        <address class="footer_contact">
+                            <div class="contact_item">
+                                <i class="fa fa-phone contact_icon" aria-hidden="true"></i>
+                                <a href="tel:+91XXXXXXXXXX" class="contact_link">+91 XXXXXXXXXX</a>
+                            </div>
+                            <div class="contact_item">
+                                <i class="fa fa-envelope contact_icon" aria-hidden="true"></i>
+                                <a href="mailto:support@resumebuilder.com" class="contact_link">support@resumebuilder.com</a>
+                            </div>
+                            <div class="contact_item">
+                                <i class="fa fa-comments contact_icon" aria-hidden="true"></i>
+                                <a href="#chat" class="contact_link">Live Chat Available</a>
+                            </div>
+                        </address>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="col-lg-3 col-md-6 col-sm-6 footer_col">
+                        <h3 class="footer_heading">Follow Us</h3>
+                        <p class="footer_description">Stay updated with career tips and resume advice</p>
+                        <nav class="social_links" aria-label="Social Media">
+                            <ul class="social_list">
+                                <li><a href="#" class="social_link" aria-label="Follow us on Facebook" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link social_link--twitter" aria-label="Follow us on Twitter" title="Twitter">𝕏</a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on LinkedIn" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on Instagram" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="social_link" aria-label="Follow us on YouTube" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright Section -->
+    <div class="copyright_section" role="contentinfo">
+        <div class="container">
+            <div class="copyright_wrapper">
+                <p class="copyright_text">
+                    <span id="current-year">2026</span> ResumeBuilder. All Rights Reserved.
+                </p>
+                <nav class="copyright_links" aria-label="Legal">
+                    <a href="#privacy" class="copyright_link">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#terms" class="copyright_link">Terms of Service</a>
+                    <span class="separator">|</span>
+                    <a href="#accessibility" class="copyright_link">Accessibility</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic copyright year
+        const currentYearElement = document.getElementById('current-year');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
     </script>
 </body>
 </html>

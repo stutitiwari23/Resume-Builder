@@ -5,8 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 </head>
 <body>
+<div
+  style="
+    background:#fff3cd;
+    padding:12px;
+    border:1px solid #ffeeba;
+    font-size:14px;
+    margin-bottom:10px;
+  "
+  role="alert"
+>
+  ⚠️ <strong>Demo Project:</strong>
+  This resume builder is for demonstration purposes only.
+  Do not enter real personal information (email, phone, address, etc.).
+</div>
 
   <div class="auth-container">
     <div class="auth-page">
@@ -15,12 +32,12 @@
       <p class="subtitle">Join us today</p>
 
       <div class="input-group">
-        <input type="email" required />
-        <label>Email</label>
+        <input type="email" required placeholder=""/>
+        <label >Email</label>
       </div>
 
       <div class="input-group password-group">
-        <input type="password" id="signup-password" required />
+        <input type="password" id="signup-password" required placeholder="" />
         <label>Password</label>
         <span class="eye" onclick="togglePassword('signup-password', this)">👁</span>
       </div>
