@@ -2497,3 +2497,27 @@ input.email_text::placeholder {
 [data-theme="dark"] #theme-toggle i {
   color: #ffd166; /* sun */
 }
+/* Cursor Trail Effect */
+.cursor-trail-dot {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: rgba(72, 187, 170, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: cursorFade 0.7s ease-out forwards;
+  z-index: 9999;
+  filter: blur(1px);
+}
+
+@keyframes cursorFade {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+}
