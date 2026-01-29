@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Feedback Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Reuse existing project styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    .admin-container {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+
+    .admin-container h1 {
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f5f5f5;
+    }
+
+    .status-reviewed {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-pending {
+      color: #c0392b;
+      font-weight: bold;
+    }
+
+    button {
+      padding: 6px 10px;
+      margin-right: 5px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="admin-container">
+    <h1>Admin Feedback Management</h1>
+    <p>View and manage feedback submitted by users.</p>
+
+    <table id="feedbackTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Feedback</th>
+          <th>Submitted At</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be inserted by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Admin logic -->
+  <script src="admin-feedback.js"></script>
+</body>
+</html>
