@@ -99,13 +99,13 @@
          <img src="./assets/logo.svg" alt="Resume Builder Logo" class="app-logo">
       </header>
       <!-- Auth Buttons -->
-      <div id="auth-wrapper">
-      <!-- Paste auth-header.html content here -->
-      <div class="auth-header">
+      <!-- <div id="auth-wrapper">
+      < Paste auth-header.html content here -->
+      <!-- <div class="auth-header">
          <a href="register.html" class="btn-auth btn-register">Sign Up</a>
          <a href="login.html" class="btn-auth btn-login">Sign In</a>
-      </div>
-      </div>
+      </div> -->
+      </div> 
 
       <div
   style="
@@ -170,32 +170,48 @@
                >
                <span class="navbar-toggler-icon"></span>
                </button>
-
+               
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="resume-builder.html">Resume Builder</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#templates">Templates</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Pricing</a>
-                     </li>
+
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                     <a class="nav-link active" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="resume-builder.html">Resume Builder</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="#templates">Templates</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="#pricing">Pricing</a>
+                  </li>
                   </ul>
 
+<!-- RIGHT SIDE CONTROLS -->
+      <div id="auth-controls">
+            <button id="themeToggle" class="simple-toggle">
+               <span class="sun">☀️</span>
+               <span class="moon">🌙</span>
+               <div class="thumb"></div>
+            </button>
+
+
+            <a id="show-register-top">Sign Up</a>
+            <a id="show-login-top">Sign In</a>
+      </div>
+
+
+                     <!-- <div id="auth-controls">
                   <form class="form-inline my-2 my-lg-0">
 
                     <button
-  id="theme-toggle"
-  aria-label="Switch to Dark Mode"
-  title="Switch to Dark Mode"
->
-  <i class="fa-solid fa-moon"></i>
-</button>
+                       id="theme-toggle"
+                       aria-label="Switch to Dark Mode"
+                        title="Switch to Dark Mode"
+                       >
+                        <i class="fa-solid fa-moon"></i>
+                  </button>
 
                      <button
                         type="button"
@@ -220,19 +236,19 @@
 
                      <div id="auth-controls">
                         <ul>
-                           <li><a href="./sign-up.html" id="show-register-top">Sign Up</a></li>
-                           <li><a href="./sign-in.html" id="show-login-top">Sign In</a></li>
+                           <!-<li><a href="./sign-up.html" id="show-register-top">Sign Up</a></li> -->
+                           <!-- <li><a href="./sign-in.html" id="show-login-top">Sign In</a></li> -->
                            <!-- Dark mode toggle -->
-                           <li class="theme-toggle">
+                           <!-- <li class="theme-toggle">
                            <button id="themeToggle" aria-label="Toggle dark mode">
                               🌙
-                           </button>
+                           </button> -->
                            </li>
                            <script src="dark.js"></script>
                            <!-- <li><a href="sign-up.html" id="show-register-top">Sign Up</a></li>
                            <li><a href="sign-in.html" id="show-login-top">Sign In</a></li> -->
                         </ul>
-                     </div>
+                     </div> 
 
                      <div id="profile-dropdown" class="profile-dropdown hidden">
                         <button class="profile-btn">
@@ -725,5 +741,39 @@
 
    <script src="contact-animation.js"></script>
 
+
    </body>
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+const toggle = document.getElementById("themeToggle");
+const body = document.body;
+
+/* restore theme */
+
+const saved = localStorage.getItem("theme") || "light";
+body.classList.add(saved + "-theme");
+
+/* toggle */
+
+toggle.addEventListener("click", () => {
+
+  if(body.classList.contains("light-theme")){
+    body.classList.remove("light-theme");
+    body.classList.add("dark-theme");
+    localStorage.setItem("theme","dark");
+  }else{
+    body.classList.remove("dark-theme");
+    body.classList.add("light-theme");
+    localStorage.setItem("theme","light");
+  }
+
+});
+
+});
+</script>
+
+
+</body>
 </html>

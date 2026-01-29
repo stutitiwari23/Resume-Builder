@@ -17,6 +17,75 @@ html {
 }
 
 body {
+    color: #666666;
+    font-size: 14px;
+    font-family: 'Sen', sans-serif;
+    line-height: 1.80857;
+    font-weight: normal;
+    overflow-x: hidden;
+}
+
+/* ===== Auth Header Buttons ===== */
+ .auth-header {
+  position: fixed;
+  top: 130px;
+  right: 30px;
+  display: flex;
+  gap: 12px;
+  z-index: 9999;
+  position: absolute;
+}
+
+/* Common button style */
+.btn-auth {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid #28454e;
+  cursor: pointer;
+}
+
+/* Sign In */
+.btn-login {
+  background-color: transparent;
+  color: #28454e;
+}
+
+.btn-login:hover {
+  background-color: #e6fdf9;
+  color: #1f3539;
+  transform: translateY(-2px);
+}
+
+/* Sign Up (Primary) */
+.btn-register {
+  background-color: #28454e;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(40, 69, 78, 0.3);
+}
+
+.btn-register:hover {
+  background-color: #1f3539;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(40, 69, 78, 0.4);
+}
+
+@media (max-width: 768px) {
+  .auth-header {
+    right: 15px;
+    gap: 10px;
+  }
+
+  .btn-auth {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+} 
   color: #666666;
   font-size: 14px;
   font-family: "Sen", sans-serif;
@@ -3200,5 +3269,163 @@ input.email_text::placeholder {
         padding: 14px 32px;
         font-size: 12px;
     }
+}
+
+
+/* KILL BOOTSTRAP IN AUTH */
+
+#auth-controls a,
+#auth-controls button{
+  all:unset;
+  box-sizing:border-box;
+  cursor:pointer;
+}
+
+/* layout */
+
+#auth-controls{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+/* theme toggle */
+
+.theme-toggle-switch{
+  padding:0;
+}
+
+.toggle-track{
+  width:64px;
+  height:32px;
+  background:#1da1f2;
+  border-radius:50px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6px;
+}
+
+.toggle-thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:26px;
+  height:26px;
+  background:#ffd43b;
+  border-radius:50%;
+  transition:.3s;
+}
+
+.dark-theme .toggle-thumb{
+  transform:translateX(32px);
+  background:#222;
+}
+
+/* AUTH BASE */
+
+#auth-controls a{
+  position:relative;
+  padding:10px 26px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  overflow:hidden;
+  transition:.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* SIGN UP */
+
+#show-register-top{
+  background:linear-gradient(135deg,#667eea,#ec4899,#fb923c);
+  color:white;
+  box-shadow:
+    0 6px 18px rgba(102,126,234,.5),
+    0 0 35px rgba(236,72,153,.4);
+  animation:signupGlow 3s infinite;
+}
+
+@keyframes signupGlow{
+  0%,100%{box-shadow:0 6px 18px rgba(102,126,234,.5),0 0 35px rgba(236,72,153,.4)}
+  50%{box-shadow:0 10px 30px rgba(251,146,60,.6),0 0 60px rgba(236,72,153,.6)}
+}
+
+#show-register-top:hover{
+  transform:scale(1.12) translateY(-2px);
+}
+
+/* SIGN IN same base as SIGN UP */
+
+#show-login-top{
+  background:linear-gradient(135deg,#667eea,#ec4899,#fb923c);
+  box-shadow:
+    0 6px 18px rgba(102,126,234,.5),
+    0 0 35px rgba(236,72,153,.4);
+    color: #28454e;
+}
+
+/* glow animation */
+
+@keyframes signinGlowSolid{
+  0%,100%{
+    box-shadow:
+      0 6px 18px rgba(102,126,234,.5),
+      0 0 35px rgba(34,211,238,.4);
+  }
+  50%{
+    box-shadow:
+      0 10px 30px rgba(34,211,238,.6),
+      0 0 60px rgba(102,126,234,.6);
+  }
+}
+
+/* hover colorful */
+
+#show-login-top:hover{
+  transform:scale(1.12) translateY(-2px);
+  background:linear-gradient(135deg,#667eea,#3b82f6,#22d3ee);
+  box-shadow:
+    0 10px 35px rgba(59,130,246,.7),
+    0 0 60px rgba(34,211,238,.6);
+}
+
+/* DARK MODE — keep visible */
+
+
+body.dark-theme #show-login-top{
+  background:linear-gradient(135deg,#667eea,#ec4899,#fb923c);
+  color:white !important;
+}
+
+/* ================= TOGGLE FIX ================= */
+.simple-toggle{
+  width:64px;
+  height:32px;
+  background:#1da1f2;
+  border-radius:50px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6px;
+}
+
+.simple-toggle .thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:26px;
+  height:26px;
+  background:#ffd43b;
+  border-radius:50%;
+  transition:.3s;
+}
+
+body.dark-theme .simple-toggle .thumb{
+  transform:translateX(32px);
+  background:#222;
 }
 
