@@ -79,103 +79,243 @@ const Sanitizer = (() => {
    * @example
    * const div = Sanitizer.createSafeElement('div', 'Hello World', 'greeting');
    */
-  const createSafeElement = (tag, text = '', className = '') => {
+  const createSafeElement = (tag, text, className = '') => {
     const element = document.createElement(tag);
+    setTextContent(element, text);
     if (className) {
       element.className = className;
     }
-    element.textContent = text;
     return element;
   };
 
   /**
-   * Validates and sanitizes URLs to prevent javascript: and data: schemes
-   * @param {string} url - The URL to validate
-   * @returns {string} Empty string if invalid, otherwise the URL
+   * Validates and sanitizes URLs to prevent dangerous protocols
+   * @param {string} url - URL to validate
+   * @returns {Object} Validation result with sanitized URL
    * @example
-   * const safeUrl = Sanitizer.sanitizeURL('javascript:alert("xss")');
-   * // Returns: ''
+   * const result = Sanitizer.validateURL('https://example.com');
+   * // Returns: { isValid: true, sanitizedURL: 'https://example.com', error: null }
    */
-  const sanitizeURL = (url) => {
-    if (typeof url !== 'string') {
-      return '';
+  const validateURL = (url) => {
+    if (!url || typeof url !== 'string') {
+      return { isValid: false, sanitizedURL: '', error: 'URL is required' };
     }
 
-    const trimmedUrl = url.trim().toLowerCase();
-
+    const trimmedURL = url.trim();
+    
     // Block dangerous protocols
-    const dangerousProtocols = ['javascript:', 'data:', 'vbscript:'];
-    if (dangerousProtocols.some((protocol) => trimmedUrl.startsWith(protocol))) {
+    const dangerousProtocols = [
+      'javascript:', 'data:', 'vbscript:', 'file:', 'ftp:', 
+      'mailto:', 'tel:', 'sms:', 'about:', 'chrome:', 'moz-extension:'
+    ];
+    
+    const lowerURL = trimmedURL.toLowerCase();
+    for (const protocol of dangerousProtocols) {
+      if (lowerURL.startsWith(protocol)) {
+        return { 
+          isValid: false, 
+          sanitizedURL: '', 
+          error: `Dangerous protocol detected: ${protocol}` 
+        };
+      }
+    }
+
+    // Validate URL format
+    try {
+      const urlObj = new URL(trimmedURL);
+      
+      // Only allow http and https
+      if (!['http:', 'https:'].includes(urlObj.protocol)) {
+        return { 
+          isValid: false, 
+          sanitizedURL: '', 
+          error: 'Only HTTP and HTTPS protocols are allowed' 
+        };
+      }
+
+      // Check for suspicious patterns
+      const suspiciousPatterns = [
+        /@/, // URLs with @ symbol (potential phishing)
+        /\s/, // URLs with spaces
+        /[<>"]/, // URLs with HTML characters
+        /\.\./  // Path traversal attempts
+      ];
+
+      for (const pattern of suspiciousPatterns) {
+        if (pattern.test(trimmedURL)) {
+          return { 
+            isValid: false, 
+            sanitizedURL: '', 
+            error: 'URL contains suspicious characters' 
+          };
+        }
+      }
+
+      return { 
+        isValid: true, 
+        sanitizedURL: urlObj.toString(), 
+        error: null 
+      };
+    } catch (error) {
+      return { 
+        isValid: false, 
+        sanitizedURL: '', 
+        error: 'Invalid URL format' 
+      };
+    }
+  };
+
+  /**
+   * Sanitizes HTML content by removing all tags and dangerous content
+   * @param {string} html - HTML content to sanitize
+   * @returns {string} Plain text content
+   * @example
+   * const safe = Sanitizer.stripHTML('<p>Hello <script>alert("xss")</script></p>');
+   * // Returns: 'Hello '
+   */
+  const stripHTML = (html) => {
+    if (typeof html !== 'string') {
       return '';
     }
-
-    return url;
-  };
-
-  /**
-   * Validates email format
-   * @param {string} email - The email to validate
-   * @returns {boolean} True if valid email format
-   * @example
-   * if (Sanitizer.isValidEmail('test@example.com')) { ... }
-   */
-  const isValidEmail = (email) => {
-    if (typeof email !== 'string') {
-      return false;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  /**
-   * Validates phone number format (international)
-   * @param {string} phone - The phone number to validate
-   * @returns {boolean} True if valid phone format
-   * @example
-   * if (Sanitizer.isValidPhone('+1-555-123-4567')) { ... }
-   */
-  const isValidPhone = (phone) => {
-    if (typeof phone !== 'string') {
-      return false;
-    }
-    const phoneRegex = /^[\d\s\-+().\]]+$/;
-    return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 7;
-  };
-
-  /**
-   * Removes all HTML tags from text
-   * @param {string} text - The text to clean
-   * @returns {string} Text with HTML tags removed
-   * @example
-   * const clean = Sanitizer.stripHTML('<p>Hello <b>World</b></p>');
-   * // Returns: 'Hello World'
-   */
-  const stripHTML = (text) => {
-    if (typeof text !== 'string') {
-      return '';
-    }
+    
+    // Create a temporary div to parse HTML
     const temp = document.createElement('div');
-    temp.innerHTML = text;
-    return temp.textContent || temp.innerText;
+    temp.innerHTML = html;
+    
+    // Remove all script tags and their content
+    const scripts = temp.querySelectorAll('script');
+    scripts.forEach(script => script.remove());
+    
+    // Remove all style tags and their content
+    const styles = temp.querySelectorAll('style');
+    styles.forEach(style => style.remove());
+    
+    // Return only text content
+    return temp.textContent || temp.innerText || '';
   };
 
   /**
-   * Limits text length and prevents abuse
-   * @param {string} text - The text to limit
-   * @param {number} maxLength - Maximum allowed length
-   * @returns {string} Limited text
+   * Sanitizes file names to prevent path traversal and dangerous characters
+   * @param {string} filename - File name to sanitize
+   * @returns {string} Sanitized file name
    * @example
-   * const limited = Sanitizer.limitLength('Very long text...', 10);
-   * // Returns: 'Very long ...'
+   * const safe = Sanitizer.sanitizeFileName('../../../etc/passwd');
+   * // Returns: 'passwd'
    */
-  const limitLength = (text, maxLength = 500) => {
-    if (typeof text !== 'string') {
+  const sanitizeFileName = (filename) => {
+    if (typeof filename !== 'string') {
+      return 'untitled';
+    }
+
+    return filename
+      .replace(/[<>:"/\\|?*]/g, '') // Remove dangerous characters
+      .replace(/\.\./g, '') // Remove path traversal
+      .replace(/^\.+/, '') // Remove leading dots
+      .trim()
+      .substring(0, 255) // Limit length
+      || 'untitled'; // Fallback if empty
+  };
+
+  /**
+   * Validates and sanitizes email addresses
+   * @param {string} email - Email to validate
+   * @returns {Object} Validation result
+   * @example
+   * const result = Sanitizer.validateEmail('user@example.com');
+   * // Returns: { isValid: true, sanitizedEmail: 'user@example.com', error: null }
+   */
+  const validateEmail = (email) => {
+    if (!email || typeof email !== 'string') {
+      return { isValid: false, sanitizedEmail: '', error: 'Email is required' };
+    }
+
+    const trimmedEmail = email.trim().toLowerCase();
+    
+    // Basic email regex (more permissive than strict RFC compliance)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if (!emailRegex.test(trimmedEmail)) {
+      return { 
+        isValid: false, 
+        sanitizedEmail: '', 
+        error: 'Invalid email format' 
+      };
+    }
+
+    // Check for dangerous patterns
+    if (trimmedEmail.includes('..') || trimmedEmail.startsWith('.') || trimmedEmail.endsWith('.')) {
+      return { 
+        isValid: false, 
+        sanitizedEmail: '', 
+        error: 'Email contains invalid patterns' 
+      };
+    }
+
+    // Length validation
+    if (trimmedEmail.length > 254) {
+      return { 
+        isValid: false, 
+        sanitizedEmail: '', 
+        error: 'Email is too long' 
+      };
+    }
+
+    return { 
+      isValid: true, 
+      sanitizedEmail: trimmedEmail, 
+      error: null 
+    };
+  };
+
+  /**
+   * Comprehensive input sanitization for form fields
+   * @param {string} input - Input to sanitize
+   * @param {Object} options - Sanitization options
+   * @returns {string} Sanitized input
+   * @example
+   * const safe = Sanitizer.sanitizeFormInput('<script>alert("xss")</script>Hello', {
+   *   maxLength: 100,
+   *   allowHTML: false,
+   *   trimWhitespace: true
+   * });
+   */
+  const sanitizeFormInput = (input, options = {}) => {
+    const defaults = {
+      maxLength: 1000,
+      allowHTML: false,
+      trimWhitespace: true,
+      removeLineBreaks: false
+    };
+    
+    const opts = { ...defaults, ...options };
+    
+    if (typeof input !== 'string') {
       return '';
     }
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength).trim() + '...';
+
+    let sanitized = input;
+
+    // Trim whitespace if requested
+    if (opts.trimWhitespace) {
+      sanitized = sanitized.trim();
     }
-    return text;
+
+    // Remove HTML if not allowed
+    if (!opts.allowHTML) {
+      sanitized = opts.removeLineBreaks ? 
+        stripHTML(sanitized).replace(/\n/g, ' ') : 
+        stripHTML(sanitized);
+    } else {
+      // If HTML is allowed, still escape dangerous content
+      sanitized = escapeHTML(sanitized);
+    }
+
+    // Limit length
+    if (opts.maxLength > 0) {
+      sanitized = sanitized.substring(0, opts.maxLength);
+    }
+
+    return sanitized;
   };
 
   // Public API
@@ -184,11 +324,11 @@ const Sanitizer = (() => {
     setTextContent,
     setMultipleTextContent,
     createSafeElement,
-    sanitizeURL,
-    isValidEmail,
-    isValidPhone,
+    validateURL,
     stripHTML,
-    limitLength
+    sanitizeFileName,
+    validateEmail,
+    sanitizeFormInput
   };
 })();
 

@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
     registerForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const fullName = document.getElementById('reg-fullname').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
+      const fullName = Security.sanitizeInput(document.getElementById('reg-fullname').value.trim());
+      const email = Security.sanitizeInput(document.getElementById('reg-email').value.trim());
       const password = document.getElementById('reg-password').value;
 
       if (!fullName || fullName.length < 2) {
@@ -162,8 +162,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       if (!Validator.validatePassword(password).isValid) {
+        const passwordValidation = Security.validatePasswordStrength(password);
         if (passwordError) {
-          passwordError.textContent = 'Password is too weak';
+          passwordError.textContent = passwordValidation.feedback.join('. ');
         }
         return;
       }
@@ -199,15 +200,42 @@ document.addEventListener('DOMContentLoaded', function () {
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
 
-      const user = getUserData(email);
-      if (!user || user.password !== password) {
-        ValidationUI.showToast('Invalid credentials', 'error');
+      // Check if client is blocked due to too many failed attempts
+      const blockStatus = Security.isClientBlocked();
+      if (blockStatus.blocked) {
+        const remainingMinutes = Math.ceil(blockStatus.remainingTime / 60000);
+        ValidationUI.showToast(
+          `Too many failed attempts. Please try again in ${remainingMinutes} minutes.`, 
+          'error'
+        );
         return;
       }
 
+      // Sanitize inputs
+      const sanitizedEmail = Security.sanitizeInput(email);
+      const sanitizedPassword = Security.sanitizeInput(password);
+
+      const user = getUserData(sanitizedEmail);
+      if (!user || user.password !== sanitizedPassword) {
+        // Record failed attempt
+        const rateLimitStatus = Security.recordFailedAttempt(sanitizedEmail, 'Invalid credentials');
+        
+        if (rateLimitStatus.blocked) {
+          ValidationUI.showToast(rateLimitStatus.message, 'error');
+        } else {
+          ValidationUI.showToast(
+            `Invalid credentials. ${rateLimitStatus.attemptsRemaining} attempts remaining.`, 
+            'error'
+          );
+        }
+        return;
+      }
+
+      // Successful login
+      Security.recordSuccessfulLogin(sanitizedEmail);
       user.session = true;
-      saveUserData(email, user);
-      localStorage.setItem('currentUser', email);
+      saveUserData(sanitizedEmail, user);
+      localStorage.setItem('currentUser', sanitizedEmail);
 
       ValidationUI.showToast('Login successful!', 'success');
       showResumeSection();

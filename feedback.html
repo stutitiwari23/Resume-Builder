@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Feedback | Resume Builder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Reuse existing styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <style>
+    .feedback-container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 20px;
+    }
+
+    .feedback-container h1 {
+      margin-bottom: 10px;
+    }
+
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .feedback-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .feedback-form button {
+      padding: 10px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="feedback-container">
+    <h1>User Feedback</h1>
+    <p>Your feedback helps us improve the Resume Builder.</p>
+
+    <form id="feedbackForm" class="feedback-form">
+      <input type="text" placeholder="Your Name (optional)" />
+      <input type="email" placeholder="Your Email (optional)" />
+      <textarea placeholder="Write your feedback here..." required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <p id="feedbackSuccess" style="display:none; margin-top:10px;">
+      ✅ Thank you for your feedback!
+    </p>
+  </div>
+
+  <script src="feedback.js"></script>
+</body>
+</html>

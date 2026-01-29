@@ -48,7 +48,15 @@ const Validator = {
   isValidURL(url) {
     if (!url) {
       return false;
-    } // URL is required now, not optional
+    }
+    
+    // Use Sanitizer's URL validation for consistency
+    if (typeof Sanitizer !== 'undefined' && Sanitizer.validateURL) {
+      const result = Sanitizer.validateURL(url);
+      return result.isValid;
+    }
+    
+    // Fallback validation
     try {
       // Block dangerous protocols
       const dangerousProtocols = ['javascript:', 'data:', 'vbscript:', 'file:'];
