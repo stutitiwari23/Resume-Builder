@@ -1,39 +1,16 @@
-// theme.js — FINAL, STABLE VERSION
 document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
+  const toggle = document.getElementById("themeToggle");
+  const body = document.body;
 
-  const icon = btn.querySelector("i");
+  const savedTheme = localStorage.getItem("theme") || "light";
+  body.classList.add(savedTheme + "-theme");
 
-  function applyTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme);
+  toggle.addEventListener("click", () => {
+    const isLight = body.classList.contains("light-theme");
 
-    if (theme === "dark") {
-      icon.className = "fa-solid fa-sun";
-      btn.title = "Switch to Light Mode";
-      btn.setAttribute("aria-label", "Switch to Light Mode");
-    } else {
-      icon.className = "fa-solid fa-moon";
-      btn.title = "Switch to Dark Mode";
-      btn.setAttribute("aria-label", "Switch to Dark Mode");
-    }
-  }
+    body.classList.toggle("light-theme", !isLight);
+    body.classList.toggle("dark-theme", isLight);
 
-  // Load saved theme
-  const savedTheme =
-    localStorage.getItem("theme") ||
-    (window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light");
-
-  applyTheme(savedTheme);
-
-  btn.addEventListener("click", () => {
-    const current =
-      document.documentElement.getAttribute("data-theme") || "light";
-    const next = current === "light" ? "dark" : "light";
-
-    applyTheme(next);
-    localStorage.setItem("theme", next);
+    localStorage.setItem("theme", isLight ? "dark" : "light");
   });
 });

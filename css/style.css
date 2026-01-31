@@ -86,12 +86,68 @@ body {
     font-size: 12px;
   }
 } 
-  color: #666666;
+
+  /* color: #666666;
   font-size: 14px;
   font-family: "Sen", sans-serif;
   line-height: 1.80857;
   font-weight: normal;
   overflow-x: hidden;
+} */
+/* ===== THEME SYSTEM ===== */
+
+/* Default (light) */
+body.light-theme {
+  background: #ffffff;
+  color: #111;
+}
+
+body.light-theme .header_section {
+  background: #ffffff;
+}
+
+body.light-theme .nav-link {
+  color: #000 !important;
+}
+
+/* Dark Theme */
+body.dark-theme {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+body.dark-theme .header_section {
+  background: #0f172a;
+}
+
+body.dark-theme .navbar {
+  background: #0f172a !important;
+}
+
+body.dark-theme .nav-link {
+  color: #e2e8f0 !important;
+}
+
+body.dark-theme .banner_section,
+body.dark-theme .services_section,
+body.dark-theme .about_section,
+body.dark-theme .pricing_section,
+body.dark-theme .customer_section,
+body.dark-theme .contact_section,
+body.dark-theme .footer_section {
+  background: #111827;
+}
+
+body.dark-theme .feature_card,
+body.dark-theme .pricing_box,
+body.dark-theme .testimonial_card,
+body.dark-theme .template_card {
+  background: #1e293b;
+  color: #fff;
+}
+
+body.dark-theme a {
+  color: #38bdf8;
 }
 
 /* chat bot style */
@@ -387,28 +443,6 @@ button {
   padding: 0px;
 }
 
-/* header section start */
-
-.header_section {
-  width: 100%;
-  float: left;
-  background-image: url(../images/banner-bg.png);
-  height: auto;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-
-.header_section::after {
-  content: "";
-  position: absolute;
-  width: 730px;
-  height: 900px;
-  background-color: #e0fdf9;
-  left: -40px;
-  top: -70px;
-  z-index: -1;
-  border-bottom-right-radius: 100%;
-}
 
 .header_bg {
   background-color: #e0fdf9 !important;
@@ -643,7 +677,7 @@ button {
 
 .profile-btn:hover .dropdown-arrow {
   transform: rotate(180deg);
-
+}
 body.dark-theme .theme-toggle button {
   border-color: #7ddbd2;
   color: #7ddbd2;
@@ -796,7 +830,7 @@ body.dark-theme .navbar-toggler-icon::after {
   color: #212529;
   border-bottom: 1px solid #dee2e6;
   transition: background-color 0.2s ease;
-
+}
 .navbar {
   display: flex;
   align-items: center;
