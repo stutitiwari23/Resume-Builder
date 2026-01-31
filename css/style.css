@@ -86,13 +86,14 @@ body {
     font-size: 12px;
   }
 } 
-  color: #666666;
+
+  /* color: #666666;
   font-size: 14px;
   font-family: "Sen", sans-serif;
   line-height: 1.80857;
   font-weight: normal;
   overflow-x: hidden;
-}
+} */
 
 /* chat bot style */
 #chat-btn {
@@ -387,28 +388,6 @@ button {
   padding: 0px;
 }
 
-/* header section start */
-
-.header_section {
-  width: 100%;
-  float: left;
-  background-image: url(../images/banner-bg.png);
-  height: auto;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-
-.header_section::after {
-  content: "";
-  position: absolute;
-  width: 730px;
-  height: 900px;
-  background-color: #e0fdf9;
-  left: -40px;
-  top: -70px;
-  z-index: -1;
-  border-bottom-right-radius: 100%;
-}
 
 .header_bg {
   background-color: #e0fdf9 !important;
@@ -643,7 +622,7 @@ button {
 
 .profile-btn:hover .dropdown-arrow {
   transform: rotate(180deg);
-
+}
 body.dark-theme .theme-toggle button {
   border-color: #7ddbd2;
   color: #7ddbd2;
@@ -796,7 +775,7 @@ body.dark-theme .navbar-toggler-icon::after {
   color: #212529;
   border-bottom: 1px solid #dee2e6;
   transition: background-color 0.2s ease;
-
+}
 .navbar {
   display: flex;
   align-items: center;
