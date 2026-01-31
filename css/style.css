@@ -94,6 +94,61 @@ body {
   font-weight: normal;
   overflow-x: hidden;
 } */
+/* ===== THEME SYSTEM ===== */
+
+/* Default (light) */
+body.light-theme {
+  background: #ffffff;
+  color: #111;
+}
+
+body.light-theme .header_section {
+  background: #ffffff;
+}
+
+body.light-theme .nav-link {
+  color: #000 !important;
+}
+
+/* Dark Theme */
+body.dark-theme {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+body.dark-theme .header_section {
+  background: #0f172a;
+}
+
+body.dark-theme .navbar {
+  background: #0f172a !important;
+}
+
+body.dark-theme .nav-link {
+  color: #e2e8f0 !important;
+}
+
+body.dark-theme .banner_section,
+body.dark-theme .services_section,
+body.dark-theme .about_section,
+body.dark-theme .pricing_section,
+body.dark-theme .customer_section,
+body.dark-theme .contact_section,
+body.dark-theme .footer_section {
+  background: #111827;
+}
+
+body.dark-theme .feature_card,
+body.dark-theme .pricing_box,
+body.dark-theme .testimonial_card,
+body.dark-theme .template_card {
+  background: #1e293b;
+  color: #fff;
+}
+
+body.dark-theme a {
+  color: #38bdf8;
+}
 
 /* chat bot style */
 #chat-btn {
