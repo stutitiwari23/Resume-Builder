@@ -336,3 +336,11 @@ const Sanitizer = (() => {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Sanitizer;
 }
+
+// Export to global for browser and test environments
+if (typeof window !== 'undefined') {
+  window.Sanitizer = Sanitizer;
+}
+if (typeof global !== 'undefined') {
+  global.Sanitizer = Sanitizer;
+}

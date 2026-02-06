@@ -1,0 +1,538 @@
+/* ============================================
+   PDF Export Modal & Template Selector Styles
+   ============================================ */
+
+/* ── Modal Overlay ─────────────────────────── */
+.pdf-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.pdf-modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ── Modal Content ─────────────────────────── */
+.pdf-modal-content {
+    background: var(--bg-primary, #fff);
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 780px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(30px) scale(0.96);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdf-modal-overlay.open .pdf-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* ── Modal Header ──────────────────────────── */
+.pdf-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color, #dee2e6);
+}
+
+.pdf-modal-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary, #212529);
+}
+
+.pdf-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-secondary, #6c757d);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.pdf-modal-close:hover {
+    background: var(--bg-tertiary, #e9ecef);
+    color: var(--text-primary, #212529);
+}
+
+/* ── Modal Body ────────────────────────────── */
+.pdf-modal-body {
+    padding: 1.25rem 1.5rem;
+}
+
+.pdf-modal-subtitle {
+    margin: 0 0 1rem;
+    color: var(--text-secondary, #6c757d);
+    font-size: 0.95rem;
+}
+
+/* ── Template Grid ─────────────────────────── */
+.pdf-template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+/* ── Template Card ─────────────────────────── */
+.pdf-template-card {
+    position: relative;
+    background: var(--bg-secondary, #f8f9fa);
+    border: 2px solid var(--border-color, #dee2e6);
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-template-card:hover {
+    border-color: var(--accent-color, #007bff);
+    box-shadow: 0 4px 16px rgba(0, 123, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.pdf-template-card.selected {
+    border-color: var(--accent-color, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2), 0 4px 16px rgba(0, 123, 255, 0.15);
+}
+
+/* ── Template Thumbnail Preview ────────────── */
+.pdf-template-preview {
+    background: #fff;
+    margin: 10px 10px 0;
+    border-radius: 4px;
+    padding: 14px 12px 10px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #eee;
+}
+
+.thumb-header {
+    margin-bottom: 4px;
+}
+
+.thumb-name {
+    height: 10px;
+    width: 60%;
+    background: #333;
+    border-radius: 2px;
+    margin-bottom: 4px;
+}
+
+.thumb-contact {
+    height: 5px;
+    width: 80%;
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.thumb-section {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.thumb-heading {
+    height: 6px;
+    width: 40%;
+    background: #007bff;
+    border-radius: 2px;
+    margin-bottom: 2px;
+}
+
+.thumb-line {
+    height: 4px;
+    width: 100%;
+    background: #e9ecef;
+    border-radius: 2px;
+}
+
+.thumb-line.short {
+    width: 65%;
+}
+
+/* ─ Template-specific thumbnail styles ─ */
+.template-thumb-modern {
+    border-left: 3px solid #007bff;
+}
+
+.template-thumb-modern .thumb-name {
+    background: #007bff;
+}
+
+.template-thumb-modern .thumb-heading {
+    background: #007bff;
+}
+
+.template-thumb-minimal {
+    border-left: none;
+}
+
+.template-thumb-minimal .thumb-name {
+    background: #333;
+    height: 12px;
+    width: 50%;
+}
+
+.template-thumb-minimal .thumb-heading {
+    background: #333;
+    height: 5px;
+}
+
+.template-thumb-minimal .thumb-contact {
+    width: 60%;
+}
+
+.template-thumb-professional {
+    border: 1px solid #ccc;
+}
+
+.template-thumb-professional .thumb-header {
+    text-align: center;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 6px;
+}
+
+.template-thumb-professional .thumb-name {
+    background: #1a1a1a;
+    margin: 0 auto 4px;
+}
+
+.template-thumb-professional .thumb-contact {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.template-thumb-professional .thumb-heading {
+    background: #1a1a1a;
+    text-transform: uppercase;
+}
+
+.template-thumb-creative {
+    overflow: hidden;
+}
+
+.template-thumb-creative .thumb-header {
+    background: linear-gradient(135deg, #6c5ce7, #6c5ce7cc);
+    margin: -14px -12px 8px;
+    padding: 12px;
+    border-radius: 4px 4px 0 0;
+}
+
+.template-thumb-creative .thumb-name {
+    background: rgba(255, 255, 255, 0.9);
+    width: 55%;
+}
+
+.template-thumb-creative .thumb-contact {
+    background: rgba(255, 255, 255, 0.5);
+    width: 70%;
+}
+
+.template-thumb-creative .thumb-heading {
+    background: #6c5ce7;
+    padding: 2px 6px;
+    border-radius: 3px;
+    width: 35%;
+}
+
+/* ── Template Info ─────────────────────────── */
+.pdf-template-info {
+    padding: 10px 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.pdf-template-icon {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+.pdf-template-info strong {
+    font-size: 0.9rem;
+    color: var(--text-primary, #212529);
+}
+
+.pdf-template-desc {
+    font-size: 0.72rem;
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Selection Check ───────────────────────── */
+.pdf-template-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-color, #007bff);
+    color: #fff;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.pdf-template-card.selected .pdf-template-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ── Modal Footer ──────────────────────────── */
+.pdf-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color, #dee2e6);
+}
+
+.pdf-btn-cancel {
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-primary, #212529);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.pdf-btn-cancel:hover {
+    background: var(--bg-tertiary, #e9ecef);
+    border-color: var(--text-secondary, #6c757d);
+}
+
+.pdf-btn-export {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent-color, #007bff);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.pdf-btn-export:hover {
+    background: var(--accent-hover, #0056b3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.pdf-btn-export:active {
+    transform: translateY(0);
+}
+
+.pdf-btn-export:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ── Spinner animation ─────────────────────── */
+.pdf-spinner {
+    animation: pdfSpin 0.8s linear infinite;
+}
+
+@keyframes pdfSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ── "Export as PDF" trigger button ─────────── */
+.export-pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--accent-color, #007bff), #0056b3);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.export-pdf-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 123, 255, 0.35);
+}
+
+.export-pdf-btn:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   Dark Mode Overrides
+   ============================================ */
+[data-theme="dark"] .pdf-modal-content {
+    background: var(--bg-primary);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .pdf-modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .pdf-modal-header h2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .pdf-modal-close:hover {
+    background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .pdf-modal-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .pdf-template-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .pdf-template-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 16px rgba(94, 179, 246, 0.2);
+}
+
+[data-theme="dark"] .pdf-template-card.selected {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(94, 179, 246, 0.25), 0 4px 16px rgba(94, 179, 246, 0.2);
+}
+
+[data-theme="dark"] .pdf-template-preview {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .thumb-name {
+    background: var(--text-primary);
+}
+
+[data-theme="dark"] .thumb-contact {
+    background: var(--text-secondary);
+}
+
+[data-theme="dark"] .thumb-line {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .pdf-template-info strong {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .pdf-template-desc {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .pdf-template-check {
+    background: var(--accent-color);
+    color: #121212;
+}
+
+[data-theme="dark"] .pdf-modal-footer {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .pdf-btn-cancel {
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .pdf-btn-cancel:hover {
+    background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .pdf-btn-export {
+    background: var(--accent-color);
+    color: #121212;
+}
+
+[data-theme="dark"] .pdf-btn-export:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(94, 179, 246, 0.4);
+}
+
+[data-theme="dark"] .export-pdf-btn {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: #121212;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 640px) {
+    .pdf-modal-content {
+        width: 96%;
+        max-height: 95vh;
+        border-radius: 10px;
+    }
+
+    .pdf-template-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .pdf-template-preview {
+        min-height: 90px;
+        padding: 10px 8px 8px;
+    }
+
+    .pdf-modal-header,
+    .pdf-modal-body,
+    .pdf-modal-footer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .pdf-modal-footer {
+        flex-direction: column;
+    }
+
+    .pdf-btn-cancel,
+    .pdf-btn-export {
+        width: 100%;
+        justify-content: center;
+    }
+}
