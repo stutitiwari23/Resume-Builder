@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="resume-style.css" />
+    <link rel="stylesheet" href="pdf-export.css" />
 
     <!-- PDF Export and Validation -->
     <script
@@ -25,6 +26,7 @@
     ></script>
     <script src="security.js"></script>
     <script src="validation.js"></script>
+    <script src="pdf-export.js"></script>
   </head>
 
   <body>
@@ -56,8 +58,13 @@
             </span>
           </button>
 
-          <button id="download-pdf" class="pdf-download-btn">
-            Download PDF
+          <button id="export-pdf-btn" class="export-pdf-btn" title="Export resume as PDF with template selection">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export as PDF
           </button>
           <div id="auth-controls">
             <button id="show-auth" class="sign-in-btn">Sign In</button>
@@ -223,10 +230,16 @@
                 <div class="preview-header-with-buttons">
                   <h2>Live Preview</h2>
                   <button
-                    id="download-preview-pdf"
-                    class="download-preview-btn"
+                    id="export-preview-pdf"
+                    class="export-pdf-btn"
+                    title="Export resume as PDF with template selection"
                   >
-                    Download PDF
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Export as PDF
                   </button>
                 </div>
                 <article id="resume-preview">
@@ -310,7 +323,7 @@
         const addSkillBtn = document.getElementById("add-skill");
         const skillInput = document.getElementById("skill-input");
         let skills = [];
-        const downloadPdfBtn = document.getElementById("download-pdf");
+        const exportPdfBtn = document.getElementById("export-pdf-btn");
 
         // New elements for updated header
         const authControls = document.getElementById("auth-controls");
@@ -418,13 +431,13 @@
           }
         });
 
-        // Conditionally show download button based on login status
+        // Conditionally show export button based on login status
         function updateDownloadButtonVisibility() {
           const currentUser = localStorage.getItem("currentUser");
           if (currentUser) {
-            downloadPdfBtn.classList.remove("hidden");
+            exportPdfBtn.classList.remove("hidden");
           } else {
-            downloadPdfBtn.classList.add("hidden");
+            exportPdfBtn.classList.add("hidden");
           }
         }
 
@@ -477,77 +490,37 @@
         // Check login status when page loads
         updateAuthUI();
 
-        // Reusable PDF export function
-        function exportToPDF(buttonElement) {
+        // Reusable PDF export function — now opens the template modal
+        function openExportModal() {
           // Validate that resume has minimum required data
           const nameValue = document.getElementById("name").value.trim();
 
           if (!nameValue) {
             ValidationUI.showToast(
-              "Please enter your name before downloading",
+              "Please enter your name before exporting",
               "error",
             );
             document.getElementById("name").focus();
             return;
           }
 
-          // Show loading toast
-          ValidationUI.showToast("Generating PDF...", "info");
-
-          const element = document.getElementById("resume-preview");
-          const userName = nameValue.replace(/\s+/g, "_");
-          const filename = `${userName}_Resume.pdf`;
-
-          const opt = {
-            margin: [0.5, 0.5, 0.5, 0.5],
-            filename: filename,
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: {
-              scale: 2,
-              useCORS: true,
-              letterRendering: true,
-            },
-            jsPDF: {
-              unit: "in",
-              format: "letter",
-              orientation: "portrait",
-              compress: true,
-            },
-          };
-
-          html2pdf()
-            .set(opt)
-            .from(element)
-            .save()
-            .then(() => {
-              ValidationUI.showToast(
-                "Resume downloaded successfully!",
-                "success",
-              );
-            })
-            .catch((error) => {
-              console.error("PDF generation error:", error);
-              ValidationUI.showToast(
-                "Error generating PDF. Please try again.",
-                "error",
-              );
-            });
+          PDFExport.open();
         }
 
         // PDF Export functionality for header button
-        if (downloadPdfBtn) {
-          downloadPdfBtn.addEventListener("click", function () {
-            exportToPDF(this);
+        if (exportPdfBtn) {
+          exportPdfBtn.addEventListener("click", function () {
+            openExportModal();
           });
         }
 
-        // Download Preview PDF button functionality
-        const downloadPreviewPdfBtn = document.getElementById(
-          "download-preview-pdf",
+        // Export Preview PDF button functionality
+        const exportPreviewPdfBtn = document.getElementById(
+          "export-preview-pdf",
         );
-        if (downloadPreviewPdfBtn) {
-          downloadPreviewPdfBtn.addEventListener("click", function () {
-            exportToPDF(this);
+        if (exportPreviewPdfBtn) {
+          exportPreviewPdfBtn.addEventListener("click", function () {
+            openExportModal();
           });
         }
 

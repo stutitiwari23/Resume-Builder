@@ -177,6 +177,7 @@ const Security = (() => {
       );
 
       // Check if client should be blocked BEFORE adding new attempt
+      // Block when they've already used maxAttempts
       if (recentAttempts.length >= RATE_LIMIT_CONFIG.maxAttempts) {
         const blocked = JSON.parse(localStorage.getItem(STORAGE_KEYS.blockedIPs) || '{}');
         blocked[clientId] = {
@@ -203,6 +204,9 @@ const Security = (() => {
         reason
       });
 
+      // Calculate attempts remaining AFTER adding new attempt
+      const attemptsRemaining = RATE_LIMIT_CONFIG.maxAttempts - recentAttempts.length;
+
       attempts[clientId] = recentAttempts;
       localStorage.setItem(STORAGE_KEYS.loginAttempts, JSON.stringify(attempts));
 
@@ -210,8 +214,8 @@ const Security = (() => {
 
       return {
         blocked: false,
-        attemptsRemaining: RATE_LIMIT_CONFIG.maxAttempts - recentAttempts.length,
-        message: `${RATE_LIMIT_CONFIG.maxAttempts - recentAttempts.length} attempts remaining`
+        attemptsRemaining: attemptsRemaining,
+        message: `${attemptsRemaining} attempts remaining`
       };
 
     } catch (error) {
@@ -328,12 +332,16 @@ const Security = (() => {
   const sanitizeInput = (input) => {
     if (typeof input !== 'string') return '';
     
-    return input
-      .replace(/[<>]/g, '') // Remove angle brackets
-      .replace(/javascript:/gi, '') // Remove javascript: protocol
-      .replace(/on\w+=/gi, '') // Remove event handlers
-      .trim()
-      .substring(0, 1000); // Limit length
+    // Remove HTML tags and their content
+    let sanitized = input.replace(/<script[^>]*>.*?<\/script>/gi, '') // Remove script tags and content
+                         .replace(/<style[^>]*>.*?<\/style>/gi, '') // Remove style tags
+                         .replace(/<[^>]+>/g, '') // Remove remaining tags
+                         .replace(/javascript:/gi, '') // Remove javascript: protocol
+                         .replace(/on\w+\s*=/gi, '') // Remove event handlers
+                         .trim()
+                         .substring(0, 1000); // Limit length
+    
+    return sanitized;
   };
 
   /**
