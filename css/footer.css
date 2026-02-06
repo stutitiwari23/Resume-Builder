@@ -1,0 +1,255 @@
+/* ===== FOOTER BASE ===== */
+.footer_section {
+  background-color: #274750;
+  color: #ffffff;
+  padding: 40px 0 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer_section a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer_section a:hover {
+  color: #dbeafe;
+}
+
+/* ===== TOP TITLE ===== */
+.footer_top {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.footer_main_title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ===== ROW LAYOUT ===== */
+.footer_row {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;              /* visible gap between columns */
+  padding: 0 6%;          /* reduced left & right space */
+  flex-wrap: nowrap;
+}
+
+/* ===== COLUMNS ===== */
+.footer_col {
+  flex: 1;
+  min-width: 150px;
+  padding-right: 10px;
+}
+
+.footer_brand {
+  flex: 1.5;
+}
+
+/* ===== HEADINGS ===== */
+.footer_heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ===== TEXT ===== */
+.footer_col p,
+.footer_col li {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer_col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer_col ul li {
+  margin-bottom: 6px;
+}
+
+.footer_tagline {
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+/* ===== SOCIAL ICONS ===== */
+.social_row {
+  display: flex;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.social_row a {
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  color: #274750;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.social_row a:hover {
+  transform: translateY(-3px);
+  background-color: #e0f2fe;
+}
+
+/* ===== BOTTOM ===== */
+.footer_bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .footer_row {
+    flex-wrap: wrap;
+    padding: 0 5%;
+  }
+
+  .footer_col {
+    flex: 1 1 45%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer_col {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .social_row {
+    justify-content: center;
+  }
+}
+/* ===========================
+   FOOTER TYPOGRAPHY TWEAK
+=========================== */
+
+/* Column headings */
+.footer_heading {
+  font-size: 18px;            /* increased */
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Sub-links */
+.footer_menu li a,
+.footer_description,
+.contact_link {
+  font-size: 15px;            /* slightly bigger */
+  line-height: 1.7;
+}
+
+/* ===========================
+   FOOTER LINK HOVER (GREEN)
+=========================== */
+
+.footer_section a {
+  transition: color 0.25s ease;
+}
+
+.footer_section a:hover {
+  color: #22c55e; /* green */
+}
+
+/* ===========================
+   SOCIAL ICONS — FORCE ROW
+=========================== */
+
+.footer-social {
+  display: flex;
+  flex-direction: row;     /* force horizontal */
+  gap: 14px;
+  margin-top: 14px;
+  padding: 0;
+}
+
+.footer-social li {
+  list-style: none;
+}
+
+/* Icon circle */
+.footer-social a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.25s ease;
+}
+
+/* Icon hover */
+.footer-social a:hover {
+  background: #22c55e;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+.footer_heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.footer_col p,
+.footer_col li {
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+.footer_section a {
+  color: #ffffff;
+  transition: color 0.25s ease;
+}
+
+.footer_section a:hover {
+  color: #22c55e;
+}
+
+.social_row {
+  margin-top: 14px;
+}
+
+.social-list {
+  display: flex;          /* THIS fixes vertical issue */
+  flex-direction: row;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.social-list li {
+  list-style: none;
+}
+
+.social-list a {
+  width: 42px;
+  height: 42px;
+  background-color: #ffffff;
+  color: #274750;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.25s ease;
+}
+
+.social-list a:hover {
+  background-color: #22c55e;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
