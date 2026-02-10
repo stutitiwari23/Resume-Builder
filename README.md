@@ -44,7 +44,7 @@ A modern, responsive **Resume Builder web application** that allows users to cre
 
 A modern, responsive resume builder web application built with **vanilla HTML, CSS, and JavaScript**. Create professional, ATS-friendly resumes with live preview, local data persistence, and zero backend dependencies.
 
-**Live Demo:** [Try Resume Builder](https://your-demo-url.com) | **[Documentation](#documentation)** | **[Contributing](#contributing)**
+**Live Demo:** [Try Resume Builder](https://your-demo-url.com) | **[Documentation](DOCUMENTATION_INDEX.md) | **[Contributing](CONTRIBUTION.md)**
 
 This project demonstrates:
 - Strong frontend fundamentals  
@@ -213,20 +213,21 @@ Then visit http://localhost:8080
 ---
 
 ## Project Structure
-
-Resume-Builder/
-├── css/                # Stylesheets
-├── images/             # Icons and images
-├── docs/               # Documentation
-├── tests/              # Test files
-├── index.html          # Main landing page
-├── resume-builder.html # Resume builder page
-├── login.html          # Login page
-├── register.html       # Registration page
-├── style.css           # Global styles
-├── resume.js           # Resume logic
-├── sanitizer.js        # Input sanitization
-└── README.md
+```bash
+📁 Resume-Builder/
+├──📁 css/                # Stylesheets
+├──📁 images/             # Icons and images
+├──📁 docs/               # Documentation
+├──📁 tests/              # Test files
+├──📄 index.html          # Main landing page
+├──📄 resume-builder.html # Resume builder page
+├──📄 login.html          # Login page
+├──📄 register.html       # Registration page
+├──📄 style.css           # Global styles
+├──📄 resume.js           # Resume logic
+├──📄 sanitizer.js        # Input sanitization
+└──📄 README.md
+```
 
 ## Hinghlights ⭐
 
