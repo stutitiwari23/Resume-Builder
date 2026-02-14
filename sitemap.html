@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Sitemap | Resume Builder</title>
+
+  <style>
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #b9f6ff, #7fb8ff);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: #0d6efd;
+      color: white;
+      padding: 22px;
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* Card */
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: 0.3s;
+      border-top: 5px solid #0d6efd;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    /* Card Title */
+    .card h3 {
+      margin-top: 0;
+      color: #0d6efd;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    /* Links */
+    .card a {
+      display: block;
+      padding: 8px 0;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px dashed #ddd;
+      transition: 0.2s;
+      font-weight: 500;
+    }
+
+    .card a:last-child {
+      border-bottom: none;
+    }
+
+    .card a:hover {
+      color: #0d6efd;
+      padding-left: 5px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: white;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  Resume Builder - Sitemap
+</header>
+
+
+<div class="container">
+
+  <div class="grid">
+
+    <!-- Main Content -->
+    <div class="card">
+      <h3>Main Content</h3>
+
+      <a href="index.html">Home</a>
+      <a href="resume-builder.html">Resume Builder</a>
+      <a href="view-temp.html">Templates</a>
+      <a href="edit-profile.html">Edit Profile</a>
+    </div>
+
+
+    <!-- Authentication -->
+    <div class="card">
+      <h3>Authentication</h3>
+
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+      <a href="sign-in.html">Sign In</a>
+      <a href="sign-up.html">Sign Up</a>
+    </div>
+
+
+    <!-- Feedback -->
+    <div class="card">
+      <h3>Feedback & Support</h3>
+
+      <a href="feedback.html">Feedback</a>
+      <a href="admin-feedback.html">Admin Feedback</a>
+      <a href="chat.html">Live Chat</a>
+    </div>
+
+
+    <!-- Privacy & Security -->
+    <div class="card">
+      <h3>Privacy & Security</h3>
+
+      <a href="SECURITY.md">Security Policy</a>
+      <a href="SECURITY_CSP.md">CSP Policy</a>
+      <a href="SECURITY_BEST_PRACTICES.md">Best Practices</a>
+      <a href="SECURITY_IMPLEMENTATION_SUMMARY.md">Implementation Summary</a>
+    </div>
+
+
+    <!-- Documentation -->
+    <div class="card">
+      <h3>Documentation</h3>
+
+      <a href="README.md">README</a>
+      <a href="DOCUMENTATION_INDEX.md">Documentation Index</a>
+      <a href="DEVELOPMENT.md">Development Guide</a>
+      <a href="DEPLOYMENT_GUIDE.md">Deployment Guide</a>
+      <a href="ARCHITECTURE.md">Architecture</a>
+      <a href="CHANGELOG.md">Changelog</a>
+      <a href="FAQ.md">FAQ</a>
+    </div>
+
+
+    <!-- Legal -->
+    <div class="card">
+      <h3>Legal & Community</h3>
+
+      <a href="LICENSE">License</a>
+      <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
+      <a href="CONTRIBUTION.md">Contribution Guide</a>
+      <a href="OPEN_SOURCE_SUMMARY.md">Open Source Summary</a>
+    </div>
+
+  </div>
+
+</div>
+
+
+<footer>
+  © 2026 Resume Builder | Sitemap Page
+</footer>
+
+</body>
+</html>
