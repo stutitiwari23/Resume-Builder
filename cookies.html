@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Manager Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h2 { text-align: center; color: #333; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.9rem; }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box; /* Ensures padding doesn't break width */
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+        .btn-set { background-color: #28a745; }
+        .btn-get { background-color: #007bff; }
+        .btn-del { background-color: #dc3545; }
+        
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+            word-wrap: break-word;
+            font-family: monospace;
+            min-height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🍪 Cookie Manager</h2>
+    
+    <div class="form-group">
+        <label for="cName">Cookie Name (Key):</label>
+        <input type="text" id="cName" placeholder="e.g. username">
+    </div>
+
+    <div class="form-group">
+        <label for="cValue">Cookie Value:</label>
+        <input type="text" id="cValue" placeholder="e.g. JohnDoe">
+    </div>
+
+    <div class="form-group">
+        <label for="cDays">Days until Expiration:</label>
+        <input type="number" id="cDays" value="7">
+    </div>
+
+    <div class="buttons">
+        <button class="btn-set" onclick="handleSet()">Set Cookie</button>
+        <button class="btn-get" onclick="handleGet()">Get Value</button>
+        <button class="btn-del" onclick="handleDelete()">Delete</button>
+    </div>
+
+    <div id="output">Status: Ready...</div>
+</div>
+
+<script>
+    const outputDiv = document.getElementById('output');
+
+    // 1. SET COOKIE
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        // We use encodeURIComponent to handle special characters safely
+        document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+        outputDiv.innerHTML = `<strong>Success:</strong> Cookie '${name}' set!`;
+        console.log("Current Cookies:", document.cookie);
+    }
+
+    // 2. GET COOKIE
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) {
+                return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+        }
+        return null;
+    }
+
+    // 3. DELETE COOKIE
+    function eraseCookie(name) {
+        // To delete, we set the cookie with the same name to an empty value 
+        // and an expiration date in the past (Max-Age=-99999999)
+        document.cookie = name + '=; Max-Age=-99999999; path=/';
+        outputDiv.innerHTML = `<strong>Deleted:</strong> Cookie '${name}' has been removed.`;
+    }
+
+    // --- UI Handlers ---
+
+    function handleSet() {
+        const name = document.getElementById('cName').value;
+        const value = document.getElementById('cValue').value;
+        const days = document.getElementById('cDays').value;
+
+        if(!name || !value) {
+            outputDiv.innerHTML = "Error: Please enter both Name and Value.";
+            return;
+        }
+        setCookie(name, value, days);
+    }
+
+    function handleGet() {
+        const name = document.getElementById('cName').value;
+        if(!name) {
+            outputDiv.innerHTML = "Error: Please enter a Name to find.";
+            return;
+        }
+        const result = getCookie(name);
+        if (result) {
+            outputDiv.innerHTML = `<strong>Found:</strong> ${result}`;
+        } else {
+            outputDiv.innerHTML = `<strong>Not Found:</strong> No cookie named '${name}'.`;
+        }
+    }
+
+    function handleDelete() {
+        const name = document.getElementById('cName').value;
+        if(!name) {
+            outputDiv.innerHTML = "Error: Please enter a Name to delete.";
+            return;
+        }
+        eraseCookie(name);
+    }
+</script>
+
+</body>
+</html>
