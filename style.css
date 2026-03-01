@@ -524,6 +524,7 @@ header.scrolled h1 {
     transform: translateY(1px);
 }
 
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -1884,4 +1885,111 @@ button:disabled:hover {
   .auth-card {
     padding: 26px 20px;
   }
+}
+
+
+.demo-banner {
+  background: #fff3cd;
+  color: #856404;
+  padding: 12px;
+  border-bottom: 1px solid #ffeeba;
+  font-size: 14px;
+  text-align: center;
+}
+
+body.dark-theme .demo-banner {
+  background: #3a2f05;
+  color: #f1c40f;
+}
+
+
+/* Prevent theme toggle flash & overlap */
+.simple-toggle {
+  visibility: hidden;
+}
+
+/* Show toggle only after page loads */
+body.theme-loaded .simple-toggle {
+  visibility: visible;
+}
+
+/* Hide both icons by default */
+.simple-toggle .sun,
+.simple-toggle .moon {
+  display: none;
+}
+
+/* Show correct icon */
+body.light-theme .simple-toggle .sun {
+  display: inline;
+}
+
+body.dark-theme .simple-toggle .moon {
+  display: inline;
+}
+
+
+/* ============================
+   DARK MODE – STRONG OVERRIDES
+   ============================ */
+
+body.dark-theme {
+  background: #121212 !important;
+  color: #eaeaea !important;
+}
+
+/* Force all text to be visible */
+body.dark-theme *,
+body.dark-theme p,
+body.dark-theme span,
+body.dark-theme li,
+body.dark-theme a {
+  color: #eaeaea !important;
+}
+
+/* Headings */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6 {
+  color: #ffffff !important;
+}
+
+/* Navbar */
+body.dark-theme .navbar,
+body.dark-theme .header_section {
+  background: #1a1a1a !important;
+}
+
+body.dark-theme .navbar a {
+  color: #ffffff !important;
+}
+
+/* Cards & sections */
+body.dark-theme .feature_card,
+body.dark-theme .template_card,
+body.dark-theme .pricing_box,
+body.dark-theme .testimonial_card,
+body.dark-theme .about_section,
+body.dark-theme .services_section,
+body.dark-theme .pricing_section,
+body.dark-theme .customer_section,
+body.dark-theme .contact_section {
+  background: #1f1f1f !important;
+  color: #eaeaea !important;
+}
+
+/* Buttons */
+body.dark-theme .readmore_bt a,
+body.dark-theme .started_bt a,
+body.dark-theme .watch_demo a {
+  color: #ffffff !important;
+}
+
+/* Fix banner text */
+body.dark-theme .banner_text,
+body.dark-theme .banner_taital {
+  color: #ffffff !important;
 }

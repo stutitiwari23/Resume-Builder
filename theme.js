@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "light";
   body.classList.add(savedTheme + "-theme");
 
+  body.classList.add("theme-loaded");
+
   toggle.addEventListener("click", () => {
     const isLight = body.classList.contains("light-theme");
 
