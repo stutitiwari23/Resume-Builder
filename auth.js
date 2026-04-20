@@ -51,8 +51,21 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* =======================
+       HELPER FUNCTIONS
+    ======================== */
+  
+  // Check if href points to a separate auth page
+  function isSeparateAuthPage(href) {
+    if (!href) return false;
+    const authPages = ['login.html', 'register.html', 'sign-in.html', 'sign-up.html'];
+    return authPages.some(page => href.includes(page));
+  }
+
+  /* =======================
        FORM TOGGLE LOGIC
     ======================== */
+  
+  // For links that should show modal auth forms (on resume-builder page)
   if (showLogin) {
     showLogin.addEventListener('click', (e) => {
       e.preventDefault();
@@ -67,29 +80,67 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // For top navigation login/register buttons
+  // These should:
+  // 1. If href points to separate page (sign-in.html, sign-up.html) -> allow normal navigation
+  // 2. If authSection exists (modal on resume-builder page) -> show modal
   if (topLoginBtn) {
     topLoginBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showAuthSection();
-      toggleAuthForms('login');
+      const href = topLoginBtn.getAttribute('href') || '';
+      
+      // If link points to separate auth page, allow normal navigation
+      if (isSeparateAuthPage(href)) {
+        return;
+      }
+      
+      // Only prevent default and show modal if auth section exists
+      if (authSection) {
+        e.preventDefault();
+        showAuthSection();
+        toggleAuthForms('login');
+      }
     });
   }
 
   if (topRegisterBtn) {
     topRegisterBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showAuthSection();
-      toggleAuthForms('register');
+      const href = topRegisterBtn.getAttribute('href') || '';
+      
+      // If link points to separate auth page, allow normal navigation
+      if (isSeparateAuthPage(href)) {
+        return;
+      }
+      
+      // Only prevent default and show modal if auth section exists
+      if (authSection) {
+        e.preventDefault();
+        showAuthSection();
+        toggleAuthForms('register');
+      }
     });
   }
 
+  // CTA Create button
   if (ctaBtn) {
-    ctaBtn.addEventListener('click', () => {
-      if (currentUser && userData?.session) {
-        showResumeSection();
-      } else {
-        showAuthSection();
+    ctaBtn.addEventListener('click', (e) => {
+      const href = ctaBtn.getAttribute('href') || '';
+      
+      // Check if user is logged in
+      const isLoggedIn = currentUser && userData?.session;
+      
+      // If logged in and href points to resume-builder, allow navigation
+      if (isLoggedIn && href.includes('resume-builder')) {
+        return;
       }
+      
+      // If not logged in and auth section exists, show auth modal
+      if (!isLoggedIn && authSection) {
+        e.preventDefault();
+        showAuthSection();
+        toggleAuthForms('login');
+      }
+      
+      // Otherwise allow default navigation
     });
   }
 
@@ -110,49 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return;
       }
-    if (topLoginBtn) {
-        topLoginBtn.addEventListener('click', (e) => {
-            const href = topLoginBtn.getAttribute('href') || '';
-            // If link points to login.html or register.html (separate pages), allow normal navigation
-            if (href.includes('login.html') || href.includes('register.html')) {
-                // Allow normal navigation - don't prevent default
-                return;
-            }
-            // Only prevent default if auth section exists (resume-builder page with modal)
-            if (authSection) {
-                e.preventDefault();
-                showAuthSection();
-                toggleAuthForms('login');
-            }
-        });
-    }
-
-    if (topRegisterBtn) {
-        topRegisterBtn.addEventListener('click', (e) => {
-            const href = topRegisterBtn.getAttribute('href') || '';
-            // If link points to login.html or register.html (separate pages), allow normal navigation
-            if (href.includes('login.html') || href.includes('register.html')) {
-                // Allow normal navigation - don't prevent default
-                return;
-            }
-            // Only prevent default if auth section exists (resume-builder page with modal)
-            if (authSection) {
-                e.preventDefault();
-                showAuthSection();
-                toggleAuthForms('register');
-            }
-        });
-    }
-
-    if (ctaBtn) {
-        ctaBtn.addEventListener('click', () => {
-            if (currentUser && userData?.session) {
-                showResumeSection();
-            } else {
-                showAuthSection();
-            }
-        });
-    }
 
       if (!Validator.isValidEmail(email)) {
         if (emailError) {
@@ -321,6 +329,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     loadUserData?.();
+  }
+
+  /* =======================
+       AUTO-REDIRECT FOR LOGGED-IN USERS
+    ======================== */
+  // If on sign-in.html or sign-up.html and already logged in, redirect to resume-builder
+  const currentPath = window.location.pathname;
+  if (currentUser && userData?.session) {
+    if (currentPath.includes('sign-in.html') || 
+        currentPath.includes('sign-up.html') ||
+        currentPath.includes('login.html') ||
+        currentPath.includes('register.html')) {
+      // Already logged in, redirect to resume builder
+      window.location.href = './resume-builder.html';
+    }
   }
 
 });

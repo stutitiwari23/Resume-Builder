@@ -1,6 +1,10 @@
+document.addEventListener("DOMContentLoaded", function() {
   const toggleBtn = document.getElementById("themeToggle");
+  
+  if (!toggleBtn) {
+    return;
+  }
 
-  // Load saved theme
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-theme");
     toggleBtn.textContent = "☀️";
@@ -17,3 +21,4 @@
       toggleBtn.textContent = "🌙";
     }
   });
+});
