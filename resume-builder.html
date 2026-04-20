@@ -24,6 +24,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="template-manager.js"></script>
     <script src="security.js"></script>
     <script src="validation.js"></script>
     <script src="pdf-export.js"></script>
@@ -229,6 +230,14 @@
               <div class="preview-section">
                 <div class="preview-header-with-buttons">
                   <h2>Live Preview</h2>
+                  <div class="template-selector">
+                    <label for="template-select">模板:</label>
+                    <select id="template-select" title="选择简历模板样式">
+                      <option value="modern">现代风格</option>
+                      <option value="classic">传统风格</option>
+                      <option value="minimal">简约风格</option>
+                    </select>
+                  </div>
                   <button
                     id="export-preview-pdf"
                     class="export-pdf-btn"
@@ -324,6 +333,10 @@
         const skillInput = document.getElementById("skill-input");
         let skills = [];
         const exportPdfBtn = document.getElementById("export-pdf-btn");
+        
+        // 模板管理器实例
+        const templateManager = TemplateManager.getInstance();
+        const templateSelect = document.getElementById("template-select");
 
         // New elements for updated header
         const authControls = document.getElementById("auth-controls");
@@ -335,6 +348,42 @@
         // Initialize
         loadUserDataInternal();
         updateAuthUI();
+        initTemplateSelector();
+
+        // 初始化模板选择器
+        function initTemplateSelector() {
+            if (templateSelect) {
+                // 设置当前模板
+                const currentTemplate = templateManager.getCurrentTemplate();
+                if (currentTemplate) {
+                    templateSelect.value = currentTemplate.getName();
+                }
+
+                // 模板切换事件
+                templateSelect.addEventListener('change', function() {
+                    const templateName = this.value;
+                    const data = collectFormDataForTemplate();
+                    const previewContainer = document.getElementById('resume-preview');
+                    
+                    if (templateManager.switchTemplate(templateName, data, previewContainer)) {
+                        saveResumeData(); // 保存模板选择
+                        ValidationUI.showToast(`已切换到 ${getTemplateDisplayName(templateName)}`, 'info');
+                    }
+                });
+            }
+        }
+
+        // 获取模板显示名称
+        function getTemplateDisplayName(name) {
+            const templateList = templateManager.getTemplateList();
+            const template = templateList.find(t => t.name === name);
+            return template ? template.displayName : name;
+        }
+
+        // 收集表单数据用于模板渲染
+        function collectFormDataForTemplate() {
+            return templateManager.collectFormData(form, skills);
+        }
 
         // Two-way data binding for inputs with validation
         if (form) {
@@ -532,6 +581,11 @@
         }
 
         function updatePreview() {
+          // 使用模板管理器渲染预览
+          const data = collectFormDataForTemplate();
+          const previewContainer = document.getElementById('resume-preview');
+          
+          // 首先更新DOM内容（保持现有结构以支持拖拽排序）
           const byId = (id) => document.getElementById(id);
           const setText = (id, text, fallback = "") => {
             const el = byId(id);
@@ -586,12 +640,30 @@
             "preview-achievements",
             byId("achievements") ? byId("achievements").value : "",
           );
+
+          // 应用当前模板样式
+          applyTemplateStyle();
+        }
+
+        // 应用模板样式
+        function applyTemplateStyle() {
+          const previewContainer = document.getElementById('resume-preview');
+          const currentTemplate = templateManager.getCurrentTemplate();
+          
+          if (previewContainer && currentTemplate) {
+            // 移除所有模板类
+            previewContainer.classList.remove('template-modern', 'template-classic', 'template-minimal');
+            // 添加当前模板类
+            previewContainer.classList.add(currentTemplate.getCssClass());
+          }
         }
 
         function saveResumeData() {
           const currentUser = localStorage.getItem("currentUser");
           if (!currentUser) return;
           const userData = getUserData(currentUser) || {};
+          const currentTemplate = templateManager.getCurrentTemplate();
+          
           userData.resume = {
             name: document.getElementById("name")
               ? document.getElementById("name").value
@@ -639,6 +711,7 @@
             achievements: document.getElementById("achievements")
               ? document.getElementById("achievements").value
               : "",
+            template: currentTemplate ? currentTemplate.getName() : 'modern'
           };
           saveUserData(currentUser, userData);
         }
@@ -688,6 +761,15 @@
           if (userData.resume && userData.resume.skills) {
             skills = userData.resume.skills.slice();
           }
+          
+          // 加载保存的模板选择
+          if (userData.resume && userData.resume.template) {
+            templateManager.setCurrentTemplate(userData.resume.template);
+            if (templateSelect) {
+              templateSelect.value = userData.resume.template;
+            }
+          }
+          
           renderSkills();
           updatePreview();
           updateAuthUI(); // Update UI after loading user data

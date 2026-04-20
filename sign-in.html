@@ -27,20 +27,22 @@
 
   <div class="auth-container">
     <div class="auth-page">
-    <form class="auth-card">
+    <form class="auth-card" id="signin-form">
       <h2>Welcome Back</h2>
       <p class="subtitle">Sign in to continue</p>
 
       <div class="input-group">
-        <input type="email" required />
+        <input type="email" id="signin-email" required />
         <label>Email</label>
       </div>
+      <div class="error-message" id="signin-email-error"></div>
 
       <div class="input-group password-group">
         <input type="password" id="signin-password" required />
         <label>Password</label>
         <span class="eye" onclick="togglePassword('signin-password', this)">👁</span>
       </div>
+      <div class="error-message" id="signin-password-error"></div>
 
       <div class="forgot">
         <a href="#">Forgot password?</a>
@@ -49,47 +51,171 @@
       <button type="submit" class="btn">Sign In</button>
 
       <p class="switch">
-        Don’t have an account?
+        Don't have an account?
         <a href="sign-up.html">Sign Up</a>
+      </p>
+      
+      <p class="switch" style="margin-top: 1rem; font-size: 0.85rem; color: #666;">
+        <a href="index.html" style="color: #666; text-decoration: none;">← Back to Home</a>
       </p>
     </form>
     </div>
   </div>
 
+  <script src="storage.js"></script>
+  <script src="validation.js"></script>
   <script>
     function togglePassword(inputId, eyeIcon) {
-    const input = document.getElementById(inputId);
+      const input = document.getElementById(inputId);
 
-    if (input.type === "password") {
+      if (input.type === "password") {
         input.type = "text";
         eyeIcon.textContent = "👁";
-    } else {
+      } else {
         input.type = "password";
         eyeIcon.textContent = "👁";
+      }
     }
+
+    function showError(fieldId, message) {
+      const errorEl = document.getElementById(fieldId + '-error');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.style.display = 'block';
+      }
+    }
+
+    function clearError(fieldId) {
+      const errorEl = document.getElementById(fieldId + '-error');
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.style.display = 'none';
+      }
+    }
+
+    function showToast(message, type = 'info') {
+      const existingToast = document.querySelector('.toast-notification');
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      const toast = document.createElement('div');
+      toast.className = `toast-notification toast-${type} show`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-  const authForms = document.querySelectorAll(".auth-card");
+      const form = document.getElementById("signin-form");
 
-  authForms.forEach((form) => {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault(); 
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
 
-      const email = form.querySelector('input[type="email"]');
-      const password = form.querySelector('input[type="password"]');
+          const emailInput = document.getElementById('signin-email');
+          const passwordInput = document.getElementById('signin-password');
 
-      if (!email.value || !password.value) {
-        alert("Please fill in all fields");
-        return;
+          const email = emailInput.value.trim();
+          const password = passwordInput.value;
+
+          clearError('signin-email');
+          clearError('signin-password');
+
+          let isValid = true;
+
+          if (!email) {
+            showError('signin-email', 'Email is required');
+            isValid = false;
+          } else if (!Validator.isValidEmail(email)) {
+            showError('signin-email', 'Please enter a valid email address');
+            isValid = false;
+          }
+
+          if (!password) {
+            showError('signin-password', 'Password is required');
+            isValid = false;
+          }
+
+          if (!isValid) return;
+
+          const userData = getUserData(email);
+
+          if (userData && userData.password === password) {
+            userData.session = true;
+            saveUserData(email, userData);
+            localStorage.setItem('currentUser', email);
+
+            showToast('Login successful! Welcome back.', 'success');
+
+            setTimeout(() => {
+              window.location.href = './resume-builder.html';
+            }, 1000);
+          } else {
+            showError('signin-email', 'Invalid email or password');
+            showError('signin-password', 'Invalid email or password');
+            showToast('Invalid credentials. Please try again.', 'error');
+          }
+        });
       }
-
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 300);
     });
-  });
-});
   </script>
+
+  <style>
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.5rem;
+      display: none;
+    }
+
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #ffffff;
+      color: #333333;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      max-width: 350px;
+    }
+
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .toast-success {
+      border-left: 4px solid #28a745;
+    }
+
+    .toast-error {
+      border-left: 4px solid #dc3545;
+    }
+
+    .toast-info {
+      border-left: 4px solid #17a2b8;
+    }
+
+    @media (max-width: 768px) {
+      .toast-notification {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
 </body>
 </html>
