@@ -3,90 +3,494 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Sign Up - Resume Builder</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Sen', sans-serif;
+      background: linear-gradient(135deg, #e0fdf9 0%, #c8f5f0 50%, #b0ede7 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .demo-banner {
+      background: #fff3cd;
+      padding: 12px;
+      border: 1px solid #ffeeba;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .main-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .signup-card {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 25px 80px rgba(40, 69, 78, 0.15);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 450px;
+      border: 1px solid rgba(224, 253, 249, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signup-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #28454e 0%, #e0fdf9 100%);
+    }
+
+    .signup-card h2 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #28454e;
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .signup-card .subtitle {
+      text-align: center;
+      color: #666666;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: #28454e;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e0fdf9;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background-color: #f8fffe;
+      color: #2a2a2a;
+      font-family: 'Sen', sans-serif;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #28454e;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(40, 69, 78, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: #999999;
+      font-weight: 400;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666666;
+      cursor: pointer;
+      font-size: 1.15rem;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: #28454e;
+    }
+
+    .btn-signup {
+      width: 100%;
+      padding: 1rem;
+      background-color: #28454e;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Sen', sans-serif;
+      box-shadow: 0 4px 15px rgba(40, 69, 78, 0.3);
+    }
+
+    .btn-signup:hover {
+      background-color: #1f3539;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(40, 69, 78, 0.4);
+    }
+
+    .btn-signup:active {
+      transform: translateY(0);
+    }
+
+    .switch-link {
+      text-align: center;
+      margin: 1.5rem 0 0;
+      color: #666666;
+      font-size: 0.95rem;
+    }
+
+    .switch-link a {
+      color: #28454e;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .switch-link a:hover {
+      color: #1f3539;
+      border-bottom-color: #28454e;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .back-link a {
+      display: inline-flex;
+      align-items: center;
+      color: #666666;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background-color: rgba(224, 253, 249, 0.3);
+      font-size: 0.85rem;
+    }
+
+    .back-link a:hover {
+      color: #1f3539;
+      background-color: rgba(224, 253, 249, 0.5);
+      transform: translateX(-5px);
+    }
+
+    .back-link a i {
+      margin-right: 8px;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .input-error {
+      border-color: #dc3545 !important;
+    }
+
+    /* Toast Notification Styles */
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #ffffff;
+      color: #333333;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(40, 69, 78, 0.2);
+      border: 1px solid #e0fdf9;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.3s ease;
+      font-family: 'Sen', sans-serif;
+      font-size: 0.95rem;
+      max-width: 350px;
+    }
+
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .toast-success {
+      border-left: 4px solid #28a745;
+    }
+
+    .toast-error {
+      border-left: 4px solid #dc3545;
+    }
+
+    .toast-info {
+      border-left: 4px solid #28454e;
+    }
+
+    @media (max-width: 768px) {
+      .signup-card {
+        padding: 1.5rem;
+      }
+
+      .signup-card h2 {
+        font-size: 1.5rem;
+      }
+
+      .toast-notification {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
 </head>
 <body>
-<div
-  style="
-    background:#fff3cd;
-    padding:12px;
-    border:1px solid #ffeeba;
-    font-size:14px;
-    margin-bottom:10px;
-  "
-  role="alert"
->
-  ⚠️ <strong>Demo Project:</strong>
-  This resume builder is for demonstration purposes only.
-  Do not enter real personal information (email, phone, address, etc.).
-</div>
+  <div class="demo-banner">
+    ⚠️ <strong>Demo Project:</strong>
+    This resume builder is for demonstration purposes only.
+    Do not enter real personal information (email, phone, address, etc.).
+  </div>
 
-  <div class="auth-container">
-    <div class="auth-page">
-    <form class="auth-card" >
+  <div class="main-container">
+    <div class="signup-card">
       <h2>Create Account</h2>
-      <p class="subtitle">Join us today</p>
+      <p class="subtitle">Join us today and start building your resume</p>
+      
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="signup-fullname">Full Name</label>
+          <input type="text" id="signup-fullname" placeholder="Enter your full name" required>
+          <div class="error-message" id="signup-fullname-error"></div>
+        </div>
 
-      <div class="input-group">
-        <input type="email" required placeholder=""/>
-        <label >Email</label>
-      </div>
+        <div class="form-group">
+          <label for="signup-email">Email Address</label>
+          <input type="email" id="signup-email" placeholder="Enter your email" required>
+          <div class="error-message" id="signup-email-error"></div>
+        </div>
 
-      <div class="input-group password-group">
-        <input type="password" id="signup-password" required placeholder="" />
-        <label>Password</label>
-        <span class="eye" onclick="togglePassword('signup-password', this)">👁</span>
-      </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="signup-password" placeholder="Enter your password" required>
+            <button type="button" class="password-toggle" id="toggle-password">
+              <i class="fa fa-eye" id="eye-icon"></i>
+            </button>
+          </div>
+          <div class="error-message" id="signup-password-error"></div>
+        </div>
 
-      <button type="submit" class="btn">Sign Up</button>
+        <button type="submit" class="btn-signup">
+          <i class="fa fa-user-plus"></i> Sign Up
+        </button>
+      </form>
 
-      <p class="switch">
-        Already have an account?
-        <a href="sign-in.html">Sign In</a>
+      <p class="switch-link">
+        Already have an account? <a href="sign-in.html" id="login-link">Sign In</a>
       </p>
-    </form>
+
+      <div class="back-link">
+        <a href="index.html">
+          <i class="fa fa-arrow-left"></i> Back to Home
+        </a>
+      </div>
     </div>
   </div>
 
+  <script src="storage.js"></script>
+  <script src="validation.js"></script>
   <script>
-    function togglePassword(inputId, eyeIcon) {
-    const input = document.getElementById(inputId);
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Sign Up page loaded');
+      
+      const form = document.getElementById('signup-form');
+      const togglePassword = document.getElementById('toggle-password');
+      const passwordInput = document.getElementById('signup-password');
+      const eyeIcon = document.getElementById('eye-icon');
 
-    if (input.type === "password") {
-        input.type = "text";
-        eyeIcon.textContent = "👁";
-    } else {
-        input.type = "password";
-        eyeIcon.textContent = "👁";
-    }
-
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-  const authForms = document.querySelectorAll(".auth-card");
-
-  authForms.forEach((form) => {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const email = form.querySelector('input[type="email"]');
-      const password = form.querySelector('input[type="password"]');
-
-      if (!email.value || !password.value) {
-        alert("Please fill in all fields");
-        return;
+      if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function() {
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+          } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+          }
+        });
       }
 
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 300);
+      function showError(fieldId, message) {
+        const input = document.getElementById(fieldId);
+        const errorEl = document.getElementById(fieldId + '-error');
+        
+        if (input) {
+          input.classList.add('input-error');
+        }
+        
+        if (errorEl) {
+          errorEl.textContent = message;
+          errorEl.classList.add('show');
+        }
+      }
+
+      function clearError(fieldId) {
+        const input = document.getElementById(fieldId);
+        const errorEl = document.getElementById(fieldId + '-error');
+        
+        if (input) {
+          input.classList.remove('input-error');
+        }
+        
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.classList.remove('show');
+        }
+      }
+
+      function showToast(message, type = 'info') {
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast-notification toast-${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.classList.add('show'), 10);
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          console.log('Sign Up form submitted');
+
+          const fullnameInput = document.getElementById('signup-fullname');
+          const emailInput = document.getElementById('signup-email');
+          const passwordInput = document.getElementById('signup-password');
+
+          const fullname = fullnameInput.value.trim();
+          const email = emailInput.value.trim();
+          const password = passwordInput.value;
+
+          console.log('Form data:', { fullname, email, password: '***' });
+
+          clearError('signup-fullname');
+          clearError('signup-email');
+          clearError('signup-password');
+
+          let isValid = true;
+
+          if (!fullname || fullname.length < 2) {
+            showError('signup-fullname', 'Please enter a valid name (at least 2 characters)');
+            isValid = false;
+          }
+
+          if (!email) {
+            showError('signup-email', 'Email is required');
+            isValid = false;
+          } else if (typeof Validator !== 'undefined' && !Validator.isValidEmail(email)) {
+            showError('signup-email', 'Please enter a valid email address');
+            isValid = false;
+          }
+
+          if (!password) {
+            showError('signup-password', 'Password is required');
+            isValid = false;
+          } else if (password.length < 6) {
+            showError('signup-password', 'Password must be at least 6 characters');
+            isValid = false;
+          }
+
+          if (!isValid) {
+            console.log('Validation failed');
+            return;
+          }
+
+          console.log('Validation passed');
+
+          if (typeof getUserData === 'undefined') {
+            console.error('getUserData is not defined');
+            showToast('Error: storage.js not loaded properly', 'error');
+            return;
+          }
+
+          if (getUserData(email)) {
+            showError('signup-email', 'Email already registered');
+            showToast('This email is already registered. Please login instead.', 'error');
+            return;
+          }
+
+          const newUser = {
+            fullName: fullname,
+            password: password,
+            profile: { fullname: fullname, email: email },
+            resume: {},
+            theme: 'light',
+            session: false
+          };
+
+          console.log('Creating user:', newUser);
+          saveUserData(email, newUser);
+
+          const savedUser = getUserData(email);
+          console.log('User saved:', savedUser);
+
+          showToast('Registration successful! Please login.', 'success');
+
+          setTimeout(() => {
+            window.location.href = './sign-in.html';
+          }, 1500);
+        });
+      }
     });
-  });
-});
   </script>
 </body>
 </html>

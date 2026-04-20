@@ -1,177 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Resume Builder - Professional Resume Builder</title>
-      <meta name="keywords" content="resume builder, cv maker, professional resume, job application, career tools">
-      <meta name="description" content="Create professional resumes in minutes with ResumeCraft. Free templates, easy to use, perfect for job seekers.">
-      <meta name="author" content="ResumeCraft">
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <!-- Additional styles for auth components -->
-      <link rel="stylesheet" type="text/css" href="./resume-style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      <!-- font css -->
-      <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="view-temp.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Templates - Resume Builder</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="./resume-style.css">
+  <link rel="stylesheet" href="view-temp.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-   </head>
+    body {
+      font-family: 'Sen', sans-serif;
+      background: #f8f9fa;
+      min-height: 100vh;
+    }
+
+    .demo-banner {
+      background: #fff3cd;
+      padding: 12px;
+      border: 1px solid #ffeeba;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #28454e 0%, #1a2f35 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .templates-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .template-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(40, 69, 78, 0.1);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .template-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(40, 69, 78, 0.15);
+      border-color: #28454e;
+    }
+
+    .template-preview {
+      height: 250px;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .template-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+
+    .template-preview-placeholder {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .template-preview-placeholder i {
+      font-size: 4rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .template-preview-placeholder p {
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .template-info {
+      padding: 1.5rem;
+    }
+
+    .template-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #28454e;
+      margin-bottom: 0.5rem;
+    }
+
+    .template-info p {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .template-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .template-tag {
+      background: #e0fdf9;
+      color: #28454e;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .template-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-use-template {
+      flex: 1;
+      padding: 0.75rem;
+      background-color: #28454e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Sen', sans-serif;
+    }
+
+    .btn-use-template:hover {
+      background-color: #1f3539;
+      transform: translateY(-2px);
+    }
+
+    .btn-preview {
+      padding: 0.75rem 1rem;
+      background-color: transparent;
+      color: #28454e;
+      border: 2px solid #28454e;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Sen', sans-serif;
+    }
+
+    .btn-preview:hover {
+      background-color: #28454e;
+      color: white;
+    }
+
+    .auth-header {
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .auth-header .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #28454e;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .auth-header .logo i {
+      font-size: 1.8rem;
+    }
+
+    .auth-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .auth-links a {
+      text-decoration: none;
+      color: #28454e;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .auth-links a:hover {
+      background-color: #e0fdf9;
+    }
+
+    .auth-links .btn-signup {
+      background-color: #28454e;
+      color: white;
+    }
+
+    .auth-links .btn-signup:hover {
+      background-color: #1f3539;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-name {
+      font-weight: 600;
+      color: #28454e;
+    }
+
+    .btn-logout {
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Sen', sans-serif;
+    }
+
+    .btn-logout:hover {
+      background-color: #f8d7da;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .templates-container {
+        padding: 2rem 1rem;
+      }
+
+      .templates-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .auth-links {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Toast Notification Styles */
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #ffffff;
+      color: #333333;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(40, 69, 78, 0.2);
+      border: 1px solid #e0fdf9;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.3s ease;
+      font-family: 'Sen', sans-serif;
+      font-size: 0.95rem;
+      max-width: 350px;
+    }
+
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .toast-success {
+      border-left: 4px solid #28a745;
+    }
+
+    .toast-error {
+      border-left: 4px solid #dc3545;
+    }
+
+    .toast-info {
+      border-left: 4px solid #28454e;
+    }
+
+    @media (max-width: 768px) {
+      .toast-notification {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
 <body>
-   <div
-  style="
-    background:#fff3cd;
-    padding:12px;
-    border:1px solid #ffeeba;
-    font-size:14px;
-    margin-bottom:10px;
-  "
-  role="alert"
->
-  ⚠️ <strong>Demo Project:</strong>
-  This resume builder is for demonstration purposes only.
-  Do not enter real personal information (email, phone, address, etc.).
-</div>
+  <div class="demo-banner">
+    ⚠️ <strong>Demo Project:</strong>
+    This resume builder is for demonstration purposes only.
+    Do not enter real personal information (email, phone, address, etc.).
+  </div>
 
-    <div class="header_section">
-         <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="index.html"><span class="logo-text">Resume Builder</span></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="resume-builder.html">Resume Builder</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#templates">Templates</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Pricing</a>
-                     </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                     <div id="auth-controls">
-                        <ul>
-                           <li><a href="./register.html" id="show-register-top">Sign Up</a></li>
-                           <li><a href="./login.html" id="show-login-top">Sign In</a></li>
-                        </ul>
-                     </div>
-                     <div id="profile-dropdown" class="profile-dropdown hidden">
-                        <button class="profile-btn">
-                           <i class="fa fa-user" aria-hidden="true"></i>
-                           <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </button>
-                        <div class="dropdown-content" id="dropdown-menu">
-                           <div class="dropdown-item user-info" id="user-name"></div>
-                           <a href="./edit-profile.html" class="dropdown-item" id="edit-profile-link">Edit Profile</a>
-                           <a href="#" class="dropdown-item" id="settings-link">Settings</a>
-                           <a href="#" class="dropdown-item" id="logout">Logout</a>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-            </nav>
-         </div>
+  <header class="auth-header">
+    <a href="index.html" class="logo">
+      <i class="fa fa-file-text"></i>
+      Resume Builder
+    </a>
+    
+    <div id="auth-links" class="auth-links">
+      <a href="sign-in.html">Sign In</a>
+      <a href="sign-up.html" class="btn-signup">Sign Up</a>
     </div>
 
-    <div class="outer-div">
-        <div class="inner-div">
-            <img src="images/img1.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img2.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img3.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img4.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img5.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img6.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img7.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img8.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img9.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img10.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img11.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
-        <div class="inner-div">
-            <img src="images/img12.jpg" alt="Image unable to load.">
-            <div class="started_text view-btn">
-               <a>Use this template</a>
-            </div>
-        </div>
+    <div id="user-menu" class="user-menu hidden">
+      <span id="user-name-display" class="user-name"></span>
+      <button id="logout-btn" class="btn-logout">Logout</button>
     </div>
+  </header>
 
+  <div class="page-header">
+    <h1>Resume Templates</h1>
+    <p>Choose from our collection of professional resume templates</p>
+  </div>
+
+  <div class="templates-container">
+    <div class="templates-grid" id="templates-grid">
+      <!-- Templates will be dynamically generated -->
+    </div>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="validation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Templates page loaded');
+
+      const authLinks = document.getElementById('auth-links');
+      const userMenu = document.getElementById('user-menu');
+      const userNameDisplay = document.getElementById('user-name-display');
+      const logoutBtn = document.getElementById('logout-btn');
+      const templatesGrid = document.getElementById('templates-grid');
+
+      function showToast(message, type = 'info') {
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast-notification toast-${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.classList.add('show'), 10);
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      function checkAuthStatus() {
+        const currentUser = localStorage.getItem('currentUser');
+        
+        if (currentUser && typeof getUserData !== 'undefined') {
+          const userData = getUserData(currentUser);
+          
+          if (userData && userData.session) {
+            authLinks.classList.add('hidden');
+            userMenu.classList.remove('hidden');
+            userNameDisplay.textContent = userData.fullName || currentUser;
+            return true;
+          }
+        }
+        
+        authLinks.classList.remove('hidden');
+        userMenu.classList.add('hidden');
+        return false;
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          const currentUser = localStorage.getItem('currentUser');
+          
+          if (currentUser && typeof getUserData !== 'undefined') {
+            const userData = getUserData(currentUser);
+            if (userData) {
+              userData.session = false;
+              saveUserData(currentUser, userData);
+            }
+            localStorage.removeItem('currentUser');
+          }
+          
+          showToast('Logged out successfully', 'info');
+          checkAuthStatus();
+        });
+      }
+
+      const templates = [
+        {
+          id: 'modern',
+          name: 'Modern Professional',
+          description: 'Clean and modern design perfect for tech and creative industries',
+          tags: ['Modern', 'Creative', 'Tech'],
+          templateClass: 'template-modern'
+        },
+        {
+          id: 'classic',
+          name: 'Executive Classic',
+          description: 'Traditional and professional design for corporate and executive roles',
+          tags: ['Traditional', 'Corporate', 'Executive'],
+          templateClass: 'template-classic'
+        },
+        {
+          id: 'minimal',
+          name: 'Minimal Elegant',
+          description: 'Simple and elegant design that focuses on content',
+          tags: ['Minimal', 'Elegant', 'Simple'],
+          templateClass: 'template-minimal'
+        },
+        {
+          id: 'creative',
+          name: 'Creative Designer',
+          description: 'Bold and creative design for designers and artists',
+          tags: ['Creative', 'Design', 'Bold'],
+          templateClass: 'template-modern'
+        },
+        {
+          id: 'academic',
+          name: 'Academic CV',
+          description: 'Detailed format perfect for academic and research positions',
+          tags: ['Academic', 'Research', 'Detailed'],
+          templateClass: 'template-classic'
+        },
+        {
+          id: 'entry',
+          name: 'Entry Level',
+          description: 'Perfect for students and recent graduates',
+          tags: ['Entry Level', 'Student', 'Graduate'],
+          templateClass: 'template-minimal'
+        }
+      ];
+
+      function renderTemplates() {
+        templatesGrid.innerHTML = '';
+
+        templates.forEach(template => {
+          const card = document.createElement('div');
+          card.className = 'template-card';
+          card.innerHTML = `
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <i class="fa fa-file-text-o"></i>
+                <p>${template.name} Preview</p>
+              </div>
+            </div>
+            <div class="template-info">
+              <h3>${template.name}</h3>
+              <p>${template.description}</p>
+              <div class="template-tags">
+                ${template.tags.map(tag => `<span class="template-tag">${tag}</span>`).join('')}
+              </div>
+              <div class="template-actions">
+                <button class="btn-use-template" data-template="${template.id}">
+                  <i class="fa fa-plus"></i> Use Template
+                </button>
+              </div>
+            </div>
+          `;
+
+          templatesGrid.appendChild(card);
+        });
+
+        document.querySelectorAll('.btn-use-template').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const templateId = this.getAttribute('data-template');
+            
+            const isLoggedIn = checkAuthStatus();
+            
+            if (isLoggedIn) {
+              localStorage.setItem('selectedTemplate', templateId);
+              showToast(`Template '${templates.find(t => t.id === templateId).name}' selected!`, 'success');
+              
+              setTimeout(() => {
+                window.location.href = './resume-builder.html';
+              }, 800);
+            } else {
+              showToast('Please sign in to use templates', 'info');
+              setTimeout(() => {
+                window.location.href = './sign-in.html';
+              }, 1000);
+            }
+          });
+        });
+      }
+
+      checkAuthStatus();
+      renderTemplates();
+    });
+  </script>
 </body>
 </html>
